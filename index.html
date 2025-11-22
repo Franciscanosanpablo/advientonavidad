@@ -164,12 +164,20 @@
         }
         .flame-real.active { transform: translateX(-50%) scale(1); opacity: 1; animation: flicker 0.1s infinite alternate; }
         @keyframes flicker { 0% {transform: translateX(-50%) scale(1);} 100% {transform: translateX(-50%) scale(1.1);} }
-        
-        /* --- LOCK SCREEN SPECIFIC --- */
+        .bar { width: 3px; background: #1db954; border-radius: 2px; animation: equalizer 1s infinite; }
+        .bar:nth-child(2) { animation-delay: 0.1s; } .bar:nth-child(3) { animation-delay: 0.2s; }
+        @keyframes equalizer { 0%, 100% { height: 4px; } 50% { height: 12px; } }
+
+        /* --- LOCK SCREEN SCROLL FIX --- */
         #lock-screen {
             position: fixed; inset: 0; z-index: 1000;
-            display: flex; flex-col: column; justify-content: center; align-items: center;
-            color: white; transition: opacity 1s ease-in-out, visibility 1s;
+            overflow-y: auto; /* Scroll habilitado */
+            display: block; 
+        }
+        #lock-screen-content {
+            min-height: 100vh;
+            display: flex; flex-col; justify-content: center; align-items: center;
+            padding: 2rem 0;
         }
         #lock-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
         
@@ -179,49 +187,26 @@
             min-width: 80px; text-align: center;
         }
 
-        /* --- AI ELEMENT STYLES (IMPROVED) --- */
+        /* --- AI ELEMENT STYLES --- */
         .ai-orb-container {
-            position: relative;
-            margin-bottom: 2rem;
-            cursor: pointer;
-            transition: transform 0.3s;
-            display: flex; flex-direction: column; align-items: center;
+            position: relative; margin-bottom: 2rem; cursor: pointer; transition: transform 0.3s; display: flex; flex-direction: column; align-items: center;
         }
         .ai-orb-container:hover { transform: scale(1.05); }
         .ai-orb {
-            width: 70px; height: 70px; /* Un poco más grande para la estrella */
-            background: radial-gradient(circle at 30% 30%, #fff, #d4af37, #000);
-            border-radius: 50%;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
-            animation: ai-pulse 3s infinite;
-            display: flex; justify-content: center; align-items: center;
-            font-size: 2rem; color: #000; /* Tamaño de fuente aumentado */
+            width: 70px; height: 70px; background: radial-gradient(circle at 30% 30%, #fff, #d4af37, #000);
+            border-radius: 50%; box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+            animation: ai-pulse 3s infinite; display: flex; justify-content: center; align-items: center;
+            font-size: 2rem; color: #000;
         }
-        /* Nuevo estilo para el texto pulsante */
-        .pulse-text {
-            animation: pulse-text 2s infinite;
-        }
-        @keyframes pulse-text {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
-        }
+        .pulse-text { animation: pulse-text 2s infinite; }
+        @keyframes pulse-text { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); } }
 
         .ai-message-box {
-            min-height: 60px;
-            margin-bottom: 30px;
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            color: #f3e28c;
-            font-size: 1.4rem;
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
-            opacity: 0;
-            transition: opacity 0.5s;
-            max-width: 80%; line-height: 1.4;
+            min-height: 60px; margin-bottom: 30px; font-family: 'Cormorant Garamond', serif; font-style: italic;
+            color: #f3e28c; font-size: 1.4rem; text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+            opacity: 0; transition: opacity 0.5s; max-width: 80%; line-height: 1.4;
         }
-        .typing-cursor::after {
-            content: '|';
-            animation: blink 1s infinite;
-        }
+        .typing-cursor::after { content: '|'; animation: blink 1s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
     </style>
 </head>
@@ -231,7 +216,7 @@
     <div id="global-bg-image"></div>
 
     <!-- ============================================ -->
-    <!-- PANTALLA DE ESPERA / CUENTA REGRESIVA        -->
+    <!-- PANTALLA DE ESPERA (SCROLL CORREGIDO)        -->
     <!-- ============================================ -->
     <div id="lock-screen">
         <!-- Fondos Cambiantes (Overlays) -->
@@ -240,51 +225,37 @@
         <div class="lock-bg bg-lock-peace" id="bg-3"></div>
         <div class="lock-bg bg-lock-life" id="bg-4"></div>
         
-        <!-- Partículas decorativas -->
-        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-30"></div>
+        <!-- Partículas -->
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-30 pointer-events-none fixed"></div>
 
-        <div class="relative z-10 text-center px-4 max-w-4xl w-full flex flex-col items-center">
+        <!-- Contenedor flexible con min-height para permitir scroll -->
+        <div id="lock-screen-content" class="flex flex-col items-center justify-center w-full min-h-screen px-4 py-8">
             
             <div class="mb-4 animate-float">
                 <i class="fa-solid fa-star text-gold-400 text-4xl animate-pulse-slow"></i>
             </div>
 
-            <h1 class="font-serif text-4xl md:text-7xl font-bold text-white mb-8 drop-shadow-2xl tracking-wider">
+            <h1 class="font-serif text-4xl md:text-7xl font-bold text-white mb-8 drop-shadow-2xl tracking-wider text-center">
                 ADVIENTO
             </h1>
             
-            <!-- ELEMENTO AI DE ESPECTATIVA (CON ESTRELLA DE BELÉN) -->
+            <!-- ELEMENTO AI -->
             <div class="ai-orb-container" onclick="triggerAIProphecy()">
-                <div class="ai-orb">
-                    <i class="fa-solid fa-star"></i>
-                </div>
-                <!-- Texto Actualizado -->
-                <p class="text-[11px] text-gold-400 uppercase tracking-[0.3em] mt-3 font-bold pulse-text">PULSA EN LA ESTRELLA MIENTRAS ESPERAMOS</p>
+                <div class="ai-orb"><i class="fa-solid fa-star"></i></div>
+                <p class="text-[11px] text-gold-400 uppercase tracking-[0.3em] mt-3 font-bold pulse-text text-center">PULSA EN LA ESTRELLA MIENTRAS ESPERAMOS</p>
             </div>
-            <div id="ai-output" class="ai-message-box"></div>
+            <div id="ai-output" class="ai-message-box text-center"></div>
 
             <!-- Contador -->
             <div class="flex flex-wrap justify-center gap-4 md:gap-8 mb-12">
-                <div class="countdown-box">
-                    <span class="block text-3xl md:text-5xl font-serif font-bold text-white" id="days">00</span>
-                    <span class="text-xs uppercase tracking-widest text-gold-400">Días</span>
-                </div>
-                <div class="countdown-box">
-                    <span class="block text-3xl md:text-5xl font-serif font-bold text-white" id="hours">00</span>
-                    <span class="text-xs uppercase tracking-widest text-gold-400">Horas</span>
-                </div>
-                <div class="countdown-box">
-                    <span class="block text-3xl md:text-5xl font-serif font-bold text-white" id="minutes">00</span>
-                    <span class="text-xs uppercase tracking-widest text-gold-400">Min</span>
-                </div>
-                <div class="countdown-box">
-                    <span class="block text-3xl md:text-5xl font-serif font-bold text-white" id="seconds">00</span>
-                    <span class="text-xs uppercase tracking-widest text-gold-400">Seg</span>
-                </div>
+                <div class="countdown-box"><span class="block text-3xl md:text-5xl font-serif font-bold text-white" id="days">00</span><span class="text-xs uppercase tracking-widest text-gold-400">Días</span></div>
+                <div class="countdown-box"><span class="block text-3xl md:text-5xl font-serif font-bold text-white" id="hours">00</span><span class="text-xs uppercase tracking-widest text-gold-400">Horas</span></div>
+                <div class="countdown-box"><span class="block text-3xl md:text-5xl font-serif font-bold text-white" id="minutes">00</span><span class="text-xs uppercase tracking-widest text-gold-400">Min</span></div>
+                <div class="countdown-box"><span class="block text-3xl md:text-5xl font-serif font-bold text-white" id="seconds">00</span><span class="text-xs uppercase tracking-widest text-gold-400">Seg</span></div>
             </div>
 
-            <!-- Formulario de Acceso -->
-            <div class="glass-premium p-2 rounded-full flex items-center max-w-md w-full transition-transform focus-within:scale-105">
+            <!-- Formulario -->
+            <div class="glass-premium p-2 rounded-full flex items-center max-w-md w-full transition-transform focus-within:scale-105 mb-8">
                 <input type="password" id="access-code" placeholder="Ingresa el Código" 
                     class="bg-transparent border-none outline-none text-white px-6 py-2 w-full font-serif tracking-widest placeholder-gray-500 text-center uppercase">
                 <button onclick="checkAccess()" class="bg-gold-500 text-night-900 rounded-full w-12 h-12 flex items-center justify-center hover:bg-white transition-colors">
@@ -299,12 +270,11 @@
     <!-- ============================================ -->
     <div id="main-app-wrapper" class="flex flex-col h-full opacity-0 transition-opacity duration-1000" style="visibility: hidden;">
         
-        <!-- FONDOS DINÁMICOS APP (Ahora semi-transparentes) -->
         <div id="bg-home" class="fixed inset-0 bg-cinematic-night z-[-3] transition-opacity duration-1000"></div>
         <div id="bg-liturgy" class="fixed inset-0 bg-liturgy-deep z-[-2] opacity-0 transition-opacity duration-1000"></div>
         <div id="bg-week" class="fixed inset-0 bg-week-dawn z-[-1] opacity-0 transition-opacity duration-1000"></div>
 
-        <!-- BARRA DE NAVEGACIÓN -->
+        <!-- NAV -->
         <nav class="fixed top-0 w-full z-50 pt-6 px-6 transition-all duration-300">
             <div class="max-w-7xl mx-auto glass-premium rounded-full h-20 px-8 flex items-center justify-between">
                 <div class="flex items-center gap-3 cursor-pointer group" onclick="navigateTo('home')">
@@ -321,7 +291,7 @@
             </div>
         </nav>
 
-        <!-- CONTENIDO SCROLL -->
+        <!-- CONTENIDO -->
         <main class="flex-grow pt-32 pb-32 overflow-y-auto scroll-smooth relative z-10 px-4" id="main-content">
             
             <!-- VISTA 1: INICIO -->
@@ -352,10 +322,10 @@
                         <h2 class="font-serif text-4xl md:text-5xl text-white mt-2">Tiempo de Intemperie</h2>
                     </div>
                     <div class="font-display text-lg md:text-xl text-gray-200 leading-relaxed space-y-8 text-justify">
-                        <p><span class="drop-cap">E</span>l Adviento no es un tiempo de certezas empaquetadas ni de respuestas fáciles. Es, más bien, el tiempo de la intemperie, de la esperanza que se teje en el silencio de los márgenes...</p>
-                        <div class="p-6 bg-white/5 border-l-2 border-gold-500 rounded-r-lg"><p class="italic text-gold-100">"Nos dejaremos guiar por la sensibilidad espiritual del carisma franciscano, que no teme a la complejidad humana, sino que la abraza... buscando a Dios en las grietas de lo cotidiano."</p></div>
-                        <p>El camino propuesto tiene una doble estructura. En una primera parte, durante los cuatro domingos de Adviento, nos acercaremos a los rostros de la Navidad a través del de Isabel, Ana, José, los Magos, María y Herodes. Sus vidas, entretejidas con las lecturas del Ciclo A, nos ayudarán a preparar el corazón. Este recorrido irá acompañado de un gesto simbólico: la construcción paulatina de nuestro propio Belén.</p>
-                        <p>La segunda parte, del 16 al 24 de diciembre, nos sumergirá en la riqueza litúrgica de las siete grandes Antífonas de Adviento “Oh”, flanqueada por la celebración entrañable de la Novena de Navidad. Cada día será una invocación, un clamor que se eleva desde la víspera del mundo.</p>
+                        <p><span class="drop-cap">E</span>l Adviento no es un tiempo de certezas empaquetadas ni de respuestas fáciles. Es, más bien, el tiempo de la intemperie, de la esperanza que se teje en el silencio de los márgenes. Es una esperanza que viaja de noche, siguiendo el rastro incierto de una estrella, que a menudo se ve asediada por un miedo que carcome el alma y la aísla del mundo. Este itinerario espiritual para la Navidad de 2025 quiere habitar ese espacio liminal, ese umbral donde la pregunta es más importante que la respuesta, y donde la fe no es posesión, sino camino.</p>
+                        <div class="p-6 bg-white/5 border-l-2 border-gold-500 rounded-r-lg"><p class="italic text-gold-100">"Nos dejaremos guiar por la sensibilidad espiritual del carisma franciscano, que no teme a la complejidad humana, sino que la abraza, la acompaña y se hace instrumento de la Gracia para redimirla. Esta espiritualidad franciscana que se atreve a buscar a Dios en las grietas de lo cotidiano, en la fragilidad de las relaciones y en la noche oscura de la fe. Se trata de ensayar una teología narrativa, donde los personajes bíblicos dejan de ser figuras de vitral para convertirse en contemporáneos de nuestras propias búsquedas, miedos y esperanzas. Sus historias, lejos de ser relatos idílicos, nos revelan la irrupción de Dios en la periferia de la historia, en la carne vulnerable de quienes aprendieron a esperar contra toda esperanza."</p></div>
+                        <p>El camino propuesto tiene una doble estructura. En una primera parte, durante los cuatro domingos de Adviento, nos acercaremos a los rostros de la Navidad a través del de Isabel, Ana, José, los Magos, María y Herodes. Sus vidas, entretejidas con las lecturas del Ciclo A, nos ayudarán a preparar el corazón. Este recorrido irá acompañado de un gesto simbólico: la construcción paulatina de nuestro propio Belén, un Evangelio vivo que toma forma en nuestro hogar, en nuestra comunidad y nuestra fraternidad.</p>
+                        <p>La segunda parte, del 16 al 24 de diciembre, nos sumergirá en la riqueza litúrgica de las siete grandes Antífonas de Adviento “Oh”, flanqueada por la celebración entrañable de la Novena de Navidad. Cada día será una invocación, un clamor que se eleva desde la víspera del mundo, reconociendo nuestra sed y abriéndonos a la venida de Aquel que es la única respuesta. Este no es, por tanto, un mero ejercicio de piedad, sino una preparación para un encuentro real, una respuesta a la invitación perenne de renovar nuestro encuentro personal con Jesucristo, el Emmanuel, el Dios que se hace carne para habitar nuestra intemperie, para estar con nosotros.</p>
                     </div>
                 </div>
             </section>
@@ -383,13 +353,13 @@
                             <h2 class="font-serif text-3xl md:text-4xl text-white mt-2">"Velen, porque no saben el día"</h2>
                         </div>
                         <!-- Accordions -->
-                        <div class="glass-premium rounded-xl overflow-hidden group"><button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('lit-1')"><div class="flex items-center gap-4"><span class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 font-serif">A</span><h3 class="font-serif text-lg text-gold-100">Monición de Entrada</h3></div><i class="fa-solid fa-chevron-down text-gold-500"></i></button><div id="lit-1" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed text-justify border-t border-white/5"><p class="mb-4">Hermanas y hermanos, bienvenidos a este tiempo de gracia, a este umbral sagrado que llamamos Adviento. Hoy no empezamos un tiempo litúrgico más en el calendario. Empezamos un movimiento del corazón. Es como llegar a la puerta de nuestra propia casa después de un largo viaje y encontrarla en silencio, esperando ser habitada de nuevo. El Adviento es ese momento de quietud antes de girar la llave. Es la decisión de entrar, de poner orden, no por obligación, sino por el anhelo profundo de recibir a Alguien muy esperado.</p><p class="mb-4">El mundo ahí fuera seguirá con su ruido... Pero nosotros, aquí, elegimos hacer una pausa. Elegimos el silencio. Elegimos la espera. No una espera vacía, sino una espera preñada de sentido. Porque esperar en Adviento es, en el fondo, una forma de oración. Es decirle a Dios con nuestra vida “aquí estoy mi casa está abierta, mi corazón, aunque pequeño y a veces desordenado, te anhela".</p><p>Este tiempo nos invita a actualizar nuestra vida a Dios... Respondemos a un Dios que ya ha dado el primer paso. Abramos, pues, la puerta del corazón y comenzamos a velar.</p></div></div>
+                        <div class="glass-premium rounded-xl overflow-hidden group"><button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('lit-1')"><div class="flex items-center gap-4"><span class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 font-serif">A</span><h3 class="font-serif text-lg text-gold-100">Monición de Entrada</h3></div><i class="fa-solid fa-chevron-down text-gold-500"></i></button><div id="lit-1" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed text-justify border-t border-white/5"><p class="mb-4">Hermanas y hermanos, bienvenidos a este tiempo de gracia, a este umbral sagrado que llamamos Adviento. Hoy no empezamos un tiempo litúrgico más en el calendario. Empezamos un movimiento del corazón. Es como llegar a la puerta de nuestra propia casa después de un largo viaje y encontrarla en silencio, esperando ser habitada de nuevo. El Adviento es ese momento de quietud antes de girar la llave. Es la decisión de entrar, de poner orden, no por obligación, sino por el anhelo profundo de recibir a Alguien muy esperado.</p><p class="mb-4">El mundo ahí fuera seguirá con su ruido, con sus luces prematuras y sus prisas, con su desde “septiembre se siente que viene diciembre”. Pero nosotros, aquí, elegimos hacer una pausa. Elegimos el silencio. Elegimos la espera. No una espera vacía, sino una espera preñada de sentido. Porque esperar en Adviento es, en el fondo, una forma de oración. Es decirle a Dios con nuestra vida “aquí estoy mi casa está abierta, mi corazón, aunque pequeño y a veces desordenado, te anhela".</p><p>Este tiempo nos invita a actualizar nuestra vida a Dios, a permitir que su Espíritu ponga al día nuestros anhelos y esperanzas. Es un tiempo para dejarnos descolocar, para que la sorpresa de un Dios que se hace pequeño rompa nuestros esquemas. No iniciamos este camino solos. Lo hacemos sostenidos por la esperanza de generaciones y con la certeza de que nuestra preparación es en realidad, una respuesta. Respondemos a un Dios que ya ha dado el primer paso, a un Dios que corre a nuestro encuentro en el camino. Abramos, pues, la puerta del corazón y comenzamos a velar.</p></div></div>
                         
-                        <div class="glass-premium rounded-xl overflow-hidden group"><button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('lit-2')"><div class="flex items-center gap-4"><span class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 font-serif">B</span><h3 class="font-serif text-lg text-gold-100">Liturgia de la Palabra</h3></div><i class="fa-solid fa-chevron-down text-gold-500"></i></button><div id="lit-2" class="hidden px-8 pb-8 pt-2 border-t border-white/5 space-y-8"><div class="p-4 bg-white/5 rounded-lg italic text-gray-400 font-display text-sm"><p>La Palabra que la Iglesia nos ofrece en este pórtico del Adviento es una sinfonía de contrastes... El profeta Isaías nos eleva la mirada. Nos habla de un futuro anhelado.</p></div><div><h4 class="text-gold-500 font-serif text-sm uppercase tracking-widest mb-2">Primera Lectura: Isaías 2, 1-5</h4><p class="text-gray-300 font-display leading-relaxed text-justify">Visión de Isaías, hijo de Amós, acerca de Judá y de Jerusalén. En los días futuros estará firme el monte de la casa del Señor, en la cumbre de las montañas... Hacia él confluirán todas las naciones, caminarán pueblos numerosos. Dirán: "Venid, subamos al monte del Señor... Él nos instruirá en sus caminos y marcharemos por sus sendas". Porque de Sión saldrá la ley, de Jerusalén, la palabra del Señor. Él será el árbitro de las naciones... De las espadas forjarán arados, de las lanzas, podaderas. No alzará la espada pueblo contra pueblo, no se adiestrarán para la guerra. Casa de Jacob, ven, caminemos a la luz del Señor.</p></div><div><h4 class="text-gold-500 font-serif text-sm uppercase tracking-widest mb-2">Salmo Responsorial: Salmo 121</h4><p class="text-white font-bold italic mb-2">R/. Qué alegría cuando me dijeron: "Vamos a la casa del Señor".</p><p class="text-gray-300 font-display leading-relaxed">Qué alegría cuando me dijeron: "Vamos a la casa del Señor". Ya están pisando nuestros pies tus umbrales, Jerusalén.<br>Allá suben las tribus, las tribus del Señor, según la costumbre de Israel, a celebrar el nombre del Señor.<br>Desead la paz a Jerusalén: "Vivan seguros los que te aman, haya paz dentro de tus muros".</p></div><div><h4 class="text-gold-500 font-serif text-sm uppercase tracking-widest mb-2">Segunda Lectura: Romanos 13, 11-14</h4><p class="text-gray-300 font-display leading-relaxed text-justify">Hermanos: Daos cuenta del momento en que vivís; ya es hora de despertaros del sueño, porque ahora nuestra salvación está más cerca que cuando empezamos a creer. La noche está avanzada, el día se echa encima: dejemos las actividades de las tinieblas y pertrechémonos con las armas de la luz. Conduzcámonos como en pleno día, con dignidad. Nada de comilonas ni borracheras, nada de lujuria ni desenfreno, nada de riñas ni envidias. Revestíos más bien del Señor Jesucristo.</p></div><div><h4 class="text-gold-500 font-serif text-sm uppercase tracking-widest mb-2">Evangelio: Mateo 24, 37-44</h4><p class="text-gray-300 font-display leading-relaxed text-justify">En aquel tiempo, dijo Jesús a sus discípulos: "Cuando venga el Hijo del hombre, pasará como en tiempo de Noé... la gente comía, bebía y se casaba, hasta el día en que Noé entró en el arca; y cuando menos lo esperaban llegó el diluvio y se los llevó a todos; lo mismo sucederá cuando venga el Hijo del hombre... Por tanto, estad en vela, porque no sabéis qué día vendrá vuestro Señor. Comprended que si supiera el dueño de casa a qué hora de la noche viene el ladrón, estaría en vela y no dejaría abrir un boquete en su casa. Por eso, estad también vosotros preparados, porque a la hora que menos penséis viene el Hijo del hombre".</p></div></div></div>
+                        <div class="glass-premium rounded-xl overflow-hidden group"><button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('lit-2')"><div class="flex items-center gap-4"><span class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 font-serif">B</span><h3 class="font-serif text-lg text-gold-100">Liturgia de la Palabra</h3></div><i class="fa-solid fa-chevron-down text-gold-500"></i></button><div id="lit-2" class="hidden px-8 pb-8 pt-2 border-t border-white/5 space-y-8"><div class="p-4 bg-white/5 rounded-lg italic text-gray-400 font-display text-sm"><p>La Palabra que la Iglesia nos ofrece en este pórtico del Adviento es una sinfonía de contrastes, una promesa de paz universal y una advertencia sobre la venida inesperada; una llamada a despertar del sueño y una descripción de la vida que sigue su curso, ajena a lo trascendente. ¿Cómo armonizar estas melodías?</p><p>El profeta Isaías nos eleva la mirada. Nos habla de un futuro anhelado, de un monte del Señor al que confluirán todas las naciones. Es una visión de paz radical, donde las espadas se forjan como arados y los tambores de guerra enmudecen para siempre. Esta promesa no es una utopía lejana; es el motor de nuestra espera. Es la razón por la que velamos. No velamos porque temamos un final catastrófico, sino porque anhelamos con toda el alma el cumplimiento de esta paz. La esperanza que nos regala Isaías es el combustible que alimenta nuestra perseverancia en la noche.</p><p>Con esta promesa en el corazón, la llamada de Pablo a los Romanos adquiere un nuevo sentido: “ya es hora de despertaros del sueño”. ¿Cuál es ese sueño del que debemos despertar? Es el sueño de la resignación, el que nos hace creer que la violencia es inevitable y que la paz de Isaías es solo un bonito poema. Es el letargo de la rutina que nos vuelve indiferentes al sufrimiento ajeno. Es la oscuridad del cinismo que apaga nuestra capacidad de asombro. Revestirnos del Señor Jesucristo no es un acto mágico, sino la decisión consciente de adoptar su manera de mirar la realidad, una mirada que ve posibilidades de vida donde otros solo ven finales, una mirada atenta, compasiva y, sobre todo, despierta.</p><p>Así llegamos al Evangelio de Mateo. A primera vista, sus palabras pueden inquietarnos. La comparación con los días de Noé, con el diluvio que se los llevó a todos, podría sonar una amenaza. Sin embargo, la liturgia nos ha preparado para leerlo con otros ojos, los ojos de la promesa de Isaías. El punto central no es el castigo, sino la sorpresa. La vida en tiempos de Noé transcurría con una normalidad absoluta “comían y bebían, se casaban”. No se describe nada intrínsecamente malo. El problema no era la vida cotidiana, sino vivirla de espaldas a Dios, dormidos a su presencia.</p></div><div><h4 class="text-gold-500 font-serif text-sm uppercase tracking-widest mb-2">Primera Lectura: Isaías 2, 1-5</h4><p class="text-gray-300 font-display leading-relaxed text-justify">Visión de Isaías, hijo de Amós, acerca de Judá y de Jerusalén. En los días futuros estará firme el monte de la casa del Señor, en la cumbre de las montañas... Hacia él confluirán todas las naciones, caminarán pueblos numerosos. Dirán: "Venid, subamos al monte del Señor... Él nos instruirá en sus caminos y marcharemos por sus sendas". Porque de Sión saldrá la ley, de Jerusalén, la palabra del Señor. Él será el árbitro de las naciones... De las espadas forjarán arados, de las lanzas, podaderas. No alzará la espada pueblo contra pueblo, no se adiestrarán para la guerra. Casa de Jacob, ven, caminemos a la luz del Señor.</p></div><div><h4 class="text-gold-500 font-serif text-sm uppercase tracking-widest mb-2">Salmo Responsorial: Salmo 121</h4><p class="text-white font-bold italic mb-2">R/. Qué alegría cuando me dijeron: "Vamos a la casa del Señor".</p><p class="text-gray-300 font-display leading-relaxed">Qué alegría cuando me dijeron: "Vamos a la casa del Señor". Ya están pisando nuestros pies tus umbrales, Jerusalén.<br>Allá suben las tribus, las tribus del Señor, según la costumbre de Israel, a celebrar el nombre del Señor.<br>Desead la paz a Jerusalén: "Vivan seguros los que te aman, haya paz dentro de tus muros".</p></div><div><h4 class="text-gold-500 font-serif text-sm uppercase tracking-widest mb-2">Segunda Lectura: Romanos 13, 11-14</h4><p class="text-gray-300 font-display leading-relaxed text-justify">Hermanos: Daos cuenta del momento en que vivís; ya es hora de despertaros del sueño, porque ahora nuestra salvación está más cerca que cuando empezamos a creer. La noche está avanzada, el día se echa encima: dejemos las actividades de las tinieblas y pertrechémonos con las armas de la luz. Conduzcámonos como en pleno día, con dignidad. Nada de comilonas ni borracheras, nada de lujuria ni desenfreno, nada de riñas ni envidias. Revestíos más bien del Señor Jesucristo.</p></div><div><h4 class="text-gold-500 font-serif text-sm uppercase tracking-widest mb-2">Evangelio: Mateo 24, 37-44</h4><p class="text-gray-300 font-display leading-relaxed text-justify">En aquel tiempo, dijo Jesús a sus discípulos: "Cuando venga el Hijo del hombre, pasará como en tiempo de Noé... la gente comía, bebía y se casaba, hasta el día en que Noé entró en el arca; y cuando menos lo esperaban llegó el diluvio y se los llevó a todos; lo mismo sucederá cuando venga el Hijo del hombre... Por tanto, estad en vela, porque no sabéis qué día vendrá vuestro Señor. Comprended que si supiera el dueño de casa a qué hora de la noche viene el ladrón, estaría en vela y no dejaría abrir un boquete en su casa. Por eso, estad también vosotros preparados, porque a la hora que menos penséis viene el Hijo del hombre".</p></div></div></div>
 
                         <div class="glass-premium rounded-xl overflow-hidden group"><button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('lit-reflection')"><div class="flex items-center gap-4"><div class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 font-serif"><i class="fa-solid fa-pen-fancy text-sm"></i></div><h3 class="font-serif text-lg text-gold-100">Reflexión: Escuchar en la Noche</h3></div><i class="fa-solid fa-chevron-down text-gold-500"></i></button><div id="lit-reflection" class="hidden px-8 pb-8 pt-2 border-t border-white/5 text-gray-300 font-display text-lg leading-relaxed text-justify space-y-6"><p>La Palabra que la Iglesia nos ofrece en este pórtico del Adviento es una sinfonía de contrastes, una promesa de paz universal y una advertencia sobre la venida inesperada; una llamada a despertar del sueño y una descripción de la vida que sigue su curso, ajena a lo trascendente. ¿Cómo armonizar estas melodías?</p><p><strong class="text-gold-400">El profeta Isaías</strong> nos eleva la mirada. Nos habla de un futuro anhelado, de un monte del Señor al que confluirán todas las naciones. Es una visión de paz radical, donde las espadas se forjan como arados y los tambores de guerra enmudecen para siempre. Esta promesa no es una utopía lejana; es el motor de nuestra espera. Es la razón por la que velamos. No velamos porque temamos un final catastrófico, sino porque anhelamos con toda el alma el cumplimiento de esta paz. La esperanza que nos regala Isaías es el combustible que alimenta nuestra perseverancia en la noche.</p><p>Con esta promesa en el corazón, la llamada de <strong class="text-gold-400">Pablo a los Romanos</strong> adquiere un nuevo sentido: “ya es hora de despertaros del sueño”. ¿Cuál es ese sueño del que debemos despertar? Es el sueño de la resignación, el que nos hace creer que la violencia es inevitable y que la paz de Isaías es solo un bonito poema. Es el letargo de la rutina que nos vuelve indiferentes al sufrimiento ajeno. Es la oscuridad del cinismo que apaga nuestra capacidad de asombro. Revestirnos del Señor Jesucristo no es un acto mágico, sino la decisión consciente de adoptar su manera de mirar la realidad, una mirada que ve posibilidades de vida donde otros solo ven finales, una mirada atenta, compasiva y, sobre todo, despierta.</p><p>Así llegamos al <strong class="text-gold-400">Evangelio de Mateo</strong>. A primera vista, sus palabras pueden inquietarnos. La comparación con los días de Noé, con el diluvio que se los llevó a todos, podría sonar una amenaza. Sin embargo, la liturgia nos ha preparado para leerlo con otros ojos, los ojos de la promesa de Isaías. El punto central no es el castigo, sino la sorpresa. La vida en tiempos de Noé transcurría con una normalidad absoluta “comían y bebían, se casaban”. No se describe nada intrínsecamente malo. El problema no era la vida cotidiana, sino vivirla de espaldas a Dios, dormidos a su presencia.</p><p>El Adviento, entonces, no nos pide huir de nuestra vida ordinaria. No nos exigen gestos extraordinarios. Nos invita a habitar nuestra cotidianidad, nuestro trabajo, nuestras comidas familiares, nuestras alegrías y preocupaciones, con una conciencia nueva, con el corazón en vela. Nos pide ser como aquel que, mientras está en el campo o moliendo el grano, mantiene su atención conectada a lo Esencial, capaz de reconocer al Señor que llega sin previo aviso. La espiritualidad de Adviento es encontrar lo extraordinario en lo ordinario. Es descubrir que el escenario de la llegada de Dios no es otro que el de nuestras vidas, con toda su belleza y su fragilidad. Es la misma fragilidad que envolvió a José en la noche de Belén, buscando un lugar mientras el miedo y la responsabilidad lo desbordaban. Es la misma atención al cielo que movió a los Magos a dejarlo todo por seguir una estrella. Es la misma escucha profunda que hizo a Isabel reconocer al Señor en el saludo de su prima. Velar es, sencillamente, vivir con el corazón atento.</p></div></div>
 
-                        <div class="glass-premium rounded-xl overflow-hidden group"><button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('lit-3')"><div class="flex items-center gap-4"><span class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 font-serif">C</span><h3 class="font-serif text-lg text-gold-100">Bendición y Encendido</h3></div><i class="fa-solid fa-chevron-down text-gold-500"></i></button><div id="lit-3" class="hidden px-8 pb-8 pt-2 border-t border-white/5 space-y-4 text-gray-300 font-display text-lg leading-relaxed"><div><strong class="text-gold-400 block mb-1 font-serif text-sm">1. Bendición de la Corona</strong><p>Señor, Dios nuestro, te alabamos por tu Hijo, Jesucristo. Él es la luz del mundo, que ha venido para disipar nuestras tinieblas. Al comenzar este tiempo de Adviento, te pedimos que bendigas ✚ esta corona. Que sus ramas nos recuerden la vida nueva que nos traes, y que la luz de sus velas, que iremos encendiendo domingo a domingo, ilumine nuestros corazones. Que al contemplarla, se renueve en nosotros el deseo de salir a su encuentro, acompañados por las buenas obras, para que podamos recibirlo con el alma dispuesta y celebrar con gozo el misterio de su nacimiento. Te lo pedimos por Él, que vive y reina contigo por los siglos de los siglos. <strong>Todos: Amén.</strong></p></div><div><strong class="text-gold-400 block mb-1 font-serif text-sm">2. Encendido de la Primera Vela (Morada)</strong><p><em>Presidente:</em> Hoy encendemos la primera vela. Es de color morado, un color profundo como el cielo antes del amanecer... Simboliza el anhelo de un Rey que viene. Esta primera llama es la Vela de la Esperanza.</p></div><div class="p-4 bg-purple-900/20 border-l-2 border-purple-500 rounded-r-lg"><strong class="text-purple-300 block mb-1 font-serif text-sm">Meditación</strong><p>Esta pequeña llama que ahora tiembla en la penumbra es un eco de una esperanza muy antigua. Es la esperanza de los profetas que anunciaron la luz en medio de la noche de su pueblo. Es la esperanza de toda la humanidad que, a tientas, busca un sentido, una salvación. Hoy, esta llama tiene rostros concretos. Es la esperanza de Isabel, la mujer que aprendió a convivir con el silencio de Dios y con el peso de lo no logrado... Esta llama es también la esperanza de Ana, la madre de María... Al encender esta primera vela, unimos nuestra espera a la de ellos. Declaramos que, a pesar de la oscuridad que a veces nos rodea o habita, elegimos creer en la promesa de la luz.</p></div></div></div>
+                        <div class="glass-premium rounded-xl overflow-hidden group"><button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('lit-3')"><div class="flex items-center gap-4"><span class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 font-serif">C</span><h3 class="font-serif text-lg text-gold-100">Bendición y Encendido</h3></div><i class="fa-solid fa-chevron-down text-gold-500"></i></button><div id="lit-3" class="hidden px-8 pb-8 pt-2 border-t border-white/5 space-y-4 text-gray-300 font-display text-lg leading-relaxed"><div><strong class="text-gold-400 block mb-1 font-serif text-sm">1. Bendición de la Corona</strong><p>Señor, Dios nuestro, te alabamos por tu Hijo, Jesucristo. Él es la luz del mundo, que ha venido para disipar nuestras tinieblas. Al comenzar este tiempo de Adviento, te pedimos que bendigas ✚ esta corona. Que sus ramas nos recuerden la vida nueva que nos traes, y que la luz de sus velas, que iremos encendiendo domingo a domingo, ilumine nuestros corazones. Que al contemplarla, se renueve en nosotros el deseo de salir a su encuentro, acompañados por las buenas obras, para que podamos recibirlo con el alma dispuesta y celebrar con gozo el misterio de su nacimiento. Te lo pedimos por Él, que vive y reina contigo por los siglos de los siglos. <strong>Todos: Amén.</strong></p></div><div><strong class="text-gold-400 block mb-1 font-serif text-sm">2. Encendido de la Primera Vela (Morada)</strong><p><em>Presidente:</em> Hoy encendemos la primera vela. Es de color morado, un color profundo como el cielo antes del amanecer. No es un color de tristeza, sino de expectación y preparación. Simboliza el anhelo de un Rey que viene, y nos invita a preparar el palacio de nuestro corazón para recibirlo. Esta primera llama es la Vela de la Esperanza.</p></div><div class="p-4 bg-purple-900/20 border-l-2 border-purple-500 rounded-r-lg"><strong class="text-purple-300 block mb-1 font-serif text-sm">Meditación</strong><p>Esta pequeña llama que ahora tiembla en la penumbra es un eco de una esperanza muy antigua. Es la esperanza de los profetas que anunciaron la luz en medio de la noche de su pueblo. Es la esperanza de toda la humanidad que, a tientas, busca un sentido, una salvación. Hoy, esta llama tiene rostros concretos. Es la esperanza de Isabel, la mujer que aprendió a convivir con el silencio de Dios y con el peso de lo no logrado. Cuando su cuerpo y su vida parecían ya estériles, cuando había dejado de esperar, algo se despertó en ella. Una vida nueva, un salto en sus entrañas que le devolvió la voz para bendecir. Esta vela es por todos los que esperan contra toda esperanza, en la periferia de la vida, descubriendo que Dios siempre puede sorprendernos con un nuevo comienzo. Esta llama es también la esperanza de Ana, la madre de María. Una esperanza que se teje en la distancia, en la preocupación y en la oración silenciosa. Ana no está en el centro de los acontecimientos, pero su fe es el hilo invisible que sostiene a los suyos. Su corazón de madre y abuela intuye que algo inmenso está a punto de suceder, y su única arma es la confianza. Esta vela es por todos los que sostienen a otros con su fe callada, por los que velan y rezan por nosotros sin que lo sepamos, construyendo un refugio de amor con su esperanza. Al encender esta primera vela, unimos nuestra espera a la de ellos. Declaramos que, a pesar de la oscuridad que a veces nos rodea o habita, elegimos creer en la promesa de la luz.</p></div></div></div>
 
                         <div class="glass-premium rounded-xl overflow-hidden group"><button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('lit-4')"><div class="flex items-center gap-4"><span class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 font-serif">D</span><h3 class="font-serif text-lg text-gold-100">Plegaria de los Fieles</h3></div><i class="fa-solid fa-chevron-down text-gold-500"></i></button><div id="lit-4" class="hidden px-8 pb-8 pt-2 border-t border-white/5 text-gray-300 font-display text-lg leading-relaxed"><p class="mb-4 italic text-center">A cada intención respondemos: Señor, aviva en nosotros la esperanza.</p><ul class="space-y-4 list-decimal pl-5"><li>Por la Iglesia, para que en este tiempo de Adviento sea un faro de esperanza vigilante en el mundo, anunciando con alegría la venida del Salvador. Oremos.</li><li>Por los que gobiernan las naciones, para que, inspirados en la visión de paz del profeta Isaías, trabajen por un mundo donde las armas se convertirán en instrumentos de trabajo y de vida. Oremos.</li><li>Por todos los que viven en la noche de la soledad, la enfermedad, la pobreza o la desesperanza; para que encuentren en nosotros una mano tendida y una pequeña llama que les recuerden que no están solos. Oremos.</li><li>Por nosotros, aquí reunidos, para que el Señor nos conceda la gracia de "despertar del sueño" de la indiferencia y la rutina, y vivir este Adviento con el corazón atento a su presencia en lo cotidiano. Oremos.</li><li>Por todos los que se sienten estériles o en los márgenes de la vida, como Isabel, y por todos los que sostienen a otros con su oración, como Ana; para que experimenten la sorpresa de la vida nueva que Dios hace hermano. Oremos.</li></ul><p class="mt-4"><em>Presidente:</em> Acoge, Padre, estas súplicas que tu pueblo te presenta con fe. Ayúdanos a caminar en la luz de tu Hijo, para que cuando Él vuelva nos encuentre velando en la oración y cantando su alabanza. Por Jesucristo, nuestro Señor. <strong>Amén.</strong></p></div></div>
                     </div>
@@ -401,7 +371,7 @@
                 <div class="text-center mb-10">
                     <div class="inline-flex items-center gap-2 border border-gold-500/30 rounded-full px-4 py-1 mb-4 bg-gold-500/5"><span class="w-2 h-2 rounded-full bg-gold-500 animate-pulse"></span><span class="text-gold-400 text-xs font-serif uppercase tracking-widest">Semana 1</span></div>
                     <h2 class="font-serif text-4xl md:text-5xl text-white mt-2 mb-4">Despertar a la Esperanza</h2>
-                    <div class="max-w-3xl mx-auto glass-premium p-6 rounded-xl mb-8 text-justify"><p class="font-display text-lg text-gray-300 leading-relaxed">"El Adviento es un tiempo para dejarse encontrar... Esta primera semana nos invita a cultivar el arte de velar. Pero no se trata de una vigilia tensa... Es, más bien, un despertar de los sentidos interiores. Es aprender a escuchar el pulso de Dios en el silencio de nuestras vidas."</p></div>
+                    <div class="max-w-3xl mx-auto glass-premium p-6 rounded-xl mb-8 text-justify"><p class="font-display text-lg text-gray-300 leading-relaxed">"El Adviento es un tiempo para dejarse encontrar. No es tanto el recuento de nuestros esfuerzos por alcanzar a Dios, sino el descubrimiento asombrado de que Él siempre ha estado en camino hacia nosotros. Es un umbral que se abre en la estación más oscura del año, una grieta de luz en la noche del mundo y del corazón, que nos recuerda una verdad fundamental: la vida nueva germina en la quietud, la esperanza más terca florece en el frío. Esta primera semana nos invita a cultivar el arte de velar. Pero no se trata de una vigilia tensa, de ojos insomnes que escrutan el horizonte con miedo. Es, más bien, un despertar de los sentidos interiores. Es aprender a escuchar el pulso de Dios en el silencio de nuestras vidas, a reconocer su llegada en lo inesperado, a despojarnos de las obras de la noche, el cinismo, la prisa, la desesperanza, para vestirnos con las armas de la luz. El tema central, extraído de la Sagrada Escritura de este primer domingo, es una llamada a salir del letargo: “Velen, porque no saben el día”. Esta vigilancia no es una carga, sino una gracia. Es la actitud de quien sabe que algo bueno está por suceder y no quiere perdérselo. A lo largo de estos días, nos dejaremos guiar por aquellos personajes que, desde los márgenes de la gran historia, supieron esperar y velar, convirtiendo su incertidumbre en un espacio sagrado para el encuentro."</p></div>
                 </div>
                 <div class="sticky top-20 z-30 bg-night-900/90 backdrop-blur-md py-4 mb-8 overflow-x-auto flex justify-center gap-3 border-b border-white/10">
                     <button onclick="renderDay('lunes')" class="day-btn active" id="btn-lunes">Lunes (Isabel)</button>
@@ -415,17 +385,13 @@
             </section>
         </main>
 
-        <!-- BARRA MUSICAL PREMIUM (Footer Unificado) -->
+        <!-- FOOTER MUSICAL -->
         <div class="fixed bottom-0 w-full z-50 bg-black/95 border-t border-white/10 p-3 transition-transform duration-300 transform translate-y-0 hover:translate-y-0" id="music-footer">
             <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-                
-                <!-- Widget de Spotify (Vista Previa Elegante) -->
                 <div class="w-full md:flex-grow relative group">
                     <div class="absolute inset-0 bg-gold-500/5 blur-lg rounded-lg group-hover:bg-gold-500/10 transition-all"></div>
                     <iframe style="border-radius:12px; position: relative; z-index: 10;" src="https://open.spotify.com/embed/playlist/1MW93YnJbPUMQERbWeStn0?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
-
-                <!-- Botón de Acción Principal (Abre la App) -->
                 <div class="hidden md:block min-w-[200px]">
                     <a href="https://open.spotify.com/playlist/1MW93YnJbPUMQERbWeStn0" target="_blank" class="flex items-center justify-center gap-3 bg-[#1db954] hover:bg-[#1ed760] text-black px-6 py-3 rounded-full font-bold text-xs uppercase tracking-widest transition-all hover:scale-105 shadow-[0_0_20px_rgba(29,185,84,0.3)]">
                         <i class="fa-brands fa-spotify text-xl"></i>
@@ -442,29 +408,14 @@
         <a onclick="menuNav('intro')" class="text-2xl font-serif text-white">Introducción</a>
         <a onclick="menuNav('liturgy')" class="text-2xl font-serif text-white">Liturgia</a>
         <a onclick="menuNav('week1')" class="text-2xl font-serif text-gold-500 font-bold">Semana 1</a>
-        <!-- Botón Spotify Móvil -->
-        <a href="https://open.spotify.com/playlist/1MW93YnJbPUMQERbWeStn0" target="_blank" class="mt-8 flex items-center gap-3 text-[#1db954] font-bold uppercase tracking-widest text-sm border border-[#1db954] px-6 py-3 rounded-full">
-            <i class="fa-brands fa-spotify text-xl"></i> Abrir en App
-        </a>
+        <a href="https://open.spotify.com/playlist/1MW93YnJbPUMQERbWeStn0" target="_blank" class="mt-8 flex items-center gap-3 text-[#1db954] font-bold uppercase tracking-widest text-sm border border-[#1db954] px-6 py-3 rounded-full"><i class="fa-brands fa-spotify text-xl"></i> Abrir en App</a>
         <button onclick="toggleMenu()" class="absolute top-8 right-8 text-white"><i class="fa-solid fa-xmark text-2xl"></i></button>
     </div>
 
     <script>
         // --- FONDOS ALEATORIOS ---
         const backgroundImages = [
-            "1uUZedbr8ZQUNF9OQs1hytiLs8g_MUuqf", // Los herdman
-            "1z4LU8EWUK4vLDLft6i9bXb6mLDetL9P2", // Jesus
-            "1pVqNUScaItoAWqlBtYyMilCsQOPryLiO", // Niño Jesus
-            "1JBJuQlZ0A5u5DJu8KNjlHYriv9QipPz5", // Pesebre
-            "1ghBp0vFeDhWes17D3AU0C2C8HkAtmMa_", // Pastores 2
-            "1saWV_498-gx_evKjxVEY7KwcVsAU1QWP", // Pastores 1
-            "1I7PeWRVRIFQy3HKF42SQyKjv5A2LjPpC", // Estrella
-            "16DX6yIgVzXjK0bjv6alBPjdKZVF6XRs9", // Herodes
-            "1jfpdOgNCebyj2CCLUXdZQk0kdtp5Nuro", // Magos
-            "1DL5rScc1Ohx4r297hHBC-lhbIqODACvj", // Jose
-            "1rV3qO1HQJr9VTi0I_Mlmucb0-y8QoUME", // Maria
-            "15RrtB0fZjGrAZv0wBxgM2qh4TZw6XlYU", // Ana
-            "16RZllWsQZjkVVi0Q2kiWx8cmHdVqHsKG"  // Isabel
+            "1uUZedbr8ZQUNF9OQs1hytiLs8g_MUuqf", "1z4LU8EWUK4vLDLft6i9bXb6mLDetL9P2", "1pVqNUScaItoAWqlBtYyMilCsQOPryLiO", "1JBJuQlZ0A5u5DJu8KNjlHYriv9QipPz5", "1ghBp0vFeDhWes17D3AU0C2C8HkAtmMa_", "1saWV_498-gx_evKjxVEY7KwcVsAU1QWP", "1I7PeWRVRIFQy3HKF42SQyKjv5A2LjPpC", "16DX6yIgVzXjK0bjv6alBPjdKZVF6XRs9", "1jfpdOgNCebyj2CCLUXdZQk0kdtp5Nuro", "1DL5rScc1Ohx4r297hHBC-lhbIqODACvj", "1rV3qO1HQJr9VTi0I_Mlmucb0-y8QoUME", "15RrtB0fZjGrAZv0wBxgM2qh4TZw6XlYU", "16RZllWsQZjkVVi0Q2kiWx8cmHdVqHsKG"
         ];
 
         function setRandomBackground() {
@@ -563,8 +514,8 @@
         }
 
         // --- APP LOGIC (Existing) ---
-        const dayBtnClass = "px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all hover:bg-gold-500 hover:text-black border border-white/10 text-gray-400 whitespace-nowrap";
-        const dayBtnActive = "bg-gold-500 text-black border-gold-500 shadow-[0_0_15px_rgba(212,175,55,0.4)]";
+        const dayBtnClass = "px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all hover:bg-purple-700 hover:text-white border border-white/10 text-gray-400 whitespace-nowrap";
+        const dayBtnActive = "bg-purple-700 text-white border-purple-500 shadow-[0_0_15px_rgba(126,34,206,0.4)]";
 
         const weekContent = {
             lunes: {
@@ -572,9 +523,7 @@
                 title: "La Esperanza en el Silencio",
                 verse: "Lc 1, 41",
                 verseText: "En cuanto Isabel oyó el saludo de María, la criatura saltó en su seno",
-                fullText: `<p class="mb-4">La esperanza tiene sus lugares predilectos, y rara vez coinciden con los centros de poder o los escenarios iluminados por el éxito. La historia de Isabel nos lo enseña con una belleza sobrecogedora. Su esperanza no nace en el Templo de Jerusalén, sino en la periferia, en una casa apartada, marcada durante años por el estigma de la esterilidad.</p>
-                           <p class="mb-4">Es precisamente allí, en lo que el mundo consideraría un fracaso, en el silencio de una vida sin los frutos esperados, donde Dios decide irrumpir. Isabel nos enseña a valorar nuestros propios márgenes, esos espacios de nuestra historia que parecen vacíos o fallidos.</p>
-                           <p>Es en esa quietud, cuando hemos dejado de exigirle a la vida grandes cosas, donde nuestro corazón se vuelve más poroso a la sorpresa. Es allí donde podemos, como ella, sentir el salto de una vida nueva que no controlamos, una alegría que nos desborda y nos obliga a hablar, a bendecir, a confirmar al otro en su camino. El Adviento comienza en el silencio de nuestras "casas de Judea".</p>`,
+                fullText: `<p class="mb-4">La esperanza tiene sus lugares predilectos, y rara vez coinciden con los centros de poder o los escenarios iluminados por el éxito. La historia de Isabel nos lo enseña con una belleza sobrecogedora. Su esperanza no nace en el Templo de Jerusalén, sino en la periferia, en una casa apartada, marcada durante años por el estigma de la esterilidad.</p><p class="mb-4">Es precisamente allí, en lo que el mundo consideraría un fracaso, en el silencio de una vida sin los frutos esperados, donde Dios decide irrumpir. Isabel nos enseña a valorar nuestros propios márgenes, esos espacios de nuestra historia que parecen vacíos o fallidos.</p><p>Es en esa quietud, cuando hemos dejado de exigirle a la vida grandes cosas, donde nuestro corazón se vuelve más poroso a la sorpresa. Es allí donde podemos, como ella, sentir el salto de una vida nueva que no controlamos, una alegría que nos desborda y nos obliga a hablar, a bendecir, a confirmar al otro en su camino. El Adviento comienza en el silencio de nuestras "casas de Judea".</p>`,
                 phrase: "La esperanza, cuando es auténtica, no puede ser muda. Crece cuando se comparte, cuando se extiende como un fuego que enciende otras vidas.",
                 action: "Busca hoy a alguien que viva en tu periferia un vecino con el que apenas cruzas palabra, un familiar distante, un compañero de trabajo que parece invisible. Ofrécele una palabra de reconocimiento, una pregunta sincera, un gesto de aprecio. Conviértete, por un instante, en una voz como la de Isabel."
             },
@@ -583,9 +532,7 @@
                 title: "Velar en la Incertidumbre",
                 verse: "Mt 1, 19",
                 verseText: "José, su esposo, que era hombre justo, no queriendo ponerla en evidencia, pensó dejarla en secreto.",
-                fullText: `<p class="mb-4">No toda vigilia es serena. Existe una vigilia tensa, la que se vive en la noche oscura de la duda y la responsabilidad. Esa fue la vigilia de José. Él es el hombre que quedó sin suelo bajo los pies, el artesano acostumbrado a la lógica de la madera y las herramientas, enfrentado de golpe a un misterio que lo desbordaba.</p>
-                           <p class="mb-4">Velar, para José, no fue contemplar las estrellas con paz, sino caminar a tientas en medio del caos, con el peso de proteger una vida que no entendía pero que amaba con todo su ser. Su espera está tejida de miedo, de impotencia, de puertas que se cierran. Y, sin embargo, sigue adelante. No porque sea un superhéroe sin temor, sino porque su amor por María y por el niño es más fuerte que su desesperación.</p>
-                           <p>José nos enseña que la fe no es la ausencia de miedo, sino la decisión de seguir caminando a pesar de él. Su esperanza no se asienta en certezas, sino en un acto de confianza radical. Velar, a veces, es simplemente poner un pie delante del otro cuando todo está oscuro.</p>`,
+                fullText: `<p class="mb-4">No toda vigilia es serena. Existe una vigilia tensa, la que se vive en la noche oscura de la duda y la responsabilidad. Esa fue la vigilia de José. Él es el hombre que quedó sin suelo bajo los pies, el artesano acostumbrado a la lógica de la madera y las herramientas, enfrentado de golpe a un misterio que lo desbordaba.</p><p class="mb-4">Velar, para José, no fue contemplar las estrellas con paz, sino caminar a tientas en medio del caos, con el peso de proteger una vida que no entendía pero que amaba con todo su ser. Su espera está tejida de miedo, de impotencia, de puertas que se cierran. Y, sin embargo, sigue adelante. No porque sea un superhéroe sin temor, sino porque su amor por María y por el niño es más fuerte que su desesperación.</p><p>José nos enseña que la fe no es la ausencia de miedo, sino la decisión de seguir caminando a pesar de él. Su esperanza no se asienta en certezas, sino en un acto de confianza radical. Velar, a veces, es simplemente poner un pie delante del otro cuando todo está oscuro.</p>`,
                 phrase: "La esperanza de José es tensa, arrancada del dolor y de la incertidumbre, construida paso a paso en medio de la desesperación.",
                 action: "Identifica una situación en tu vida que te genera incertidumbre o miedo. Puede ser una decisión que aplazas, una conversación que evitas, un futuro que te inquieta. Hoy, en lugar de huir de ella, da un pequeño paso concreto para afrontarla. Como José, actúa no desde la certeza, sino desde la confianza en que el amor te sostiene."
             },
@@ -594,9 +541,7 @@
                 title: "Señales en la Noche",
                 verse: "Mt 2, 2",
                 verseText: "¿Dónde está el rey de los judíos? Porque hemos visto su estrella en el Oriente y venimos a adorarlo.",
-                fullText: `<p class="mb-4">El Adviento es una invitación a levantar la mirada. A ser, como los Magos de Oriente o como el astrónomo Johannes Kepler siglos después, "exploradores del cielo”. Ellos nos muestran que la vigilia también es una actividad de la inteligencia y del deseo de saber. Velar no es solo sentir, es también buscar, estudiar, preguntar, interpretar las señales. Dios no solo habla en el susurro del corazón, sino también en el lenguaje majestuoso del cosmos. Los Magos vieron en una conjunción planetaria no un mero fenómeno astronómico, sino una invitación, un mensaje que los puso en camino.</p>
-                           <p class="mb-4">Velar no es solo sentir, es también buscar, estudiar, preguntar, interpretar las señales. Dios no solo habla en el susurro del corazón, sino también en el lenguaje majestuoso del cosmos. Los Magos vieron en una conjunción planetaria no un mero fenómeno astronómico, sino una invitación, un mensaje que los puso en camino.</p>
-                           <p>Su historia nos recuerda que la fe y la razón no son enemigas, sino dos alas con las que nos elevamos hacia la verdad. Velar es aprender a leer las "conjunciones" inesperadas de nuestra propia vida: un encuentro fortuito, un libro que llega a nuestras manos, una pregunta que nos asalta. Dios susurra en el orden del universo y en el anhelo insaciable de nuestro intelecto por comprender.</p>`,
+                fullText: `<p class="mb-4">El Adviento es una invitación a levantar la mirada. A ser, como los Magos de Oriente o como el astrónomo Johannes Kepler siglos después, "exploradores del cielo”. Ellos nos muestran que la vigilia también es una actividad de la inteligencia y del deseo de saber. Velar no es solo sentir, es también buscar, estudiar, preguntar, interpretar las señales. Dios no solo habla en el susurro del corazón, sino también en el lenguaje majestuoso del cosmos. Los Magos vieron en una conjunción planetaria no un mero fenómeno astronómico, sino una invitación, un mensaje que los puso en camino.</p><p class="mb-4">Su historia nos recuerda que la fe y la razón no son enemigas, sino dos alas con las que nos elevamos hacia la verdad. Velar es aprender a leer las "conjunciones" inesperadas de nuestra propia vida: un encuentro fortuito, un libro que llega a nuestras manos, una pregunta que nos asalta. Dios susurra en el orden del universo y en el anhelo insaciable de nuestro intelecto por comprender.</p>`,
                 phrase: "El universo es un libro donde se pueden leer los designios más puros del creador. Un mapa donde las estrellas trazan el orden sobre el caos.",
                 action: "Dedica hoy minutos a contemplar algo sin un fin práctico, simplemente por la belleza de hacerlo. Puede ser mirar el cielo nocturno y buscar una constelación, leer un poema con atención, escuchar una pieza musical sin hacer nada más. Permite que tu mente y tu espíritu se abran a una 'señal' que rompa la rutina de lo puramente utilitario."
             },
@@ -605,9 +550,7 @@
                 title: "El Miedo que Ciega",
                 verse: "Mt 2, 3",
                 verseText: "Al oír esto, el rey Herodes se sobresaltó, y toda Jerusalén con él.",
-                fullText: `<p class="mb-4">Para entender la luz, a veces es necesario contemplar la sombra. Herodes es la gran sombra del Adviento, la antítesis de todo lo que este tiempo representa. Él también vela, pero su vigilancia es la del paranoico, la del tirano que teme perder el control. Su noche no está poblada de estrellas que guían, sino de fantasmas que amenazan.</p>
-                           <p class="mb-4">Herodes es la encarnación de un corazón sin esperanza. Incapaz de concebir que algo nuevo y bueno pueda nacer sin amenazar su trono, ve en el rumor de un niño una conspiración que debe ser aniquilada. Donde los Magos ven una promesa, él ve un peligro.</p>
-                           <p>Su historia es una advertencia terrible y necesaria: cuando el corazón se cierra a la esperanza, se abre inevitablemente a la violencia. La desesperanza nos convierte en prisioneros de nuestro propio poder, aislados en un palacio de miedos, dispuestos a destruir la fragilidad de un niño antes que arriesgarnos a ser transformados por ella.</p>`,
+                fullText: `<p class="mb-4">Para entender la luz, a veces es necesario contemplar la sombra. Herodes es la gran sombra del Adviento, la antítesis de todo lo que este tiempo representa. Él también vela, pero su vigilancia es la del paranoico, la del tirano que teme perder el control. Su noche no está poblada de estrellas que guían, sino de fantasmas que amenazan.</p><p class="mb-4">Herodes es la encarnación de un corazón sin esperanza. Incapaz de concebir que algo nuevo y bueno pueda nacer sin amenazar su trono, ve en el rumor de un niño una conspiración que debe ser aniquilada. Donde los Magos ven una promesa, él ve un peligro.</p><p>Su historia es una advertencia terrible y necesaria: cuando el corazón se cierra a la esperanza, se abre inevitablemente a la violencia. La desesperanza nos convierte en prisioneros de nuestro propio poder, aislados en un palacio de miedos, dispuestos a destruir la fragilidad de un niño antes que arriesgarnos a ser transformados por ella.</p>`,
                 phrase: "La desesperanza es, al final, una forma de muerte en vida. Te roba el horizonte. Te convierte en prisionero de tus propios temores.",
                 action: "Reflexiona sobre un miedo que te llevará a controlar excesivamente una situación oa una persona en tu vida. Hoy, haz un acto consciente de 'soltar el control'. Delega una tarea que crees que solo tú puedes hacer bien. Ofrece confianza en lugar de sospecha. Resiste el impulso de revisar o verificar compulsivamente. Elige, en un pequeño gesto, la esperanza sobre el miedo."
             },
@@ -616,9 +559,7 @@
                 title: "La Espera que Sostiene",
                 verse: "Lc 2, 37",
                 verseText: "[Ana] no se apartaba del templo, sirviendo a Dios noche y día con ayunos y oraciones.",
-                fullText: `<p class="mb-4">Hay una forma de velar que no hace ruido, que no viaja a Belén ni consulta las estrellas, pero sin la cual, quizás, la historia se derrumbaría. Es la vigilia de la intercesión, la espera que sostiene desde la distancia. Es la vigilia de Ana, la madre de María. Lejos, en Jerusalén, cuidando a su esposo enfermo, su corazón está en Nazaret con su hija embarazada.</p>
-                           <p class="mb-4">Su espera es una mezcla tan humana de inquietud y confianza. Tiene miedo, porque sabe que el mundo no siempre es amable, pero al mismo tiempo confía, porque conoce la fortaleza de su hija y, sobre todo, porque su vida entera se ha apoyado en la fe en Dios.</p>
-                           <p>Ana nos enseña que velar es también sostener a otros en la oración. Nuestra esperanza puede ser el nacimiento invisible sobre el que otros construyen su camino. A menudo, sin saberlo, somos fuertes porque alguien, en algún lugar, está velando por nosotros.</p>`,
+                fullText: `<p class="mb-4">Hay una forma de velar que no hace ruido, que no viaja a Belén ni consulta las estrellas, pero sin la cual, quizás, la historia se derrumbaría. Es la vigilia de la intercesión, la espera que sostiene desde la distancia. Es la vigilia de Ana, la madre de María. Lejos, en Jerusalén, cuidando a su esposo enfermo, su corazón está en Nazaret con su hija embarazada.</p><p class="mb-4">Su espera es una mezcla tan humana de inquietud y confianza. Tiene miedo, porque sabe que el mundo no siempre es amable, pero al mismo tiempo confía, porque conoce la fortaleza de su hija y, sobre todo, porque su vida entera se ha apoyado en la fe en Dios.</p><p>Ana nos enseña que velar es también sostener a otros en la oración. Nuestra esperanza puede ser el nacimiento invisible sobre el que otros construyen su camino. A menudo, sin saberlo, somos fuertes porque alguien, en algún lugar, está velando por nosotros.</p>`,
                 phrase: "Hago lo único que puedo. Me pongo a rezar. Por ti, por José, por ese niño que viene.",
                 action: "Elige a una persona de tu familia, de tu comunidad o de tu trabajo. Hoy, de manera anónima y silenciosa, dedica tu día a 'sostenerla' en tu pensamiento y en tu oración. Que tu esperanza sea para ella un apoyo invisible, una fuerza que la acompaña sin que ella lo sepa."
             },
@@ -627,9 +568,7 @@
                 title: "Del despertar al camino",
                 verse: "Is 40, 3",
                 verseText: "Una voz grita en el desierto: 'Preparen el camino del Señor, allanad sus senderos'.",
-                fullText: `<p class="mb-4">Hemos viajado a lo largo de esta semana aprendiendo a despertar. Hemos velado con la esperanza silenciosa de Isabel, con la angustia confiada de José, con la curiosidad intelectual de los Magos. Hemos aprendido la anti-espera de Herodes y a valorar la fe que sostiene de Ana.</p>
-                           <p class="mb-4">Pero todo este despertar, toda esta vigilia, no es un fin en sí mismo. Es el primer y necesario paso para poder escuchar. Una vez que el corazón está despierto y en silencio, puede percibir con más claridad "la VOZ que mueve el mundo”. Es la voz que, en el Evangelio de mañana, resonará en el desierto a través de Juan el Bautista: "Preparad el camino del Señor, allanad sus senderos".</p>
-                           <p>La vigilia de la primera semana nos ha preparado para el trabajo de la segunda. La contemplación nos impulsa a la conversión. El despertar nos pone en pie para empezar a caminar y a transformar la realidad. La espera se vuelve activa.</p>`,
+                fullText: `<p class="mb-4">Hemos viajado a lo largo de esta semana aprendiendo a despertar. Hemos velado con la esperanza silenciosa de Isabel, con la angustia confiada de José, con la curiosidad intelectual de los Magos. Hemos aprendido la anti-espera de Herodes y a valorar la fe que sostiene de Ana.</p><p class="mb-4">Pero todo este despertar, toda esta vigilia, no es un fin en sí mismo. Es el primer y necesario paso para poder escuchar. Una vez que el corazón está despierto y en silencio, puede percibir con más claridad "la VOZ que mueve el mundo”. Es la voz que, en el Evangelio de mañana, resonará en el desierto a través de Juan el Bautista: "Preparad el camino del Señor, allanad sus senderos".</p><p>La vigilia de la primera semana nos ha preparado para el trabajo de la segunda. La contemplación nos impulsa a la conversión. El despertar nos pone en pie para empezar a caminar y a transformar la realidad. La espera se vuelve activa.</p>`,
                 phrase: "¡Déjate descolocar por Dios! Es tiempo de actualizar tu vida a su presencia y ponerte en camino.",
                 action: "Realiza hoy un pequeño acto concreto de 'allanar un sendero'. Puede ser un sendero interior: escribe en un papel un hábito, un rencor o un miedo que quieras dejar atrás en este Adviento, y rómpelo como signo de tu decisión. O puede ser un sendero exterior: ordena un espacio de tu casa que esté caótico, haz esa llamada de reconciliación que tienes pendiente, realiza un donativo que habías pensado hacer. Prepara, con un gesto, tu corazón y tu vida para la llegada del Señor."
             }
