@@ -49,6 +49,7 @@
                         'shimmer': 'shimmer 3s linear infinite',
                         'aurora': 'aurora 20s ease infinite alternate',
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'ai-pulse': 'aiPulse 2s infinite',
                     },
                     keyframes: {
                         twinkle: {
@@ -70,6 +71,11 @@
                         aurora: {
                             '0%': { backgroundPosition: '0% 50%' },
                             '100%': { backgroundPosition: '100% 50%' },
+                        },
+                        aiPulse: {
+                            '0%': { boxShadow: '0 0 0 0 rgba(212, 175, 55, 0.4)' },
+                            '70%': { boxShadow: '0 0 0 20px rgba(212, 175, 55, 0)' },
+                            '100%': { boxShadow: '0 0 0 0 rgba(212, 175, 55, 0)' },
                         }
                     }
                 }
@@ -77,23 +83,34 @@
         }
     </script>
     <style>
-        /* --- FONDOS CINEMATOGRÁFICOS (APP PRINCIPAL) --- */
+        /* --- FONDOS DINÁMICO GLOBAL --- */
+        #global-bg-image {
+            position: fixed;
+            inset: 0;
+            z-index: -10;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: opacity 1s ease-in-out;
+        }
+        #global-bg-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(2, 4, 10, 0.6);
+        }
+
+        /* --- FONDOS DE SECCIONES --- */
         .bg-cinematic-night {
-            background: radial-gradient(circle at 50% 100%, #1e1b4b 0%, #0f172a 40%, #02040a 100%);
+            background: radial-gradient(circle at 50% 100%, rgba(30, 27, 75, 0.85) 0%, rgba(15, 23, 42, 0.9) 40%, rgba(2, 4, 10, 0.95) 100%);
             position: relative; overflow: hidden;
         }
-        .bg-cinematic-night::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background-image: radial-gradient(white 1px, transparent 1px);
-            background-size: 50px 50px; opacity: 0.2;
-            mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
-        }
         .bg-liturgy-deep {
-            background: linear-gradient(135deg, #2e1065 0%, #1a0b2e 50%, #000000 100%);
+            background: linear-gradient(135deg, rgba(46, 16, 101, 0.9) 0%, rgba(26, 11, 46, 0.95) 50%, rgba(0, 0, 0, 0.95) 100%);
             background-size: 400% 400%; animation: aurora 30s ease infinite;
         }
         .bg-week-dawn {
-            background: linear-gradient(to bottom, #0f172a 0%, #1e293b 100%);
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.9) 100%);
         }
 
         /* --- FONDOS PANTALLA DE ESPERA (LOCK SCREEN) --- */
@@ -101,19 +118,14 @@
             position: absolute; inset: 0; transition: opacity 2s ease-in-out; opacity: 0; z-index: -1;
         }
         .lock-bg.active { opacity: 1; }
-
-        /* 1. Noche de Espera */
-        .bg-lock-night { background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%); }
-        /* 2. Naturaleza (Bosque Profundo) */
-        .bg-lock-nature { background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364); }
-        /* 3. Amanecer de Paz */
-        .bg-lock-peace { background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%); background: linear-gradient(to top, #3b41c5 0%, #a981bb 49%, #ffc8a9 100%); }
-        /* 4. Vida Nueva (Verde Esperanza) */
-        .bg-lock-life { background: linear-gradient(to right, #11998e, #38ef7d); background: radial-gradient(circle at center, #134E5E 0%, #71B280 100%); }
+        .bg-lock-night { background: radial-gradient(ellipse at bottom, rgba(27, 39, 53, 0.9) 0%, rgba(9, 10, 15, 0.95) 100%); }
+        .bg-lock-nature { background: linear-gradient(to bottom, rgba(15, 32, 39, 0.9), rgba(32, 58, 67, 0.9), rgba(44, 83, 100, 0.9)); }
+        .bg-lock-peace { background: linear-gradient(45deg, rgba(255, 154, 158, 0.8) 0%, rgba(250, 208, 196, 0.8) 100%); } 
+        .bg-lock-life { background: linear-gradient(to right, rgba(17, 153, 142, 0.8), rgba(56, 239, 125, 0.8)); }
 
         /* --- CRISTAL PREMIUM --- */
         .glass-premium {
-            background: rgba(15, 20, 35, 0.75);
+            background: rgba(15, 20, 35, 0.65);
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(212, 175, 55, 0.2);
             box-shadow: 0 20px 50px rgba(0,0,0,0.7);
@@ -152,10 +164,7 @@
         }
         .flame-real.active { transform: translateX(-50%) scale(1); opacity: 1; animation: flicker 0.1s infinite alternate; }
         @keyframes flicker { 0% {transform: translateX(-50%) scale(1);} 100% {transform: translateX(-50%) scale(1.1);} }
-        .bar { width: 3px; background: #1db954; border-radius: 2px; animation: equalizer 1s infinite; }
-        .bar:nth-child(2) { animation-delay: 0.1s; } .bar:nth-child(3) { animation-delay: 0.2s; }
-        @keyframes equalizer { 0%, 100% { height: 4px; } 50% { height: 12px; } }
-
+        
         /* --- LOCK SCREEN SPECIFIC --- */
         #lock-screen {
             position: fixed; inset: 0; z-index: 1000;
@@ -169,15 +178,63 @@
             border: 1px solid rgba(255,255,255,0.1); padding: 20px; border-radius: 12px;
             min-width: 80px; text-align: center;
         }
+
+        /* --- AI ELEMENT STYLES (IMPROVED) --- */
+        .ai-orb-container {
+            position: relative;
+            margin-bottom: 2rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .ai-orb-container:hover { transform: scale(1.05); }
+        .ai-orb {
+            width: 70px; height: 70px; /* Un poco más grande para la estrella */
+            background: radial-gradient(circle at 30% 30%, #fff, #d4af37, #000);
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+            animation: ai-pulse 3s infinite;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 2rem; color: #000; /* Tamaño de fuente aumentado */
+        }
+        /* Nuevo estilo para el texto pulsante */
+        .pulse-text {
+            animation: pulse-text 2s infinite;
+        }
+        @keyframes pulse-text {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
+        }
+
+        .ai-message-box {
+            min-height: 60px;
+            margin-bottom: 30px;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            color: #f3e28c;
+            font-size: 1.4rem;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+            opacity: 0;
+            transition: opacity 0.5s;
+            max-width: 80%; line-height: 1.4;
+        }
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
     </style>
 </head>
 <body class="bg-night-900 text-gray-100 font-sans h-screen overflow-hidden flex flex-col selection:bg-gold-500 selection:text-black">
+
+    <!-- 1. FONDO ALEATORIO GLOBAL -->
+    <div id="global-bg-image"></div>
 
     <!-- ============================================ -->
     <!-- PANTALLA DE ESPERA / CUENTA REGRESIVA        -->
     <!-- ============================================ -->
     <div id="lock-screen">
-        <!-- Fondos Cambiantes -->
+        <!-- Fondos Cambiantes (Overlays) -->
         <div class="lock-bg bg-lock-night active" id="bg-1"></div>
         <div class="lock-bg bg-lock-nature" id="bg-2"></div>
         <div class="lock-bg bg-lock-peace" id="bg-3"></div>
@@ -188,19 +245,26 @@
 
         <div class="relative z-10 text-center px-4 max-w-4xl w-full flex flex-col items-center">
             
-            <div class="mb-8 animate-float">
+            <div class="mb-4 animate-float">
                 <i class="fa-solid fa-star text-gold-400 text-4xl animate-pulse-slow"></i>
             </div>
 
-            <h1 class="font-serif text-4xl md:text-7xl font-bold text-white mb-4 drop-shadow-2xl tracking-wider">
+            <h1 class="font-serif text-4xl md:text-7xl font-bold text-white mb-8 drop-shadow-2xl tracking-wider">
                 ADVIENTO
             </h1>
-            <p class="font-display text-xl text-gold-200 italic mb-12" id="rotating-phrase">
-                "El Señor está cerca..."
-            </p>
+            
+            <!-- ELEMENTO AI DE ESPECTATIVA (CON ESTRELLA DE BELÉN) -->
+            <div class="ai-orb-container" onclick="triggerAIProphecy()">
+                <div class="ai-orb">
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <!-- Texto Actualizado -->
+                <p class="text-[11px] text-gold-400 uppercase tracking-[0.3em] mt-3 font-bold pulse-text">PULSA EN LA ESTRELLA MIENTRAS ESPERAMOS</p>
+            </div>
+            <div id="ai-output" class="ai-message-box"></div>
 
             <!-- Contador -->
-            <div class="flex flex-wrap justify-center gap-4 md:gap-8 mb-16">
+            <div class="flex flex-wrap justify-center gap-4 md:gap-8 mb-12">
                 <div class="countdown-box">
                     <span class="block text-3xl md:text-5xl font-serif font-bold text-white" id="days">00</span>
                     <span class="text-xs uppercase tracking-widest text-gold-400">Días</span>
@@ -227,7 +291,6 @@
                     <i class="fa-solid fa-arrow-right"></i>
                 </button>
             </div>
-            <!-- CÓDIGO OCULTO EN LA INTERFAZ PARA MAYOR MISTERIO -->
         </div>
     </div>
 
@@ -236,7 +299,7 @@
     <!-- ============================================ -->
     <div id="main-app-wrapper" class="flex flex-col h-full opacity-0 transition-opacity duration-1000" style="visibility: hidden;">
         
-        <!-- FONDOS DINÁMICOS APP -->
+        <!-- FONDOS DINÁMICOS APP (Ahora semi-transparentes) -->
         <div id="bg-home" class="fixed inset-0 bg-cinematic-night z-[-3] transition-opacity duration-1000"></div>
         <div id="bg-liturgy" class="fixed inset-0 bg-liturgy-deep z-[-2] opacity-0 transition-opacity duration-1000"></div>
         <div id="bg-week" class="fixed inset-0 bg-week-dawn z-[-1] opacity-0 transition-opacity duration-1000"></div>
@@ -352,10 +415,23 @@
             </section>
         </main>
 
-        <!-- FOOTER MUSICAL -->
-        <div class="fixed bottom-0 w-full z-50 bg-black/95 border-t border-white/10 p-2 transition-transform duration-300 transform translate-y-0 hover:translate-y-0" id="music-footer">
-            <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-                <div class="w-full md:flex-grow"><iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/1MW93YnJbPUMQERbWeStn0?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+        <!-- BARRA MUSICAL PREMIUM (Footer Unificado) -->
+        <div class="fixed bottom-0 w-full z-50 bg-black/95 border-t border-white/10 p-3 transition-transform duration-300 transform translate-y-0 hover:translate-y-0" id="music-footer">
+            <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+                
+                <!-- Widget de Spotify (Vista Previa Elegante) -->
+                <div class="w-full md:flex-grow relative group">
+                    <div class="absolute inset-0 bg-gold-500/5 blur-lg rounded-lg group-hover:bg-gold-500/10 transition-all"></div>
+                    <iframe style="border-radius:12px; position: relative; z-index: 10;" src="https://open.spotify.com/embed/playlist/1MW93YnJbPUMQERbWeStn0?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+
+                <!-- Botón de Acción Principal (Abre la App) -->
+                <div class="hidden md:block min-w-[200px]">
+                    <a href="https://open.spotify.com/playlist/1MW93YnJbPUMQERbWeStn0" target="_blank" class="flex items-center justify-center gap-3 bg-[#1db954] hover:bg-[#1ed760] text-black px-6 py-3 rounded-full font-bold text-xs uppercase tracking-widest transition-all hover:scale-105 shadow-[0_0_20px_rgba(29,185,84,0.3)]">
+                        <i class="fa-brands fa-spotify text-xl"></i>
+                        <span>Escuchar Completa</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -366,19 +442,72 @@
         <a onclick="menuNav('intro')" class="text-2xl font-serif text-white">Introducción</a>
         <a onclick="menuNav('liturgy')" class="text-2xl font-serif text-white">Liturgia</a>
         <a onclick="menuNav('week1')" class="text-2xl font-serif text-gold-500 font-bold">Semana 1</a>
+        <!-- Botón Spotify Móvil -->
+        <a href="https://open.spotify.com/playlist/1MW93YnJbPUMQERbWeStn0" target="_blank" class="mt-8 flex items-center gap-3 text-[#1db954] font-bold uppercase tracking-widest text-sm border border-[#1db954] px-6 py-3 rounded-full">
+            <i class="fa-brands fa-spotify text-xl"></i> Abrir en App
+        </a>
         <button onclick="toggleMenu()" class="absolute top-8 right-8 text-white"><i class="fa-solid fa-xmark text-2xl"></i></button>
     </div>
 
     <script>
-        // --- LOCK SCREEN LOGIC ---
-        const phrases = [
-            "El Señor está cerca, sal a su encuentro.",
-            "Preparen el camino del Señor.",
-            "La esperanza florece en la espera.",
-            "Maranatha: Ven, Señor Jesús.",
-            "En el silencio se gesta la Vida."
+        // --- FONDOS ALEATORIOS ---
+        const backgroundImages = [
+            "1uUZedbr8ZQUNF9OQs1hytiLs8g_MUuqf", // Los herdman
+            "1z4LU8EWUK4vLDLft6i9bXb6mLDetL9P2", // Jesus
+            "1pVqNUScaItoAWqlBtYyMilCsQOPryLiO", // Niño Jesus
+            "1JBJuQlZ0A5u5DJu8KNjlHYriv9QipPz5", // Pesebre
+            "1ghBp0vFeDhWes17D3AU0C2C8HkAtmMa_", // Pastores 2
+            "1saWV_498-gx_evKjxVEY7KwcVsAU1QWP", // Pastores 1
+            "1I7PeWRVRIFQy3HKF42SQyKjv5A2LjPpC", // Estrella
+            "16DX6yIgVzXjK0bjv6alBPjdKZVF6XRs9", // Herodes
+            "1jfpdOgNCebyj2CCLUXdZQk0kdtp5Nuro", // Magos
+            "1DL5rScc1Ohx4r297hHBC-lhbIqODACvj", // Jose
+            "1rV3qO1HQJr9VTi0I_Mlmucb0-y8QoUME", // Maria
+            "15RrtB0fZjGrAZv0wBxgM2qh4TZw6XlYU", // Ana
+            "16RZllWsQZjkVVi0Q2kiWx8cmHdVqHsKG"  // Isabel
         ];
+
+        function setRandomBackground() {
+            const randomId = backgroundImages[Math.floor(Math.random() * backgroundImages.length)];
+            const imageUrl = `https://drive.google.com/uc?export=view&id=${randomId}`;
+            const bgElement = document.getElementById('global-bg-image');
+            bgElement.style.backgroundImage = `url('${imageUrl}')`;
+        }
+
+        // --- LOCK SCREEN LOGIC ---
         
+        // --- AI PROPHECY LOGIC (NEW - OLAIZOLA STYLE) ---
+        const aiProphecies = [
+            "No busques señales grandiosas. Dios se esconde en lo pequeño, en lo que pasa desapercibido mientras miras a otro lado.",
+            "La espera no es tiempo perdido. Es el taller donde se forja la capacidad de recibir lo que nos sobrepasa.",
+            "Quizás el milagro que esperas no sea un cambio en tus circunstancias, sino una grieta de luz en tu propia mirada.",
+            "Dios no viene a resolver tus problemas, viene a habitarlos contigo. Y eso lo cambia todo.",
+            "Atrévete a creer que tu vulnerabilidad no es un defecto, sino el pesebre exacto donde quiere nacer la Vida.",
+            "El Adviento es aprender a conjugar el verbo 'esperar' en presente. No es lo que vendrá, es lo que ya está germinando.",
+            "No tengas miedo al silencio. Es el único idioma en el que Dios puede decirte quién eres realmente."
+        ];
+
+        function triggerAIProphecy() {
+            const output = document.getElementById('ai-output');
+            output.innerHTML = "";
+            output.style.opacity = 1;
+            
+            // Simulated typing effect
+            const prophecy = aiProphecies[Math.floor(Math.random() * aiProphecies.length)];
+            let i = 0;
+            output.classList.add('typing-cursor');
+            
+            const typeInterval = setInterval(() => {
+                output.textContent += prophecy.charAt(i);
+                i++;
+                if (i > prophecy.length - 1) {
+                    clearInterval(typeInterval);
+                    output.classList.remove('typing-cursor');
+                    // Removed fade out timeout to keep text visible
+                }
+            }, 50);
+        }
+
         function initLockScreen() {
             // 1. Background Rotation
             let currentBg = 1;
@@ -387,18 +516,6 @@
                 currentBg = currentBg < 4 ? currentBg + 1 : 1;
                 document.getElementById('bg-' + currentBg).classList.add('active');
             }, 60000); // 1 minuto
-
-            // 2. Phrase Rotation
-            let phraseIdx = 0;
-            setInterval(() => {
-                phraseIdx = (phraseIdx + 1) % phrases.length;
-                const el = document.getElementById('rotating-phrase');
-                el.style.opacity = 0;
-                setTimeout(() => {
-                    el.innerText = `"${phrases[phraseIdx]}"`;
-                    el.style.opacity = 1;
-                }, 500);
-            }, 10000);
 
             // 3. Countdown
             const targetDate = new Date('November 30, 2025 00:00:00').getTime();
@@ -476,7 +593,7 @@
                 char: "Magos y Kepler",
                 title: "Señales en la Noche",
                 verse: "Mt 2, 2",
-                verseText: "¿Dónde está el rey de los judíos que ha nacido? Porque hemos visto su estrella en el Oriente y venimos a adorarlo.",
+                verseText: "¿Dónde está el rey de los judíos? Porque hemos visto su estrella en el Oriente y venimos a adorarlo.",
                 fullText: `<p class="mb-4">El Adviento es una invitación a levantar la mirada. A ser, como los Magos de Oriente o como el astrónomo Johannes Kepler siglos después, "exploradores del cielo”. Ellos nos muestran que la vigilia también es una actividad de la inteligencia y del deseo de saber. Velar no es solo sentir, es también buscar, estudiar, preguntar, interpretar las señales. Dios no solo habla en el susurro del corazón, sino también en el lenguaje majestuoso del cosmos. Los Magos vieron en una conjunción planetaria no un mero fenómeno astronómico, sino una invitación, un mensaje que los puso en camino.</p>
                            <p class="mb-4">Velar no es solo sentir, es también buscar, estudiar, preguntar, interpretar las señales. Dios no solo habla en el susurro del corazón, sino también en el lenguaje majestuoso del cosmos. Los Magos vieron en una conjunción planetaria no un mero fenómeno astronómico, sino una invitación, un mensaje que los puso en camino.</p>
                            <p>Su historia nos recuerda que la fe y la razón no son enemigas, sino dos alas con las que nos elevamos hacia la verdad. Velar es aprender a leer las "conjunciones" inesperadas de nuestra propia vida: un encuentro fortuito, un libro que llega a nuestras manos, una pregunta que nos asalta. Dios susurra en el orden del universo y en el anhelo insaciable de nuestro intelecto por comprender.</p>`,
@@ -589,6 +706,7 @@
         }
 
         window.onload = () => {
+            setRandomBackground(); // Establecer fondo aleatorio
             initLockScreen();
         };
     </script>
