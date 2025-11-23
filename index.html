@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="es-419" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adviento 2025 | Esperanza y Alegría</title>
     
-    <!-- Fuentes Premium -->
+    <!-- Fuentes Premium Actualizadas -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Cormorant+Garamond:ital,wght@0,300;0,500;0,700;1,400;1,600&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
     
     <!-- Iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -21,7 +21,7 @@
                 extend: {
                     fontFamily: {
                         serif: ['Cinzel', 'serif'],
-                        display: ['Cormorant Garamond', 'serif'],
+                        display: ['Playfair Display', 'serif'],
                         sans: ['Montserrat', 'sans-serif'],
                     },
                     colors: {
@@ -39,6 +39,10 @@
                         },
                         purple: {
                             liturgy: '#2e1065',
+                            wax: '#4c1d95'
+                        },
+                        pink: {
+                            wax: '#be185d'
                         }
                     },
                     animation: {
@@ -50,19 +54,21 @@
                         'aurora': 'aurora 20s ease infinite alternate',
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'ai-pulse': 'aiPulse 2s infinite',
+                        'snow': 'snow 20s linear infinite',
+                        'flame-flicker': 'flicker 0.1s infinite alternate',
                     },
                     keyframes: {
                         twinkle: {
-                            '0%, 100%': { opacity: 0.8, transform: 'scale(1)' },
-                            '50%': { opacity: 1, transform: 'scale(1.2) rotate(5deg)' },
+                            '0%, 100%': { opacity: '0.8', transform: 'scale(1)' },
+                            '50%': { opacity: '1', transform: 'scale(1.2) rotate(5deg)' },
                         },
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
                             '50%': { transform: 'translateY(-15px)' },
                         },
                         fadeIn: {
-                            '0%': { opacity: 0, transform: 'translateY(20px)' },
-                            '100%': { opacity: 1, transform: 'translateY(0)' },
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
                         },
                         shimmer: {
                             '0%': { backgroundPosition: '200% 0' },
@@ -76,6 +82,16 @@
                             '0%': { boxShadow: '0 0 0 0 rgba(212, 175, 55, 0.4)' },
                             '70%': { boxShadow: '0 0 0 20px rgba(212, 175, 55, 0)' },
                             '100%': { boxShadow: '0 0 0 0 rgba(212, 175, 55, 0)' },
+                        },
+                        snow: {
+                            '0%': { transform: 'translateY(-100%)', opacity: '0' },
+                            '10%': { opacity: '1' },
+                            '90%': { opacity: '1' },
+                            '100%': { transform: 'translateY(100vh)', opacity: '0' }
+                        },
+                        flicker: { 
+                            '0%': { transform: 'scale(1)', opacity: '0.8' }, 
+                            '100%': { transform: 'scale(1.1)', opacity: '1' } 
                         }
                     }
                 }
@@ -97,7 +113,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: rgba(2, 4, 10, 0.5); /* Capa oscura ajustada */
+            background: rgba(2, 4, 10, 0.5);
         }
 
         /* --- FONDOS DE SECCIONES --- */
@@ -122,6 +138,48 @@
         .bg-lock-nature { background: linear-gradient(to bottom, rgba(15, 32, 39, 0.8), rgba(32, 58, 67, 0.8)); }
         .bg-lock-peace { background: linear-gradient(45deg, rgba(60, 20, 20, 0.7) 0%, rgba(30, 10, 40, 0.8) 100%); } 
         .bg-lock-life { background: linear-gradient(to right, rgba(10, 40, 30, 0.8), rgba(20, 50, 40, 0.8)); }
+
+        /* --- NIEVE / ESCARCHA REALISTA --- */
+        .snow, .snow:before, .snow:after {
+            position: absolute; top: 0; left: 0; bottom: 0; right: 0;
+            pointer-events: none; z-index: 1;
+            background-image: 
+                radial-gradient(3px 3px at 50px 50px, rgba(255, 255, 255, 0.9), transparent),
+                radial-gradient(4px 4px at 100px 150px, rgba(255, 255, 255, 0.7), transparent),
+                radial-gradient(2px 2px at 200px 50px, rgba(255, 255, 255, 0.8), transparent),
+                radial-gradient(5px 5px at 300px 250px, rgba(255, 255, 255, 0.5), transparent),
+                radial-gradient(3px 3px at 400px 350px, rgba(255, 255, 255, 0.8), transparent),
+                radial-gradient(4px 4px at 500px 100px, rgba(255, 255, 255, 0.9), transparent),
+                radial-gradient(2px 2px at 50px 550px, rgba(255, 255, 255, 0.7), transparent),
+                radial-gradient(4px 4px at 250px 450px, rgba(255, 255, 255, 0.6), transparent),
+                radial-gradient(3px 3px at 150px 300px, rgba(255, 255, 255, 0.8), transparent);
+            background-size: 500px 500px; /* Tamaño del patrón para loop perfecto */
+            animation: snow 10s linear infinite;
+        }
+        .snow:before {
+            content: ''; margin-left: -250px; opacity: 0.6; filter: blur(1px);
+            background-size: 400px 400px; animation-duration: 15s; animation-direction: normal;
+        }
+        .snow:after {
+            content: ''; margin-left: -100px; opacity: 0.4; filter: blur(2px);
+            background-size: 300px 300px; animation-duration: 20s; animation-direction: normal;
+        }
+        @keyframes snow { 0% { background-position: 0 0; } 100% { background-position: 0 500px; } }
+
+        /* --- MARCA DE AGUA --- */
+        .watermark-text {
+            position: absolute;
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-family: 'Cinzel', serif;
+            font-size: 18vw;
+            color: rgba(255, 255, 255, 0.03);
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 0;
+            font-weight: 900;
+            text-align: center;
+            line-height: 0.8;
+        }
 
         /* --- CRISTAL PREMIUM --- */
         .glass-premium {
@@ -155,15 +213,17 @@
         .view-section.active { display: block; opacity: 1; }
         .drop-cap { float: left; font-family: 'Cinzel', serif; font-size: 3.5rem; line-height: 0.8; padding-right: 12px; color: #d4af37; }
         
+        /* --- LLAMA REALISTA --- */
         .flame-real {
             width: 16px; height: 28px; border-radius: 50% 50% 20% 20%;
             background: radial-gradient(white, #ffd700, #ff8c00);
             box-shadow: 0 0 15px 5px rgba(255, 140, 0, 0.6);
-            position: absolute; top: -25px; left: 50%; transform: translateX(-50%) scale(0); opacity: 0;
-            transition: all 0.5s ease; filter: blur(0.5px);
+            position: absolute; top: -20px; left: 50%; transform: translateX(-50%) scale(0); opacity: 0;
+            transition: all 0.5s ease; filter: blur(0.5px); z-index: 20;
         }
         .flame-real.active { transform: translateX(-50%) scale(1); opacity: 1; animation: flicker 0.1s infinite alternate; }
         @keyframes flicker { 0% {transform: translateX(-50%) scale(1);} 100% {transform: translateX(-50%) scale(1.1);} }
+        
         .bar { width: 3px; background: #1db954; border-radius: 2px; animation: equalizer 1s infinite; }
         .bar:nth-child(2) { animation-delay: 0.1s; } .bar:nth-child(3) { animation-delay: 0.2s; }
         @keyframes equalizer { 0%, 100% { height: 4px; } 50% { height: 12px; } }
@@ -171,13 +231,10 @@
         /* --- LOCK SCREEN SCROLL FIX --- */
         #lock-screen {
             position: fixed; inset: 0; z-index: 1000;
-            overflow-y: auto; 
-            display: block; 
+            overflow-y: auto; display: block; 
         }
         #lock-screen-content {
-            min-height: 100vh;
-            display: flex; flex-col; justify-content: center; align-items: center;
-            padding: 2rem 0;
+            min-height: 100vh; display: flex; flex-col; justify-content: center; align-items: center; padding: 2rem 0; position: relative;
         }
         #lock-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
         
@@ -202,52 +259,97 @@
         @keyframes pulse-text { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); } }
 
         .ai-message-box {
-            min-height: 60px; margin-bottom: 30px; font-family: 'Cormorant Garamond', serif; font-style: italic;
+            min-height: 60px; margin-bottom: 30px; font-family: 'Playfair Display', serif; font-style: italic;
             color: #f3e28c; font-size: 1.4rem; text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
             opacity: 0; transition: opacity 0.5s; max-width: 80%; line-height: 1.4;
         }
         .typing-cursor::after { content: '|'; animation: blink 1s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* --- ESTILOS CORONA PREMIUM (FIXED) --- */
+        .wreath-container { position: relative; width: 280px; height: 280px; margin: 0 auto; }
+        .wreath-base {
+            position: absolute; inset: 0; border-radius: 50%; border: 45px solid transparent;
+            /* URL codificada en base64 para evitar errores de sintaxis */
+            border-image-source: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iNDAiIHN0cm9rZT0iIzE0NTMyZCIgc3Ryb2tlLXdpZHRoPSIxMCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWRhc2hhcnJheT0iNSw1Ii8+PC9zdmc+');
+            box-shadow: 0 0 40px rgba(20, 83, 45, 0.6), inset 0 0 40px rgba(0, 0, 0, 0.8);
+            background: radial-gradient(transparent 40%, #052e16 40%, #052e16 65%, transparent 65%);
+        }
+        .wreath-texture {
+             position: absolute; inset: 0; border-radius: 50%; border: 40px dashed rgba(22, 163, 74, 0.2);
+             animation: spin-slow 60s linear infinite; filter: blur(1px);
+        }
+        .candle-body {
+            width: 24px; height: 80px; border-radius: 4px; position: absolute;
+            background: linear-gradient(to right, #333, #666, #333); box-shadow: 0 2px 5px rgba(0,0,0,0.5); transition: all 0.3s ease;
+        }
+        .candle-body::before { content: ''; position: absolute; top: -4px; left: 50%; transform: translateX(-50%); width: 2px; height: 4px; background: #333; }
+        .candle-purple { background: linear-gradient(to right, #4c1d95, #7c3aed, #4c1d95); }
+        .candle-pink { background: linear-gradient(to right, #be185d, #f472b6, #be185d); }
+        
+        .c-pos-1 { top: -30px; left: 50%; transform: translateX(-50%); }
+        .c-pos-2 { top: 50%; right: -10px; transform: translateY(-50%); }
+        .c-pos-3 { bottom: -30px; left: 50%; transform: translateX(-50%); }
+        .c-pos-4 { top: 50%; left: -10px; transform: translateY(-50%); }
+        
+        .candle-lit { box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+        .candle-glow {
+            position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+            width: 60px; height: 60px; background: radial-gradient(circle, rgba(255,200,0,0.2) 0%, transparent 70%);
+            border-radius: 50%; opacity: 0; transition: opacity 0.5s;
+        }
+        .candle-lit .candle-glow { opacity: 1; }
     </style>
 </head>
 <body class="bg-night-900 text-gray-100 font-sans h-screen overflow-hidden flex flex-col selection:bg-gold-500 selection:text-black">
 
-    <!-- 1. FONDO ALEATORIO GLOBAL (Imágenes Premium de Unsplash) -->
+    <!-- 1. FONDO ALEATORIO GLOBAL (Imágenes Premium) -->
     <div id="global-bg-image"></div>
+
+    <!-- 2. AUDIO DE FONDO (Villancicos Instrumental - Dominio Público) -->
+    <audio id="bg-music" loop>
+        <!-- "Silent Night" Piano Instrumental - Public Domain/CC0 -->
+        <source src="https://cdn.pixabay.com/audio/2022/12/16/audio_06a74e54a1.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
 
     <!-- ============================================ -->
     <!-- PANTALLA DE ESPERA / CUENTA REGRESIVA        -->
     <!-- ============================================ -->
     <div id="lock-screen">
-        <!-- Fondos Cambiantes (Overlays) -->
+        <!-- Fondos Cambiantes -->
         <div class="lock-bg bg-lock-night active" id="bg-1"></div>
         <div class="lock-bg bg-lock-nature" id="bg-2"></div>
         <div class="lock-bg bg-lock-peace" id="bg-3"></div>
         <div class="lock-bg bg-lock-life" id="bg-4"></div>
         
-        <!-- Partículas -->
-        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-30 pointer-events-none fixed"></div>
+        <!-- NIEVE / ESCARCHA (Nuevo efecto realista) -->
+        <div class="snow"></div>
+        
+        <!-- MARCA DE AGUA SUTIL -->
+        <div class="watermark-text">YA VIENE</div>
 
-        <!-- Contenedor flexible con min-height para permitir scroll -->
+        <!-- Contenedor flexible -->
         <div id="lock-screen-content" class="flex flex-col items-center justify-center w-full min-h-screen px-4 py-8">
             
-            <div class="mb-4 animate-float">
+            <div class="mb-4 animate-float z-10">
                 <i class="fa-solid fa-star text-gold-400 text-4xl animate-pulse-slow"></i>
             </div>
 
-            <h1 class="font-serif text-4xl md:text-7xl font-bold text-white mb-8 drop-shadow-2xl tracking-wider text-center">
+            <h1 class="font-serif text-4xl md:text-7xl font-bold text-white mb-8 drop-shadow-2xl tracking-wider text-center z-10">
                 ADVIENTO
             </h1>
             
             <!-- ELEMENTO AI -->
-            <div class="ai-orb-container" onclick="triggerAIProphecy()">
+            <div class="ai-orb-container z-10" onclick="triggerAIProphecy()">
                 <div class="ai-orb"><i class="fa-solid fa-star"></i></div>
                 <p class="text-[11px] text-gold-400 uppercase tracking-[0.3em] mt-3 font-bold pulse-text text-center">PULSA EN LA ESTRELLA MIENTRAS ESPERAMOS</p>
             </div>
-            <div id="ai-output" class="ai-message-box text-center"></div>
+            <div id="ai-output" class="ai-message-box text-center z-10"></div>
 
             <!-- Contador -->
-            <div class="flex flex-wrap justify-center gap-4 md:gap-8 mb-12">
+            <p class="text-gold-300 font-serif tracking-[0.5em] text-sm mb-4 uppercase z-10 animate-pulse">FALTAN</p>
+            <div class="flex flex-wrap justify-center gap-4 md:gap-8 mb-12 z-10">
                 <div class="countdown-box"><span class="block text-3xl md:text-5xl font-serif font-bold text-white" id="days">00</span><span class="text-xs uppercase tracking-widest text-gold-400">Días</span></div>
                 <div class="countdown-box"><span class="block text-3xl md:text-5xl font-serif font-bold text-white" id="hours">00</span><span class="text-xs uppercase tracking-widest text-gold-400">Horas</span></div>
                 <div class="countdown-box"><span class="block text-3xl md:text-5xl font-serif font-bold text-white" id="minutes">00</span><span class="text-xs uppercase tracking-widest text-gold-400">Min</span></div>
@@ -255,7 +357,7 @@
             </div>
 
             <!-- Formulario -->
-            <div class="glass-premium p-2 rounded-full flex items-center max-w-md w-full transition-transform focus-within:scale-105 mb-8">
+            <div class="glass-premium p-2 rounded-full flex items-center max-w-md w-full transition-transform focus-within:scale-105 mb-8 z-10">
                 <input type="password" id="access-code" placeholder="Ingresa el Código" 
                     class="bg-transparent border-none outline-none text-white px-6 py-2 w-full font-serif tracking-widest placeholder-gray-500 text-center uppercase">
                 <button onclick="checkAccess()" class="bg-gold-500 text-night-900 rounded-full w-12 h-12 flex items-center justify-center hover:bg-white transition-colors">
@@ -284,7 +386,7 @@
                 <div class="hidden md:flex items-center gap-8">
                     <button onclick="navigateTo('home')" class="nav-btn text-xs font-serif uppercase tracking-widest text-gray-400 hover:text-gold-200 transition-colors active" data-target="home">Inicio</button>
                     <button onclick="navigateTo('intro')" class="nav-btn text-xs font-serif uppercase tracking-widest text-gray-400 hover:text-gold-200 transition-colors" data-target="intro">Introducción</button>
-                    <button onclick="navigateTo('liturgy')" class="nav-btn text-xs font-serif uppercase tracking-widest text-gray-400 hover:text-gold-200 transition-colors" data-target="liturgy">Liturgia I</button>
+                    <button onclick="navigateTo('liturgy')" class="nav-btn text-xs font-serif uppercase tracking-widest text-gray-400 hover:text-gold-200 transition-colors" data-target="liturgy">Liturgia del Primer Domingo</button>
                     <button onclick="navigateTo('week1')" class="px-6 py-2 rounded-full bg-gold-500 text-night-900 font-bold text-xs font-serif uppercase tracking-widest hover:bg-white transition-all shadow-[0_0_20px_rgba(212,175,55,0.4)]">Semana 1</button>
                 </div>
                 <button class="md:hidden text-gold-200" onclick="toggleMenu()"><i class="fa-solid fa-bars text-2xl"></i></button>
@@ -327,6 +429,17 @@
                         <p>El camino propuesto tiene una doble estructura. En una primera parte, durante los cuatro domingos de Adviento, nos acercaremos a los rostros de la Navidad a través del de Isabel, Ana, José, los Magos, María y Herodes. Sus vidas, entretejidas con las lecturas del Ciclo A, nos ayudarán a preparar el corazón. Este recorrido irá acompañado de un gesto simbólico: la construcción paulatina de nuestro propio Belén, un Evangelio vivo que toma forma en nuestro hogar, en nuestra comunidad y nuestra fraternidad.</p>
                         <p>La segunda parte, del 16 al 24 de diciembre, nos sumergirá en la riqueza litúrgica de las siete grandes Antífonas de Adviento “Oh”, flanqueada por la celebración entrañable de la Novena de Navidad. Cada día será una invocación, un clamor que se eleva desde la víspera del mundo, reconociendo nuestra sed y abriéndonos a la venida de Aquel que es la única respuesta. Este no es, por tanto, un mero ejercicio de piedad, sino una preparación para un encuentro real, una respuesta a la invitación perenne de renovar nuestro encuentro personal con Jesucristo, el Emmanuel, el Dios que se hace carne para habitar nuestra intemperie, para estar con nosotros.</p>
                     </div>
+                    <div class="mt-12 flex justify-center pb-8">
+                        <button onclick="navigateTo('home')" class="group flex items-center gap-3 text-gold-400 hover:text-white transition-colors duration-300">
+                            <span class="text-xs font-serif uppercase tracking-[0.2em] group-hover:translate-x-1 transition-transform">VOLVER A PORTADA</span>
+                            <i class="fa-solid fa-house p-3 rounded-full border border-gold-500/30 group-hover:border-gold-500 group-hover:bg-gold-500 group-hover:text-black transition-all"></i>
+                        </button>
+                        <div class="w-px h-10 bg-gold-500/20 mx-6"></div>
+                        <button onclick="scrollToTop()" class="group flex items-center gap-3 text-gold-400 hover:text-white transition-colors duration-300">
+                            <span class="text-xs font-serif uppercase tracking-[0.2em] group-hover:translate-x-1 transition-transform">SUBIR</span>
+                            <i class="fa-solid fa-arrow-up p-3 rounded-full border border-gold-500/30 group-hover:border-gold-500 group-hover:bg-gold-500 group-hover:text-black transition-all"></i>
+                        </button>
+                    </div>
                 </div>
             </section>
 
@@ -336,15 +449,31 @@
                     <div class="lg:col-span-4 space-y-6">
                         <div class="glass-premium p-8 rounded-2xl text-center sticky top-24">
                             <h3 class="font-serif text-2xl text-gold-100 mb-4">Rito de la Corona</h3>
-                            <div class="relative w-48 h-48 mx-auto mb-6">
-                                <div class="absolute inset-0 rounded-full border-[25px] border-green-900/60 shadow-lg bg-black/50"></div>
-                                <div class="absolute inset-0 rounded-full border-[25px] border-dashed border-green-800/30 animate-spin-slow"></div>
-                                <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-6 h-20 bg-purple-700 rounded shadow-lg cursor-pointer hover:-translate-y-2 transition-transform" onclick="toggleCandle()"><div id="flame" class="flame-real"></div></div>
-                                <div class="absolute top-1/2 -right-4 -translate-y-1/2 w-6 h-20 bg-purple-800 rounded opacity-40"></div>
-                                <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 w-6 h-20 bg-pink-700 rounded opacity-40"></div>
-                                <div class="absolute top-1/2 -left-4 -translate-y-1/2 w-6 h-20 bg-purple-800 rounded opacity-40"></div>
+                            <p class="text-xs text-purple-300 uppercase tracking-widest mb-8">Encender la Primera Llama</p>
+                            
+                            <!-- NUEVA CORONA PREMIUM -->
+                            <div class="wreath-container mb-8">
+                                <!-- Base con textura -->
+                                <div class="wreath-base"></div>
+                                <div class="wreath-texture"></div>
+                                
+                                <!-- Velas -->
+                                <!-- 1. Morada (Arriba) - INTERACTIVA -->
+                                <div class="candle-body candle-purple c-pos-1 cursor-pointer hover:-translate-y-2 transition-transform" onclick="toggleCandle()" id="candle-1">
+                                    <div class="candle-glow"></div>
+                                    <div id="flame-1" class="flame-real"></div>
+                                </div>
+                                <!-- 2. Morada (Derecha) - Apagada -->
+                                <div class="candle-body candle-purple c-pos-2 opacity-80"></div>
+                                <!-- 3. Rosa (Abajo) - Apagada -->
+                                <div class="candle-body candle-pink c-pos-3 opacity-80"></div>
+                                <!-- 4. Morada (Izquierda) - Apagada -->
+                                <div class="candle-body candle-purple c-pos-4 opacity-80"></div>
                             </div>
-                            <button onclick="toggleCandle()" class="w-full py-3 bg-purple-900/50 border border-purple-500/30 text-purple-100 font-serif text-xs uppercase tracking-widest rounded hover:bg-purple-800 transition-all">Encender Vela Morada</button>
+
+                            <button onclick="toggleCandle()" class="w-full py-3 bg-purple-900/50 border border-purple-500/30 text-purple-100 font-serif text-xs uppercase tracking-widest rounded hover:bg-purple-800 transition-all shadow-lg">
+                                Encender Vela Morada
+                            </button>
                         </div>
                     </div>
                     <div class="lg:col-span-8 space-y-4">
@@ -355,7 +484,7 @@
                         <!-- Accordions -->
                         <div class="glass-premium rounded-xl overflow-hidden group"><button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('lit-1')"><div class="flex items-center gap-4"><span class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 font-serif">A</span><h3 class="font-serif text-lg text-gold-100">Monición de Entrada</h3></div><i class="fa-solid fa-chevron-down text-gold-500"></i></button><div id="lit-1" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed text-justify border-t border-white/5"><p class="mb-4">Hermanas y hermanos, bienvenidos a este tiempo de gracia, a este umbral sagrado que llamamos Adviento. Hoy no empezamos un tiempo litúrgico más en el calendario. Empezamos un movimiento del corazón. Es como llegar a la puerta de nuestra propia casa después de un largo viaje y encontrarla en silencio, esperando ser habitada de nuevo. El Adviento es ese momento de quietud antes de girar la llave. Es la decisión de entrar, de poner orden, no por obligación, sino por el anhelo profundo de recibir a Alguien muy esperado.</p><p class="mb-4">El mundo ahí fuera seguirá con su ruido, con sus luces prematuras y sus prisas, con su desde “septiembre se siente que viene diciembre”. Pero nosotros, aquí, elegimos hacer una pausa. Elegimos el silencio. Elegimos la espera. No una espera vacía, sino una espera preñada de sentido. Porque esperar en Adviento es, en el fondo, una forma de oración. Es decirle a Dios con nuestra vida “aquí estoy mi casa está abierta, mi corazón, aunque pequeño y a veces desordenado, te anhela".</p><p>Este tiempo nos invita a actualizar nuestra vida a Dios, a permitir que su Espíritu ponga al día nuestros anhelos y esperanzas. Es un tiempo para dejarnos descolocar, para que la sorpresa de un Dios que se hace pequeño rompa nuestros esquemas. No iniciamos este camino solos. Lo hacemos sostenidos por la esperanza de generaciones y con la certeza de que nuestra preparación es en realidad, una respuesta. Respondemos a un Dios que ya ha dado el primer paso, a un Dios que corre a nuestro encuentro en el camino. Abramos, pues, la puerta del corazón y comenzamos a velar.</p></div></div>
                         
-                        <div class="glass-premium rounded-xl overflow-hidden group"><button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('lit-2')"><div class="flex items-center gap-4"><span class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 font-serif">B</span><h3 class="font-serif text-lg text-gold-100">Liturgia de la Palabra</h3></div><i class="fa-solid fa-chevron-down text-gold-500"></i></button><div id="lit-2" class="hidden px-8 pb-8 pt-2 border-t border-white/5 space-y-8"><div class="p-4 bg-white/5 rounded-lg italic text-gray-400 font-display text-sm"><p>La Palabra que la Iglesia nos ofrece en este pórtico del Adviento es una sinfonía de contrastes... El profeta Isaías nos eleva la mirada. Nos habla de un futuro anhelado.</p></div><div><h4 class="text-gold-500 font-serif text-sm uppercase tracking-widest mb-2">Primera Lectura: Isaías 2, 1-5</h4><p class="text-gray-300 font-display leading-relaxed text-justify">Visión de Isaías, hijo de Amós, acerca de Judá y de Jerusalén. En los días futuros estará firme el monte de la casa del Señor, en la cumbre de las montañas... Hacia él confluirán todas las naciones, caminarán pueblos numerosos. Dirán: "Venid, subamos al monte del Señor... Él nos instruirá en sus caminos y marcharemos por sus sendas". Porque de Sión saldrá la ley, de Jerusalén, la palabra del Señor. Él será el árbitro de las naciones... De las espadas forjarán arados, de las lanzas, podaderas. No alzará la espada pueblo contra pueblo, no se adiestrarán para la guerra. Casa de Jacob, ven, caminemos a la luz del Señor.</p></div><div><h4 class="text-gold-500 font-serif text-sm uppercase tracking-widest mb-2">Salmo Responsorial: Salmo 121</h4><p class="text-white font-bold italic mb-2">R/. Qué alegría cuando me dijeron: "Vamos a la casa del Señor".</p><p class="text-gray-300 font-display leading-relaxed">Qué alegría cuando me dijeron: "Vamos a la casa del Señor". Ya están pisando nuestros pies tus umbrales, Jerusalén.<br>Allá suben las tribus, las tribus del Señor, según la costumbre de Israel, a celebrar el nombre del Señor.<br>Desead la paz a Jerusalén: "Vivan seguros los que te aman, haya paz dentro de tus muros".</p></div><div><h4 class="text-gold-500 font-serif text-sm uppercase tracking-widest mb-2">Segunda Lectura: Romanos 13, 11-14</h4><p class="text-gray-300 font-display leading-relaxed text-justify">Hermanos: Daos cuenta del momento en que vivís; ya es hora de despertaros del sueño, porque ahora nuestra salvación está más cerca que cuando empezamos a creer. La noche está avanzada, el día se echa encima: dejemos las actividades de las tinieblas y pertrechémonos con las armas de la luz. Conduzcámonos como en pleno día, con dignidad. Nada de comilonas ni borracheras, nada de lujuria ni desenfreno, nada de riñas ni envidias. Revestíos más bien del Señor Jesucristo.</p></div><div><h4 class="text-gold-500 font-serif text-sm uppercase tracking-widest mb-2">Evangelio: Mateo 24, 37-44</h4><p class="text-gray-300 font-display leading-relaxed text-justify">En aquel tiempo, dijo Jesús a sus discípulos: "Cuando venga el Hijo del hombre, pasará como en tiempo de Noé... la gente comía, bebía y se casaba, hasta el día en que Noé entró en el arca; y cuando menos lo esperaban llegó el diluvio y se los llevó a todos; lo mismo sucederá cuando venga el Hijo del hombre... Por tanto, estad en vela, porque no sabéis qué día vendrá vuestro Señor. Comprended que si supiera el dueño de casa a qué hora de la noche viene el ladrón, estaría en vela y no dejaría abrir un boquete en su casa. Por eso, estad también vosotros preparados, porque a la hora que menos penséis viene el Hijo del hombre".</p></div></div></div>
+                        <div class="glass-premium rounded-xl overflow-hidden group"><button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('lit-2')"><div class="flex items-center gap-4"><span class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 font-serif">B</span><h3 class="font-serif text-lg text-gold-100">Liturgia de la Palabra</h3></div><i class="fa-solid fa-chevron-down text-gold-500"></i></button><div id="lit-2" class="hidden px-8 pb-8 pt-2 border-t border-white/5 space-y-8"><div class="p-4 bg-white/5 rounded-lg italic text-gray-400 font-display text-sm"><p>La Palabra que la Iglesia nos ofrece en este pórtico del Adviento es una sinfonía de contrastes... El profeta Isaías nos eleva la mirada. Nos habla de un futuro anhelado.</p></div><div><h4 class="text-gold-500 font-serif text-sm uppercase tracking-widest mb-2">Primera Lectura: Isaías 2, 1-5</h4><p class="text-gray-300 font-display leading-relaxed text-justify">Visión de Isaías, hijo de Amós, acerca de Judá y de Jerusalén. En los días futuros estará firme el monte de la casa del Señor, en la cumbre de las montañas... Hacia él confluirán todas las naciones, caminarán pueblos numerosos. Dirán: "Vengan, subamos al monte del Señor... Él nos instruirá en sus caminos y marcharemos por sus sendas". Porque de Sión saldrá la ley, de Jerusalén, la palabra del Señor. Él será el árbitro de las naciones... De las espadas forjarán arados, de las lanzas, podaderas. No alzará la espada pueblo contra pueblo, no se adiestrarán para la guerra. Casa de Jacob, ven, caminemos a la luz del Señor.</p></div><div><h4 class="text-gold-500 font-serif text-sm uppercase tracking-widest mb-2">Salmo Responsorial: Salmo 121</h4><p class="text-white font-bold italic mb-2">R/. Qué alegría cuando me dijeron: "Vamos a la casa del Señor".</p><p class="text-gray-300 font-display leading-relaxed">Qué alegría cuando me dijeron:<br>“Vamos a la casa del Señor”.<br>Ya están pisando nuestros pies<br>tus umbrales, Jerusalén. R/.<br><br>Allá suben las tribus,<br>las tribus del Señor,<br>según la costumbre de Israel,<br>a celebrar el nombre del Señor;<br>en ella están los tribunales de justicia,<br>en el palacio de David. R/.<br><br>Deseen la paz a Jerusalén:<br>“Vivan seguros los que te aman,<br>haya paz dentro de tus muros,<br>seguridad en tus palacios”. R/.<br><br>Por mis hermanos y compañeros,<br>voy a decir: “La paz contigo”.<br>Por la casa del Señor, nuestro Dios,<br>te deseo todo bien. R/.</p></div><div><h4 class="text-gold-500 font-serif text-sm uppercase tracking-widest mb-2">Segunda Lectura: Romanos 13, 11-14</h4><p class="text-gray-300 font-display leading-relaxed text-justify">Hermanos: Dense cuenta del momento en que viven; ya es hora de despertarse del sueño, porque ahora nuestra salvación está más cerca que cuando empezamos a creer. La noche está avanzada, el día se echa encima: dejemos las actividades de las tinieblas y pertrechémonos con las armas de la luz. Conduzcámonos como en pleno día, con dignidad. Nada de comilonas ni borracheras, nada de lujuria ni desenfreno, nada de riñas ni envidias. Revístanse más bien del Señor Jesucristo.</p></div><div><h4 class="text-gold-500 font-serif text-sm uppercase tracking-widest mb-2">Evangelio: Mateo 24, 37-44</h4><p class="text-gray-300 font-display leading-relaxed text-justify">En aquel tiempo, dijo Jesús a sus discípulos: "Cuando venga el Hijo del hombre, pasará como en tiempo de Noé... la gente comía, bebía y se casaba, hasta el día en que Noé entró en el arca; y cuando menos lo esperaban llegó el diluvio y se los llevó a todos; lo mismo sucederá cuando venga el Hijo del hombre... Por tanto, estén en vela, porque no saben qué día vendrá su Señor. Comprendan que si supiera el dueño de casa a qué hora de la noche viene el ladrón, estaría en vela y no dejaría abrir un boquete en su casa. Por eso, estén también ustedes preparados, porque a la hora que menos piensen viene el Hijo del hombre".</p></div></div></div>
 
                         <div class="glass-premium rounded-xl overflow-hidden group"><button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('lit-reflection')"><div class="flex items-center gap-4"><div class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 font-serif"><i class="fa-solid fa-pen-fancy text-sm"></i></div><h3 class="font-serif text-lg text-gold-100">Reflexión: Escuchar en la Noche</h3></div><i class="fa-solid fa-chevron-down text-gold-500"></i></button><div id="lit-reflection" class="hidden px-8 pb-8 pt-2 border-t border-white/5 text-gray-300 font-display text-lg leading-relaxed text-justify space-y-6"><p>La Palabra que la Iglesia nos ofrece en este pórtico del Adviento es una sinfonía de contrastes, una promesa de paz universal y una advertencia sobre la venida inesperada; una llamada a despertar del sueño y una descripción de la vida que sigue su curso, ajena a lo trascendente. ¿Cómo armonizar estas melodías?</p><p><strong class="text-gold-400">El profeta Isaías</strong> nos eleva la mirada. Nos habla de un futuro anhelado, de un monte del Señor al que confluirán todas las naciones. Es una visión de paz radical, donde las espadas se forjan como arados y los tambores de guerra enmudecen para siempre. Esta promesa no es una utopía lejana; es el motor de nuestra espera. Es la razón por la que velamos. No velamos porque temamos un final catastrófico, sino porque anhelamos con toda el alma el cumplimiento de esta paz. La esperanza que nos regala Isaías es el combustible que alimenta nuestra perseverancia en la noche.</p><p>Con esta promesa en el corazón, la llamada de <strong class="text-gold-400">Pablo a los Romanos</strong> adquiere un nuevo sentido: “ya es hora de despertaros del sueño”. ¿Cuál es ese sueño del que debemos despertar? Es el sueño de la resignación, el que nos hace creer que la violencia es inevitable y que la paz de Isaías es solo un bonito poema. Es el letargo de la rutina que nos vuelve indiferentes al sufrimiento ajeno. Es la oscuridad del cinismo que apaga nuestra capacidad de asombro. Revestirnos del Señor Jesucristo no es un acto mágico, sino la decisión consciente de adoptar su manera de mirar la realidad, una mirada que ve posibilidades de vida donde otros solo ven finales, una mirada atenta, compasiva y, sobre todo, despierta.</p><p>Así llegamos al <strong class="text-gold-400">Evangelio de Mateo</strong>. A primera vista, sus palabras pueden inquietarnos. La comparación con los días de Noé, con el diluvio que se los llevó a todos, podría sonar una amenaza. Sin embargo, la liturgia nos ha preparado para leerlo con otros ojos, los ojos de la promesa de Isaías. El punto central no es el castigo, sino la sorpresa. La vida en tiempos de Noé transcurría con una normalidad absoluta “comían y bebían, se casaban”. No se describe nada intrínsecamente malo. El problema no era la vida cotidiana, sino vivirla de espaldas a Dios, dormidos a su presencia.</p><p>El Adviento, entonces, no nos pide huir de nuestra vida ordinaria. No nos exigen gestos extraordinarios. Nos invita a habitar nuestra cotidianidad, nuestro trabajo, nuestras comidas familiares, nuestras alegrías y preocupaciones, con una conciencia nueva, con el corazón en vela. Nos pide ser como aquel que, mientras está en el campo o moliendo el grano, mantiene su atención conectada a lo Esencial, capaz de reconocer al Señor que llega sin previo aviso. La espiritualidad de Adviento es encontrar lo extraordinario en lo ordinario. Es descubrir que el escenario de la llegada de Dios no es otro que el de nuestras vidas, con toda su belleza y su fragilidad. Es la misma fragilidad que envolvió a José en la noche de Belén, buscando un lugar mientras el miedo y la responsabilidad lo desbordaban. Es la misma atención al cielo que movió a los Magos a dejarlo todo por seguir una estrella. Es la misma escucha profunda que hizo a Isabel reconocer al Señor en el saludo de su prima. Velar es, sencillamente, vivir con el corazón atento.</p></div></div>
 
@@ -364,14 +493,25 @@
                         <div class="glass-premium rounded-xl overflow-hidden group"><button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('lit-4')"><div class="flex items-center gap-4"><span class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 font-serif">D</span><h3 class="font-serif text-lg text-gold-100">Plegaria de los Fieles</h3></div><i class="fa-solid fa-chevron-down text-gold-500"></i></button><div id="lit-4" class="hidden px-8 pb-8 pt-2 border-t border-white/5 text-gray-300 font-display text-lg leading-relaxed"><p class="mb-4 italic text-center">A cada intención respondemos: Señor, aviva en nosotros la esperanza.</p><ul class="space-y-4 list-decimal pl-5"><li>Por la Iglesia, para que en este tiempo de Adviento sea un faro de esperanza vigilante en el mundo, anunciando con alegría la venida del Salvador. Oremos.</li><li>Por los que gobiernan las naciones, para que, inspirados en la visión de paz del profeta Isaías, trabajen por un mundo donde las armas se convertirán en instrumentos de trabajo y de vida. Oremos.</li><li>Por todos los que viven en la noche de la soledad, la enfermedad, la pobreza o la desesperanza; para que encuentren en nosotros una mano tendida y una pequeña llama que les recuerden que no están solos. Oremos.</li><li>Por nosotros, aquí reunidos, para que el Señor nos conceda la gracia de "despertar del sueño" de la indiferencia y la rutina, y vivir este Adviento con el corazón atento a su presencia en lo cotidiano. Oremos.</li><li>Por todos los que se sienten estériles o en los márgenes de la vida, como Isabel, y por todos los que sostienen a otros con su oración, como Ana; para que experimenten la sorpresa de la vida nueva que Dios hace hermano. Oremos.</li></ul><p class="mt-4"><em>Presidente:</em> Acoge, Padre, estas súplicas que tu pueblo te presenta con fe. Ayúdanos a caminar en la luz de tu Hijo, para que cuando Él vuelva nos encuentre velando en la oración y cantando su alabanza. Por Jesucristo, nuestro Señor. <strong>Amén.</strong></p></div></div>
                     </div>
                 </div>
+                <div class="mt-12 flex justify-center pb-8">
+                    <button onclick="navigateTo('home')" class="group flex items-center gap-3 text-gold-400 hover:text-white transition-colors duration-300">
+                        <span class="text-xs font-serif uppercase tracking-[0.2em] group-hover:translate-x-1 transition-transform">VOLVER A PORTADA</span>
+                        <i class="fa-solid fa-house p-3 rounded-full border border-gold-500/30 group-hover:border-gold-500 group-hover:bg-gold-500 group-hover:text-black transition-all"></i>
+                    </button>
+                    <div class="w-px h-10 bg-gold-500/20 mx-6"></div>
+                    <button onclick="scrollToTop()" class="group flex items-center gap-3 text-gold-400 hover:text-white transition-colors duration-300">
+                        <span class="text-xs font-serif uppercase tracking-[0.2em] group-hover:translate-x-1 transition-transform">SUBIR</span>
+                        <i class="fa-solid fa-arrow-up p-3 rounded-full border border-gold-500/30 group-hover:border-gold-500 group-hover:bg-gold-500 group-hover:text-black transition-all"></i>
+                    </button>
+                </div>
             </section>
 
             <!-- VISTA 4: SEMANA 1 -->
             <section id="week1" class="view-section max-w-7xl mx-auto px-4 py-8">
                 <div class="text-center mb-10">
                     <div class="inline-flex items-center gap-2 border border-gold-500/30 rounded-full px-4 py-1 mb-4 bg-gold-500/5"><span class="w-2 h-2 rounded-full bg-gold-500 animate-pulse"></span><span class="text-gold-400 text-xs font-serif uppercase tracking-widest">Semana 1</span></div>
-                    <h2 class="font-serif text-4xl md:text-5xl text-white mt-2 mb-4">Despertar a la Esperanza</h2>
-                    <div class="max-w-3xl mx-auto glass-premium p-6 rounded-xl mb-8 text-justify"><p class="font-display text-lg text-gray-300 leading-relaxed">"El Adviento es un tiempo para dejarse encontrar. No es tanto el recuento de nuestros esfuerzos por alcanzar a Dios, sino el descubrimiento asombrado de que Él siempre ha estado en camino hacia nosotros. Es un umbral que se abre en la estación más oscura del año, una grieta de luz en la noche del mundo y del corazón, que nos recuerda una verdad fundamental: la vida nueva germina en la quietud, la esperanza más terca florece en el frío. Esta primera semana nos invita a cultivar el arte de velar. Pero no se trata de una vigilia tensa, de ojos insomnes que escrutan el horizonte con miedo. Es, más bien, un despertar de los sentidos interiores. Es aprender a escuchar el pulso de Dios en el silencio de nuestras vidas, a reconocer su llegada en lo inesperado, a despojarnos de las obras de la noche, el cinismo, la prisa, la desesperanza, para vestirnos con las armas de la luz. El tema central, extraído de la Sagrada Escritura de este primer domingo, es una llamada a salir del letargo: “Velen, porque no saben el día”. Esta vigilancia no es una carga, sino una gracia. Es la actitud de quien sabe que algo bueno está por suceder y no quiere perdérselo. A lo largo de estos días, nos dejaremos guiar por aquellos personajes que, desde los márgenes de la gran historia, supieron esperar y velar, convirtiendo su incertidumbre en un espacio sagrado para el encuentro."</p></div>
+                    <h2 class="font-serif text-4xl md:text-5xl text-white mt-4 mb-4">El Arte de Velar</h2>
+                    <div class="max-w-3xl mx-auto glass-premium p-6 rounded-xl mb-8 text-justify"><p class="font-display text-lg text-gray-300 leading-relaxed">"El Adviento es un tiempo para dejarse encontrar... Esta primera semana nos invita a cultivar el arte de velar. Pero no se trata de una vigilia tensa... Es, más bien, un despertar de los sentidos interiores. Es aprender a escuchar el pulso de Dios en el silencio de nuestras vidas."</p></div>
                 </div>
                 <div class="sticky top-20 z-30 bg-night-900/90 backdrop-blur-md py-4 mb-8 overflow-x-auto flex justify-center gap-3 border-b border-white/10">
                     <button onclick="renderDay('lunes')" class="day-btn active" id="btn-lunes">Lunes (Isabel)</button>
@@ -382,6 +522,17 @@
                     <button onclick="renderDay('sabado')" class="day-btn" id="btn-sabado">Sábado (Camino)</button>
                 </div>
                 <div id="day-container" class="glass-premium p-8 md:p-12 rounded-2xl min-h-[600px] transition-all duration-500"></div>
+                <div class="mt-12 flex justify-center pb-8">
+                    <button onclick="navigateTo('home')" class="group flex items-center gap-3 text-gold-400 hover:text-white transition-colors duration-300">
+                        <span class="text-xs font-serif uppercase tracking-[0.2em] group-hover:translate-x-1 transition-transform">VOLVER A PORTADA</span>
+                        <i class="fa-solid fa-house p-3 rounded-full border border-gold-500/30 group-hover:border-gold-500 group-hover:bg-gold-500 group-hover:text-black transition-all"></i>
+                    </button>
+                    <div class="w-px h-10 bg-gold-500/20 mx-6"></div>
+                    <button onclick="scrollToTop()" class="group flex items-center gap-3 text-gold-400 hover:text-white transition-colors duration-300">
+                        <span class="text-xs font-serif uppercase tracking-[0.2em] group-hover:translate-x-1 transition-transform">SUBIR</span>
+                        <i class="fa-solid fa-arrow-up p-3 rounded-full border border-gold-500/30 group-hover:border-gold-500 group-hover:bg-gold-500 group-hover:text-black transition-all"></i>
+                    </button>
+                </div>
             </section>
         </main>
 
@@ -431,15 +582,28 @@
 
         // --- LOCK SCREEN LOGIC ---
         
-        // --- AI PROPHECY LOGIC (NEW - OLAIZOLA STYLE) ---
+        // --- AI PROPHECY LOGIC (NEW - COMBINED STYLES) ---
         const aiProphecies = [
+            // Estilo J.M. Rodríguez Olaizola
             "No busques señales grandiosas. Dios se esconde en lo pequeño, en lo que pasa desapercibido mientras miras a otro lado.",
             "La espera no es tiempo perdido. Es el taller donde se forja la capacidad de recibir lo que nos sobrepasa.",
             "Quizás el milagro que esperas no sea un cambio en tus circunstancias, sino una grieta de luz en tu propia mirada.",
             "Dios no viene a resolver tus problemas, viene a habitarlos contigo. Y eso lo cambia todo.",
             "Atrévete a creer que tu vulnerabilidad no es un defecto, sino el pesebre exacto donde quiere nacer la Vida.",
             "El Adviento es aprender a conjugar el verbo 'esperar' en presente. No es lo que vendrá, es lo que ya está germinando.",
-            "No tengas miedo al silencio. Es el único idioma en el que Dios puede decirte quién eres realmente."
+            "No tengas miedo al silencio. Es el único idioma en el que Dios puede decirte quién eres realmente.",
+
+            // Estilo Benjamín González Buelta (Jesuita, poesía encarnada)
+            "Dios no llega en paracaídas desde el cielo ajeno; brota desde abajo, en el humus humilde de tu propia tierra.",
+            "No busques al Señor solo en las alturas limpias; está agachado, atando las sandalias polvorientas de quien camina a tu lado.",
+            "Tu fragilidad y tus grietas no son un obstáculo para Dios; son su lugar de aterrizaje preferido.",
+            "Adviento es descubrir que el Dios inmenso ha decidido caber en la pequeñez de un pañal y en la fragilidad de tu historia.",
+
+            // Estilo Dolores Aleixandre (Biblista, hondura de la Palabra)
+            "Adviento es dejar de conjugar ansiosamente el verbo 'tener' para empezar a balbucear humildemente el verbo 'recibir'.",
+            "Como el centinela espera la aurora en la muralla, así tu corazón aguarda una Palabra que lo pronuncie de nuevo y le dé sentido.",
+            "No prepares un escenario perfecto para su venida. Prepara un pesebre: algo pequeño, pobre, quizás desordenado, pero capaz de acoger la Vida.",
+            "La esperanza no es optimismo ingenuo; es la certeza de que la última palabra sobre la historia no la tiene la noche, sino la Luz que ya amanece."
         ];
 
         function triggerAIProphecy() {
@@ -481,7 +645,9 @@
 
                 if (distance < 0) {
                     document.getElementById('days').innerText = "00";
-                    // Optional: Auto unlock if date reached
+                    document.getElementById('hours').innerText = "00";
+                    document.getElementById('minutes').innerText = "00";
+                    document.getElementById('seconds').innerText = "00";
                 } else {
                     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
                     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -509,6 +675,10 @@
                 // Start inner app
                 renderDay('lunes');
                 document.getElementById('bg-home').style.opacity = 1;
+                
+                // Intentar reproducir música al desbloquear (interacción de usuario)
+                const audio = document.getElementById('bg-music');
+                audio.play().catch(e => console.log("Autoplay blocked:", e));
             } else {
                 const input = document.getElementById('access-code');
                 input.classList.add('border-red-500', 'border');
@@ -602,9 +772,11 @@
         }
 
         function toggleCandle() {
-            const flame = document.getElementById('flame');
+            const flame = document.getElementById('flame-1');
             flame.classList.toggle('active');
-            if(flame.classList.contains('active')) alert("Has encendido la luz de la Esperanza.");
+            const isLit = flame.classList.contains('active');
+            localStorage.setItem('candle1', isLit);
+            if(isLit) alert("Has encendido la luz de la Esperanza.");
         }
 
         function toggleAccordion(id) {
@@ -621,16 +793,25 @@
 
         function togglePrayer() {
             const prayerCard = document.getElementById('prayer-card');
+            const prayerContent = document.getElementById('prayer-content');
+            
             if (prayerCard.classList.contains('hidden')) {
                 prayerCard.classList.remove('hidden');
-                prayerCard.classList.add('flex'); // Asegurar display flex
-                setTimeout(() => prayerCard.classList.remove('opacity-0'), 50);
+                prayerCard.classList.add('flex');
+                // Small delay to allow display change to register before opacity transition
+                requestAnimationFrame(() => {
+                    prayerCard.classList.remove('opacity-0');
+                    prayerContent.classList.remove('scale-95');
+                    prayerContent.classList.add('scale-100');
+                });
             } else {
                 prayerCard.classList.add('opacity-0');
+                prayerContent.classList.remove('scale-100');
+                prayerContent.classList.add('scale-95');
                 setTimeout(() => {
                     prayerCard.classList.add('hidden');
                     prayerCard.classList.remove('flex');
-                }, 500);
+                }, 300); // Match duration
             }
         }
 
@@ -664,8 +845,8 @@
                     </div>
 
                     <!-- Modal Oración (Oculto por defecto) -->
-                    <div id="prayer-card" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm opacity-0 transition-opacity duration-500 p-4" onclick="if(event.target === this) togglePrayer()">
-                        <div class="glass-premium max-w-2xl w-full p-8 md:p-12 rounded-2xl relative border border-gold-500/30 shadow-[0_0_50px_rgba(212,175,55,0.2)] transform scale-100 transition-transform">
+                    <div id="prayer-card" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm opacity-0 transition-all duration-300 p-4" onclick="if(event.target === this) togglePrayer()">
+                        <div class="glass-premium max-w-2xl w-full p-8 md:p-12 rounded-2xl relative border border-gold-500/30 shadow-[0_0_50px_rgba(212,175,55,0.2)] transform scale-95 transition-all duration-300" id="prayer-content">
                             <button onclick="togglePrayer()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-2xl"></i></button>
                             <div class="text-center mb-8">
                                 <i class="fa-solid fa-church text-gold-500 text-3xl mb-4"></i>
@@ -692,9 +873,45 @@
              document.getElementById('mobile-menu').classList.add('opacity-0', 'pointer-events-none');
         }
 
+        function scrollToTop() {
+            document.getElementById('main-content').scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         window.onload = () => {
             setRandomBackground(); // Establecer fondo aleatorio
             initLockScreen();
+            
+            // Check candle persistence
+            const isCandleLit = localStorage.getItem('candle1') === 'true';
+            if(isCandleLit) {
+                document.getElementById('flame-1').classList.add('active');
+            }
+            
+            // Attempt to play background music automatically (will likely be blocked by browsers until user interaction)
+            const bgMusic = document.getElementById('bg-music');
+            if(bgMusic) {
+                // Set volume low for background ambiance
+                bgMusic.volume = 0.3; 
+                // Try to play
+                const playPromise = bgMusic.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(_ => {
+                        // Autoplay started!
+                    }).catch(error => {
+                        // Auto-play was prevented
+                        // We can add a listener to the document to play on first interaction
+                         const unlockAudio = () => {
+                            bgMusic.play();
+                            document.removeEventListener('click', unlockAudio);
+                            document.removeEventListener('touchstart', unlockAudio);
+                            document.removeEventListener('keydown', unlockAudio);
+                        };
+                        document.addEventListener('click', unlockAudio);
+                        document.addEventListener('touchstart', unlockAudio);
+                        document.addEventListener('keydown', unlockAudio);
+                    });
+                }
+            }
         };
     </script>
 </body>
