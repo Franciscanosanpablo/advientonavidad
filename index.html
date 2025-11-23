@@ -55,6 +55,7 @@
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'ai-pulse': 'aiPulse 2s infinite',
                         'snow': 'snow 20s linear infinite',
+                        'bob': 'bob 1.5s ease-in-out infinite alternate',
                         'flame-flicker': 'flicker 0.1s infinite alternate',
                     },
                     keyframes: {
@@ -89,10 +90,11 @@
                             '90%': { opacity: '1' },
                             '100%': { transform: 'translateY(100vh)', opacity: '0' }
                         },
-                        flicker: { 
-                            '0%': { transform: 'scale(1)', opacity: '0.8' }, 
-                            '100%': { transform: 'scale(1.1)', opacity: '1' } 
-                        }
+                        bob: {
+                            '0%': { transform: 'translateY(0)' },
+                            '100%': { transform: 'translateY(-4px)' }
+                        },
+                         flicker: { '0%': {transform: 'scale(1)', opacity: '0.8'}, '100%': {transform: 'scale(1.1)', opacity: '1'} }
                     }
                 }
             }
@@ -266,7 +268,7 @@
         .typing-cursor::after { content: '|'; animation: blink 1s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        /* --- ESTILOS CORONA PREMIUM (FIXED) --- */
+        /* --- ESTILOS CORONA PREMIUM (FIXED BASE64) --- */
         .wreath-container { position: relative; width: 280px; height: 280px; margin: 0 auto; }
         .wreath-base {
             position: absolute; inset: 0; border-radius: 50%; border: 45px solid transparent;
@@ -347,6 +349,11 @@
             </div>
             <div id="ai-output" class="ai-message-box text-center z-10"></div>
 
+            <!-- SPOTIFY WIDGET (Oculto por defecto, aparece al pulsar la estrella) -->
+            <div id="spotify-lock-widget" class="w-full max-w-md z-10 mb-8 transition-all duration-1000 opacity-0 scale-95 hidden">
+                 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/4QrrTtC5bC4CXclWHaaWxw?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </div>
+
             <!-- Contador -->
             <p class="text-gold-300 font-serif tracking-[0.5em] text-sm mb-4 uppercase z-10 animate-pulse">FALTAN</p>
             <div class="flex flex-wrap justify-center gap-4 md:gap-8 mb-12 z-10">
@@ -363,6 +370,14 @@
                 <button onclick="checkAccess()" class="bg-gold-500 text-night-900 rounded-full w-12 h-12 flex items-center justify-center hover:bg-white transition-colors">
                     <i class="fa-solid fa-arrow-right"></i>
                 </button>
+            </div>
+            
+            <!-- BOTON SPOTIFY PANTALLA BLOQUEO (LINK DIRECTO) -->
+            <div class="z-10 mt-4 mb-8">
+                <a href="https://open.spotify.com/playlist/4QrrTtC5bC4CXclWHaaWxw?si=8_nxJfU6QA-P2ZqvjLgH0w" target="_blank" class="flex items-center gap-2 text-[#1db954] hover:text-white transition-colors text-xs uppercase tracking-widest border border-[#1db954]/50 px-6 py-3 rounded-full bg-black/50 backdrop-blur-sm hover:bg-[#1db954]/20 hover:scale-105 duration-300">
+                    <i class="fa-brands fa-spotify text-2xl"></i>
+                    <span>ABRIR PLAYLIST EN SPOTIFY</span>
+                </a>
             </div>
         </div>
     </div>
@@ -607,24 +622,43 @@
         ];
 
         function triggerAIProphecy() {
+            // Asegurar que la frase actual se oculta antes de mostrar la nueva si ya hay una
             const output = document.getElementById('ai-output');
+            
+            // Si ya se mostraron todas, reiniciar (simple lógica de baraja)
+            if (!window.shuffledProphecies || window.shuffledProphecies.length === 0) {
+                 window.shuffledProphecies = [...aiProphecies].sort(() => Math.random() - 0.5);
+            }
+            
+            const prophecy = window.shuffledProphecies.pop();
+            
             output.innerHTML = "";
             output.style.opacity = 1;
-            
-            // Simulated typing effect
-            const prophecy = aiProphecies[Math.floor(Math.random() * aiProphecies.length)];
             let i = 0;
             output.classList.add('typing-cursor');
             
-            const typeInterval = setInterval(() => {
+            // Limpiar intervalo anterior si existe
+            if (window.typingInterval) clearInterval(window.typingInterval);
+
+            window.typingInterval = setInterval(() => {
                 output.textContent += prophecy.charAt(i);
                 i++;
                 if (i > prophecy.length - 1) {
-                    clearInterval(typeInterval);
+                    clearInterval(window.typingInterval);
                     output.classList.remove('typing-cursor');
                     // Removed fade out timeout to keep text visible
                 }
-            }, 50);
+            }, 40); // Velocidad de tecleo
+            
+            // MOSTRAR SPOTIFY WIDGET AL TOCAR LA ESTRELLA
+            const spotifyWidget = document.getElementById('spotify-lock-widget');
+            if (spotifyWidget && spotifyWidget.classList.contains('hidden')) {
+                spotifyWidget.classList.remove('hidden');
+                // Pequeño delay para permitir que el display:block se aplique antes de la transición de opacidad
+                setTimeout(() => {
+                    spotifyWidget.classList.remove('opacity-0', 'scale-95');
+                }, 50);
+            }
         }
 
         function initLockScreen() {
@@ -679,6 +713,16 @@
                 // Intentar reproducir música al desbloquear (interacción de usuario)
                 const audio = document.getElementById('bg-music');
                 audio.play().catch(e => console.log("Autoplay blocked:", e));
+                
+                // Mostrar el reproductor de la pantalla de bloqueo (activarlo) si corresponde
+                const spotifyWidget = document.getElementById('spotify-lock-widget');
+                if (spotifyWidget) {
+                    spotifyWidget.classList.remove('hidden');
+                    setTimeout(() => {
+                        spotifyWidget.classList.remove('opacity-0', 'scale-95');
+                    }, 100);
+                }
+
             } else {
                 const input = document.getElementById('access-code');
                 input.classList.add('border-red-500', 'border');
