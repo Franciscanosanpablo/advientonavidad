@@ -338,15 +338,8 @@
                 <i class="fa-solid fa-star text-gold-400 text-4xl animate-pulse-slow"></i>
             </div>
 
-            <!-- BOTÓN PELÍCULA (ESTRELLA) -->
-            <div class="flex flex-col items-center mb-6 z-10 cursor-pointer group animate-pulse-slow" onclick="openVideoModal()">
-                <div class="relative">
-                    <i class="fa-solid fa-star text-3xl text-gold-300 group-hover:text-gold-100 transition-colors filter drop-shadow-[0_0_10px_rgba(251,191,36,0.8)]"></i>
-                    <i class="fa-solid fa-play absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[10px] text-black"></i>
-                </div>
-                <p class="text-[10px] text-gold-300 uppercase tracking-widest mt-2 group-hover:text-white transition-colors font-serif">pulsa aqui para reproducir la pelicula</p>
-            </div>
-
+            <!-- BOTÓN PELÍCULA (ESTRELLA) ELIMINADO -->
+            
             <h1 class="font-serif text-4xl md:text-7xl font-bold text-white mb-8 drop-shadow-2xl tracking-wider text-center z-10">
                 ADVIENTO-NAVIDAD
             </h1>
@@ -414,11 +407,8 @@
                 <div class="hidden md:flex items-center gap-8">
                     <button onclick="navigateTo('home')" class="nav-btn text-xs font-serif uppercase tracking-widest text-gray-400 hover:text-gold-200 transition-colors active" data-target="home">Inicio</button>
                     <button onclick="navigateTo('intro')" class="nav-btn text-xs font-serif uppercase tracking-widest text-gray-400 hover:text-gold-200 transition-colors" data-target="intro">Introducción</button>
-                    <!-- CAMBIO: TEXTO DEL BOTÓN ACTUALIZADO -->
                     <button onclick="navigateTo('liturgy')" class="nav-btn text-xs font-serif uppercase tracking-widest text-gray-400 hover:text-gold-200 transition-colors" data-target="liturgy">LITURGIA DE ADVIENTO</button>
-                    <!-- BOTÓN PODCAST ELIMINADO -->
                     <button onclick="navigateTo('week1')" class="px-6 py-2 rounded-full bg-gold-500 text-night-900 font-bold text-xs font-serif uppercase tracking-widest hover:bg-white transition-all shadow-[0_0_20px_rgba(212,175,55,0.4)]">Semana 1</button>
-                    <!-- NUEVO BOTÓN NOVENA -->
                     <button onclick="navigateTo('novena')" class="px-6 py-2 rounded-full border border-blue-400 text-blue-200 font-bold text-xs font-serif uppercase tracking-widest hover:bg-blue-900/50 transition-all shadow-[0_0_15px_rgba(96,165,250,0.3)]">NOVENA MARIA INMACULADA</button>
                 </div>
                 <button class="md:hidden text-gold-200" onclick="toggleMenu()"><i class="fa-solid fa-bars text-2xl"></i></button>
@@ -568,6 +558,165 @@
                     </button>
                 </div>
             </section>
+
+            <!-- VISTA 5: NOVENA INMACULADA (NUEVA SECCIÓN) -->
+            <section id="novena" class="view-section max-w-5xl mx-auto py-8">
+                <div class="text-center mb-10">
+                    <div class="inline-flex items-center gap-2 border border-blue-400/30 rounded-full px-4 py-1 mb-4 bg-blue-500/10">
+                        <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+                        <span class="text-blue-200 text-xs font-serif uppercase tracking-widest">Novena Inmaculada</span>
+                    </div>
+                    <h2 class="font-serif text-4xl md:text-5xl text-white mt-4 mb-2">Día Tercero</h2>
+                    <p class="text-gray-400 font-sans text-sm uppercase tracking-widest mb-6">Lunes 01 de Diciembre de 2025</p>
+                    <div class="max-w-3xl mx-auto glass-premium p-6 rounded-xl border border-blue-500/20">
+                        <p class="font-display text-xl text-blue-100 italic leading-relaxed">"Vacía tus bolsillos de rencores: Aprende de Ella la libertad del corazón"</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- 1. Monición -->
+                    <div class="glass-premium rounded-xl overflow-hidden group">
+                        <button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('nov-1')">
+                            <div class="flex items-center gap-4">
+                                <span class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-300 font-serif">1</span>
+                                <h3 class="font-serif text-lg text-blue-100">Monición de Inicio</h3>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-blue-400"></i>
+                        </button>
+                        <div id="nov-1" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed text-justify border-t border-white/5">
+                            <p class="mb-4">Hermanos, buenas noches (o días). Hoy es primero de diciembre. El calendario nos dice que entramos en la recta final del año, esa época donde las agendas se llenan y la cabeza nos da vueltas con todo lo que hay que comprar, cerrar y organizar.</p>
+                            <p class="mb-4">En medio del ruido de este lunes acelerado, llegamos al tercer día de nuestra novena. Si ayer hablábamos de confianza, hoy vamos a hablar de limpieza. Pero no de limpiar la casa para las visitas, sino de limpiar el alma para Dios.</p>
+                            <p class="mb-4">A menudo imaginamos a la Inmaculada como alguien lejana, intocable en su pedestal. Pero hoy queremos verla como la mujer que supo vivir sin "equipaje extra". Ella no guardaba rencores, ni miedos inútiles, ni egoísmos pesados. Tenía el corazón ligero. Hoy, Ella nos invita a soltar el lastre para poder caminar hacia la Navidad más livianos.</p>
+                            <p class="text-sm italic text-blue-300 mt-4 text-center">(Canto sugerido: "Madre del Silencio" o "Tú eres del Señor")</p>
+                        </div>
+                    </div>
+
+                    <!-- 2. Oración Inicial -->
+                    <div class="glass-premium rounded-xl overflow-hidden group">
+                        <button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('nov-2')">
+                            <div class="flex items-center gap-4">
+                                <span class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-300 font-serif">2</span>
+                                <h3 class="font-serif text-lg text-blue-100">Oración Inicial</h3>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-blue-400"></i>
+                        </button>
+                        <div id="nov-2" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed text-justify border-t border-white/5">
+                            <p>Señor, Tú que preparaste una vivienda digna para tu Hijo en el seno de María, preservándola de toda mancha, permítenos hoy mirarla no solo con admiración, sino con ganas de parecernos un poco a Ella.</p>
+                            <p class="mt-4">Virgen Inmaculada, muchacha de Nazaret, aquí nos tienes. Venimos con el polvo del camino y con el cansancio del año. No somos perfectos, y tú lo sabes mejor que nadie. Pero queremos que nos prestes tus ojos para ver a Dios y tu corazón para alojarlo. Ayúdanos en este tercer día a entender que la verdadera pureza no es solo no tener manchas, sino estar llenos de luz. <strong>Amén.</strong></p>
+                        </div>
+                    </div>
+
+                    <!-- 3. Lectura Bíblica -->
+                    <div class="glass-premium rounded-xl overflow-hidden group">
+                        <button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('nov-3')">
+                            <div class="flex items-center gap-4">
+                                <span class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-300 font-serif">3</span>
+                                <h3 class="font-serif text-lg text-blue-100">Lectura Bíblica</h3>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-blue-400"></i>
+                        </button>
+                        <div id="nov-3" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed text-center border-t border-white/5">
+                            <p class="italic text-blue-200 mb-2">Del Evangelio según San Lucas (2, 19. 51b)</p>
+                            <p class="font-serif text-xl">"María, por su parte, guardaba todas estas cosas y las meditaba en su corazón... Y su madre conservaba cuidadosamente todas las cosas en su corazón".</p>
+                        </div>
+                    </div>
+
+                    <!-- 4. Reflexión -->
+                    <div class="glass-premium rounded-xl overflow-hidden group">
+                        <button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('nov-4')">
+                            <div class="flex items-center gap-4">
+                                <span class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-300 font-serif">4</span>
+                                <h3 class="font-serif text-lg text-blue-100">Reflexión: "El desván y la sala de estar"</h3>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-blue-400"></i>
+                        </button>
+                        <div id="nov-4" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed text-justify border-t border-white/5 space-y-4">
+                            <p>Pensemos un momento en nuestras casas. Todos tenemos ese cajón, ese armario o ese cuarto del fondo (el "cuarto de san alejo") lleno de cosas que no sirven: cables de aparatos que ya no tenemos, ropa que no nos entra, papeles viejos... Guardamos cosas "por si acaso", y al final, el espacio se nos come.</p>
+                            <p>Con el alma nos pasa igual. Acumulamos "trastos viejos": esa mala cara que me puso el vecino hace tres meses, la envidia porque al otro le fue mejor, el miedo al futuro, la culpa por un error de hace años. Nuestro corazón, que debería ser una sala de estar amplia para recibir a Dios, a veces parece un trastero abarrotado donde no cabe ni un alfiler.</p>
+                            <p>El misterio de la Inmaculada Concepción, explicado en "cristiano de a pie", significa que María nunca tuvo ese trastero. No es que no tuviera problemas; tuvo muchísimos. Tuvo que huir a Egipto, parir en un establo, ver a su Hijo en la cruz. Pero ella tenía una capacidad asombrosa: <strong>no se apegaba a la amargura.</strong></p>
+                            <p>María es la mujer del espacio libre. Cuando el ángel llega, encuentra sitio. Cuando Jesús nace, encuentra sitio. Cuando los discípulos están asustados, encuentran un sitio en ella. La pureza de María no es una frialdad de estatua de mármol; es <strong>transparencia</strong>. Es como un cristal recién limpiado: si el cristal está sucio, te fijas en la mancha; si está impoluto, ni siquiera lo ves, solo ves la luz que pasa a través de él.</p>
+                            <p>Hoy es primero de diciembre. La liturgia de la mañana nos hablaba de un centurión que decía "no soy digno de que entres en mi casa". María nos enseña cómo hacer esa casa digna. No se trata de comprar muebles caros (virtudes heroicas inalcanzables), se trata de tirar la basura. ¿Qué te sobra hoy en el corazón? ¿Qué rencor te está ocupando el sitio que le pertenece a Jesús? Pídele a la Inmaculada que te ayude a sacar esas bolsas de basura afuera. Que te enseñe la alegría de tener el corazón ligero.</p>
+                        </div>
+                    </div>
+
+                    <!-- 5. Gozos -->
+                    <div class="glass-premium rounded-xl overflow-hidden group">
+                        <button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('nov-5')">
+                            <div class="flex items-center gap-4">
+                                <span class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-300 font-serif">5</span>
+                                <h3 class="font-serif text-lg text-blue-100">Gozos</h3>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-blue-400"></i>
+                        </button>
+                        <div id="nov-5" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed border-t border-white/5">
+                            <p class="text-center italic text-blue-200 mb-4">Respuesta: Haz nuestro corazón semejante al tuyo.</p>
+                            <ul class="space-y-4">
+                                <li>1. Madre que no guardaste ni una pizca de egoísmo, que supiste decir "hágase" sin poner condiciones ni letra pequeña. Enséñanos a no aferrarnos a nuestros planes.<br><strong class="text-blue-300">R/. Haz nuestro corazón semejante al tuyo.</strong></li>
+                                <li>2. Tú que viviste entre ollas y quehaceres de Nazaret, pero nunca dejaste que el polvo de la rutina apagara tu amor por Dios. Enséñanos a encontrar al Señor entre los lunes y los viernes.<br><strong class="text-blue-300">R/. Haz nuestro corazón semejante al tuyo.</strong></li>
+                                <li>3. Mujer libre de la mancha original, que no conociste la esclavitud del "yo primero", ni la cadena de la soberbia. Enséñanos la libertad de los hijos de Dios.<br><strong class="text-blue-300">R/. Haz nuestro corazón semejante al tuyo.</strong></li>
+                                <li>4. Arca de la Nueva Alianza, que en lugar de tablas de piedra guardaste la Palabra viva, y en lugar de rencores guardaste esperanzas. Enséñanos a hacer limpieza interior.<br><strong class="text-blue-300">R/. Haz nuestro corazón semejante al tuyo.</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 6. Peticiones -->
+                    <div class="glass-premium rounded-xl overflow-hidden group">
+                        <button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('nov-6')">
+                            <div class="flex items-center gap-4">
+                                <span class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-300 font-serif">6</span>
+                                <h3 class="font-serif text-lg text-blue-100">Peticiones</h3>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-blue-400"></i>
+                        </button>
+                        <div id="nov-6" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed border-t border-white/5">
+                            <p class="mb-4">A nuestra Madre, que nos conoce y nos espera, presentémosle nuestras intenciones con la confianza de los hijos pequeños:</p>
+                            <ul class="space-y-4 list-decimal pl-5">
+                                <li>Por la Iglesia: para que se libere de las "cosas viejas", de los honores mundanos y las estructuras pesadas, y sea transparente como Tú. <strong>Oremos.</strong></li>
+                                <li>Por los que comienzan este mes de diciembre con tristeza, soledad o falta de trabajo: para que encuentren en nosotros un corazón abierto y solidario, sin puertas cerradas. <strong>Oremos.</strong></li>
+                                <li>Por nosotros, que estamos llenos de ruidos y notificaciones: para que aprendamos a hacer silencio dentro, ese silencio fértil donde Dios puede hablar. <strong>Oremos.</strong></li>
+                                <li>Por la paz en nuestros hogares: para que sepamos perdonarnos rápido, sin guardar cuentas pendientes ni listas de agravios. <strong>Oremos.</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 7. Oración Final -->
+                    <div class="glass-premium rounded-xl overflow-hidden group">
+                        <button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('nov-7')">
+                            <div class="flex items-center gap-4">
+                                <span class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-300 font-serif">7</span>
+                                <h3 class="font-serif text-lg text-blue-100">Oración Final</h3>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-blue-400"></i>
+                        </button>
+                        <div id="nov-7" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed text-justify border-t border-white/5">
+                            <p>Virgen Inmaculada, Madre nuestra. Gracias por este tercer día. Nos vamos a casa con una tarea: mirar hacia adentro y empezar a ordenar. Sabemos que solos no podemos, que nos gusta demasiado aferrarnos a nuestras "razones" y heridas. Pero confiamos en ti. Pasa Tú primero, Señora, y ayúdanos a barrer. Que cuando llegue la Navidad, Jesús encuentre en nosotros un rincón limpio, sencillo y cálido donde nacer. <strong>Amén.</strong></p>
+                        </div>
+                    </div>
+
+                    <!-- 8. Gesto -->
+                    <div class="bg-blue-900/30 p-6 rounded-xl border border-blue-500/30 shadow-lg">
+                        <div class="flex items-center gap-3 mb-4">
+                            <i class="fa-solid fa-hand-holding-heart text-blue-300 text-xl"></i>
+                            <h3 class="font-serif text-lg text-blue-100 uppercase tracking-widest">Gesto del Día</h3>
+                        </div>
+                        <p class="text-blue-200 font-bold mb-2">La "Limpieza" Digital</p>
+                        <p class="text-gray-300 font-display text-lg leading-relaxed">Antes de dormir hoy, te invitamos a hacer un gesto concreto de "limpieza": Revisa tu teléfono. Borra esa conversación que te hace daño releer, salte de ese grupo que solo trae críticas o chismes, o simplemente, apaga el celular 15 minutos antes de lo habitual para estar en silencio. Haz espacio.</p>
+                    </div>
+
+                </div>
+
+                <div class="mt-12 flex justify-center pb-8">
+                    <button onclick="navigateTo('home')" class="group flex items-center gap-3 text-blue-300 hover:text-white transition-colors duration-300">
+                        <span class="text-xs font-serif uppercase tracking-[0.2em] group-hover:translate-x-1 transition-transform">VOLVER A PORTADA</span>
+                        <i class="fa-solid fa-house p-3 rounded-full border border-blue-500/30 group-hover:border-blue-500 group-hover:bg-blue-500 group-hover:text-black transition-all"></i>
+                    </button>
+                    <div class="w-px h-10 bg-blue-500/20 mx-6"></div>
+                    <button onclick="scrollToTop()" class="group flex items-center gap-3 text-blue-300 hover:text-white transition-colors duration-300">
+                        <span class="text-xs font-serif uppercase tracking-[0.2em] group-hover:translate-x-1 transition-transform">SUBIR</span>
+                        <i class="fa-solid fa-arrow-up p-3 rounded-full border border-blue-500/30 group-hover:border-blue-500 group-hover:bg-blue-500 group-hover:text-black transition-all"></i>
+                    </button>
+                </div>
+            </section>
             
             <!-- FOOTER PROVINCIA -->
             <div class="w-full py-12 flex flex-col items-center justify-center text-center z-10 relative">
@@ -584,10 +733,10 @@
             <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
                 <div class="w-full md:flex-grow relative group">
                     <div class="absolute inset-0 bg-gold-500/5 blur-lg rounded-lg group-hover:bg-gold-500/10 transition-all"></div>
-                    <iframe style="border-radius:12px; position: relative; z-index: 10;" src="https://open.spotify.com/embed/playlist/1MW93YnJbPUMQERbWeStn0?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <iframe style="border-radius:12px; position: relative; z-index: 10;" src="https://open.spotify.com/embed/playlist/7kCvF4d1byfOaMIAVwS2w0?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
                 <div class="hidden md:block min-w-[200px]">
-                    <a href="https://open.spotify.com/playlist/1MW93YnJbPUMQERbWeStn0" target="_blank" class="flex items-center justify-center gap-3 bg-[#1db954] hover:bg-[#1ed760] text-black px-6 py-3 rounded-full font-bold text-xs uppercase tracking-widest transition-all hover:scale-105 shadow-[0_0_20px_rgba(29,185,84,0.3)]">
+                    <a href="https://open.spotify.com/playlist/7kCvF4d1byfOaMIAVwS2w0?si=FeJS2T4mRyu42ZbtTpw0sg" target="_blank" class="flex items-center justify-center gap-3 bg-[#1db954] hover:bg-[#1ed760] text-black px-6 py-3 rounded-full font-bold text-xs uppercase tracking-widest transition-all hover:scale-105 shadow-[0_0_20px_rgba(29,185,84,0.3)]">
                         <i class="fa-brands fa-spotify text-xl"></i>
                         <span>ABRIR APP: ESCUCHAR SIN LÍMITES</span>
                     </a>
@@ -603,7 +752,7 @@
         <a onclick="menuNav('liturgy')" class="text-2xl font-serif text-white">Liturgia de Adviento</a>
         <a onclick="menuNav('week1')" class="text-2xl font-serif text-gold-500 font-bold">Semana 1</a>
         <a onclick="menuNav('novena')" class="text-2xl font-serif text-blue-300 font-bold">Novena Maria Inmaculada</a>
-        <a href="https://open.spotify.com/playlist/1MW93YnJbPUMQERbWeStn0" target="_blank" class="mt-8 flex items-center gap-3 text-[#1db954] font-bold uppercase tracking-widest text-sm border border-[#1db954] px-6 py-3 rounded-full"><i class="fa-brands fa-spotify text-xl"></i> ABRIR APP: ESCUCHAR SIN LÍMITES</a>
+        <a href="https://open.spotify.com/playlist/7kCvF4d1byfOaMIAVwS2w0?si=FeJS2T4mRyu42ZbtTpw0sg" target="_blank" class="mt-8 flex items-center gap-3 text-[#1db954] font-bold uppercase tracking-widest text-sm border border-[#1db954] px-6 py-3 rounded-full"><i class="fa-brands fa-spotify text-xl"></i> ABRIR APP: ESCUCHAR SIN LÍMITES</a>
         <button onclick="toggleMenu()" class="absolute top-8 right-8 text-white"><i class="fa-solid fa-xmark text-2xl"></i></button>
     </div>
 
@@ -625,6 +774,7 @@
         }
 
         // --- LOCK SCREEN LOGIC ---
+        
         // --- AI PROPHECY LOGIC (NEW - COMBINED STYLES) ---
         const aiProphecies = [
             // Estilo J.M. Rodríguez Olaizola
@@ -697,6 +847,8 @@
                 currentBg = currentBg < 4 ? currentBg + 1 : 1;
                 document.getElementById('bg-' + currentBg).classList.add('active');
             }, 60000); // 1 minuto
+
+            // 3. Countdown REMOVED - Date Reached
         }
 
         function checkAccess() {
