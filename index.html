@@ -392,7 +392,7 @@
         </div>
     </div>
     
-    <!-- PODCAST MODAL (NUEVO) -->
+    <!-- PODCAST MODAL (NUEVO - REPRODUCTOR IFRAME GOOGLE DRIVE) -->
     <div id="podcast-modal" class="fixed inset-0 z-[2000] flex items-center justify-center bg-black/90 hidden backdrop-blur-md opacity-0 transition-opacity duration-500" onclick="if(event.target === this) closePodcastModal()">
         <div class="relative w-full max-w-md p-8 glass-premium rounded-2xl transform scale-95 transition-transform duration-300 border border-gold-500/30 shadow-[0_0_50px_rgba(212,175,55,0.2)]" id="podcast-modal-content">
              <button onclick="closePodcastModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"><i class="fa-solid fa-xmark text-2xl"></i></button>
@@ -403,14 +403,9 @@
                  </div>
                  <h3 class="font-serif text-2xl text-white mb-8">Esperanza para el Mundo</h3>
                  
-                 <!-- REPRODUCTOR DE AUDIO ESTILIZADO CON ENLACE CORREGIDO -->
-                 <div class="w-full bg-black/40 rounded-full p-2 border border-white/10 flex items-center gap-4 mb-4">
-                     <!-- Se usa preload="none" para evitar bloqueos de carga inicial de Google Drive -->
-                     <audio id="podcast-player" class="w-full" controls preload="none">
-                         <!-- Enlace convertido a streaming directo -->
-                         <source src="https://drive.google.com/uc?export=download&id=1yQC4VXBGscwRvh5Yy9TybZRRihqEek5U">
-                         Tu navegador no soporta audio.
-                     </audio>
+                 <!-- REPRODUCTOR IFRAME (Google Drive Preview - Solución Robusta) -->
+                 <div class="w-full rounded-xl overflow-hidden border border-white/10 shadow-lg mb-4 relative bg-black">
+                     <iframe id="podcast-frame" src="" width="100%" height="150" frameborder="0" allow="autoplay"></iframe>
                  </div>
                  
                  <p class="text-xs text-gray-400 mt-4 italic">
@@ -724,8 +719,6 @@
                 currentBg = currentBg < 4 ? currentBg + 1 : 1;
                 document.getElementById('bg-' + currentBg).classList.add('active');
             }, 60000); // 1 minuto
-
-            // 3. Countdown REMOVED - Date Reached
         }
 
         function checkAccess() {
@@ -802,17 +795,8 @@
 
         function renderLiturgy(dayKey) {
             const container = document.getElementById('liturgy-content');
-            
-            // Actualizar botones
-            document.querySelectorAll('.lit-nav-btn').forEach(btn => {
-                btn.classList.remove('bg-gold-500', 'text-black');
-                btn.classList.add('text-gold-500');
-            });
-            const activeBtn = document.getElementById('btn-lit-' + dayKey);
-            if(activeBtn) {
-                activeBtn.classList.remove('text-gold-500');
-                activeBtn.classList.add('bg-gold-500', 'text-black');
-            }
+            const btnDomingo = document.getElementById('btn-lit-domingo1');
+            const btnLunes = document.getElementById('btn-lit-lunes1');
             
             // Fade out
             container.style.opacity = 0;
@@ -820,6 +804,16 @@
             
             setTimeout(() => {
                 container.innerHTML = liturgyContent[dayKey];
+                
+                // Update buttons
+                document.querySelectorAll('.lit-nav-btn').forEach(btn => {
+                    btn.classList.remove('bg-gold-500', 'text-black');
+                    btn.classList.add('text-gold-500');
+                });
+                
+                const activeBtn = document.getElementById('btn-lit-' + dayKey);
+                activeBtn.classList.remove('text-gold-500');
+                activeBtn.classList.add('bg-gold-500', 'text-black');
                 
                 // Fade in
                 container.style.opacity = 1;
