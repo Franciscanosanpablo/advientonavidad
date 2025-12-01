@@ -338,6 +338,8 @@
                 <i class="fa-solid fa-star text-gold-400 text-4xl animate-pulse-slow"></i>
             </div>
 
+            <!-- BOTÓN PELÍCULA (ESTRELLA) ELIMINADO -->
+            
             <h1 class="font-serif text-4xl md:text-7xl font-bold text-white mb-8 drop-shadow-2xl tracking-wider text-center z-10">
                 ADVIENTO-NAVIDAD
             </h1>
@@ -356,6 +358,8 @@
             <div id="spotify-lock-widget" class="w-full max-w-md z-10 mb-8 transition-all duration-1000 opacity-0 scale-95 hidden">
                  <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/7kCvF4d1byfOaMIAVwS2w0?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             </div>
+
+            <!-- Contador ELIMINADO -->
             
             <!-- Formulario -->
              <p class="text-white/80 font-serif text-xs tracking-widest mb-4 text-center uppercase max-w-md z-10 leading-relaxed">Ingresa aquí abajo y disfruta de toda la experiencia de <span class="text-gold-400 font-bold">ADVIENTO-NAVIDAD:</span> Esperanza para el Mundo</p>
@@ -367,6 +371,8 @@
                 </button>
             </div>
             
+            <!-- BOTON SPOTIFY PANTALLA BLOQUEO (LINK DIRECTO) - ELIMINADO SEGÚN PETICIÓN -->
+
             <!-- FOOTER PROVINCIA (LOCK SCREEN) -->
             <div class="w-full py-6 flex flex-col items-center justify-center text-center z-10 relative mt-auto">
                 <div class="w-24 h-px bg-gradient-to-r from-transparent via-gold-500/50 to-transparent mb-4"></div>
@@ -378,7 +384,7 @@
         </div>
     </div>
     
-    <!-- VIDEO MODAL -->
+    <!-- VIDEO MODAL (Z-Index aumentado a 2000 para estar sobre el bloqueo) -->
     <div id="video-modal" class="fixed inset-0 z-[2000] flex items-center justify-center bg-black/90 hidden backdrop-blur-md opacity-0 transition-opacity duration-500" onclick="if(event.target === this) closeVideoModal()">
         <div class="relative w-full max-w-5xl aspect-video p-4 transform scale-95 transition-transform duration-300" id="video-modal-content">
              <button onclick="closeVideoModal()" class="absolute -top-12 right-4 text-white hover:text-gold-400 text-lg font-serif tracking-widest flex items-center gap-2 transition-colors"><i class="fa-solid fa-xmark"></i> CERRAR CINE</button>
@@ -405,10 +411,11 @@
                 <div class="hidden md:flex items-center gap-8">
                     <button onclick="navigateTo('home')" class="nav-btn text-xs font-serif uppercase tracking-widest text-gray-400 hover:text-gold-200 transition-colors active" data-target="home">Inicio</button>
                     <button onclick="navigateTo('intro')" class="nav-btn text-xs font-serif uppercase tracking-widest text-gray-400 hover:text-gold-200 transition-colors" data-target="intro">Introducción</button>
+                    <!-- CAMBIO: TEXTO DEL BOTÓN ACTUALIZADO -->
                     <button onclick="navigateTo('liturgy')" class="nav-btn text-xs font-serif uppercase tracking-widest text-gray-400 hover:text-gold-200 transition-colors" data-target="liturgy">LITURGIA DE ADVIENTO</button>
                     <button onclick="navigateTo('week1')" class="px-6 py-2 rounded-full bg-gold-500 text-night-900 font-bold text-xs font-serif uppercase tracking-widest hover:bg-white transition-all shadow-[0_0_20px_rgba(212,175,55,0.4)]">Semana 1</button>
                     <!-- NUEVO BOTÓN NOVENA -->
-                    <button onclick="navigateTo('novena')" class="px-6 py-2 rounded-full border border-blue-400 text-blue-200 font-bold text-xs font-serif uppercase tracking-widest hover:bg-blue-900/50 transition-all shadow-[0_0_15px_rgba(96,165,250,0.3)]">NOVENA</button>
+                    <button onclick="navigateTo('novena')" class="px-6 py-2 rounded-full border border-blue-400 text-blue-200 font-bold text-xs font-serif uppercase tracking-widest hover:bg-blue-900/50 transition-all shadow-[0_0_15px_rgba(96,165,250,0.3)]">NOVENA MARIA INMACULADA</button>
                 </div>
                 <button class="md:hidden text-gold-200" onclick="toggleMenu()"><i class="fa-solid fa-bars text-2xl"></i></button>
             </div>
@@ -430,7 +437,7 @@
                     <p class="font-sans text-gold-500 text-xs md:text-sm uppercase tracking-[0.5em] font-bold">Navidad 2025</p>
                     <h1 class="font-serif text-5xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gold-100 via-gold-400 to-gold-100 drop-shadow-2xl leading-tight">ESPERANZA Y ALEGRÍA</h1>
                     
-                    <!-- BOTÓN DE VIDEO "QUE ES EL ADVIENTO" -->
+                    <!-- NUEVO BOTÓN DE VIDEO "QUE ES EL ADVIENTO" -->
                     <div class="flex flex-col items-center mt-6 mb-6 animate-pulse-slow">
                         <p class="text-[10px] text-gold-300 uppercase tracking-widest mb-3 font-serif">si quieres saber que es el adviento pulsa aqui</p>
                         <button onclick="openMainVideo()" class="w-12 h-12 rounded-full bg-gold-500 text-night-900 flex items-center justify-center hover:bg-white transition-all shadow-[0_0_20px_rgba(212,175,55,0.6)] hover:scale-110">
@@ -448,8 +455,7 @@
 
             <!-- VISTA 2: INTRODUCCIÓN -->
             <section id="intro" class="view-section max-w-5xl mx-auto py-8">
-                <!-- ... (contenido previo de introducción) ... -->
-                 <div class="glass-premium p-8 md:p-16 rounded-2xl mb-12">
+                <div class="glass-premium p-8 md:p-16 rounded-2xl mb-12">
                     <div class="text-center mb-12">
                         <span class="text-gold-500 font-serif text-xs uppercase tracking-[0.2em]">Bienvenida</span>
                         <h2 class="font-serif text-4xl md:text-5xl text-white mt-2">Tiempo de Intemperie</h2>
@@ -689,7 +695,7 @@
         <a onclick="menuNav('intro')" class="text-2xl font-serif text-white">Introducción</a>
         <a onclick="menuNav('liturgy')" class="text-2xl font-serif text-white">Liturgia de Adviento</a>
         <a onclick="menuNav('week1')" class="text-2xl font-serif text-gold-500 font-bold">Semana 1</a>
-        <a onclick="menuNav('novena')" class="text-2xl font-serif text-blue-300 font-bold">Novena</a>
+        <a onclick="menuNav('novena')" class="text-2xl font-serif text-blue-300 font-bold">Novena Maria Inmaculada</a>
         <a href="https://open.spotify.com/playlist/1MW93YnJbPUMQERbWeStn0" target="_blank" class="mt-8 flex items-center gap-3 text-[#1db954] font-bold uppercase tracking-widest text-sm border border-[#1db954] px-6 py-3 rounded-full"><i class="fa-brands fa-spotify text-xl"></i> ABRIR APP: ESCUCHAR SIN LÍMITES</a>
         <button onclick="toggleMenu()" class="absolute top-8 right-8 text-white"><i class="fa-solid fa-xmark text-2xl"></i></button>
     </div>
@@ -712,8 +718,9 @@
         }
 
         // --- LOCK SCREEN LOGIC ---
-        // --- AI PROPHECY LOGIC ---
+        // --- AI PROPHECY LOGIC (NEW - COMBINED STYLES) ---
         const aiProphecies = [
+            // Estilo J.M. Rodríguez Olaizola
             "No busques señales grandiosas. Dios se esconde en lo pequeño, en lo que pasa desapercibido mientras miras a otro lado.",
             "La espera no es tiempo perdido. Es el taller donde se forja la capacidad de recibir lo que nos sobrepasa.",
             "Quizás el milagro que esperas no sea un cambio en tus circunstancias, sino una grieta de luz en tu propia mirada.",
@@ -721,10 +728,14 @@
             "Atrévete a creer que tu vulnerabilidad no es un defecto, sino el pesebre exacto donde quiere nacer la Vida.",
             "El Adviento es aprender a conjugar el verbo 'esperar' en presente. No es lo que vendrá, es lo que ya está germinando.",
             "No tengas miedo al silencio. Es el único idioma en el que Dios puede decirte quién eres realmente.",
+
+            // Estilo Benjamín González Buelta (Jesuita, poesía encarnada)
             "Dios no llega en paracaídas desde el cielo ajeno; brota desde abajo, en el humus humilde de tu propia tierra.",
             "No busques al Señor solo en las alturas limpias; está agachado, atando las sandalias polvorientas de quien camina a tu lado.",
             "Tu fragilidad y tus grietas no son un obstáculo para Dios; son su lugar de aterrizaje preferido.",
             "Adviento es descubrir que el Dios inmenso ha decidido caber en la pequeñez de un pañal y en la fragilidad de tu historia.",
+
+            // Estilo Dolores Aleixandre (Biblista, hondura de la Palabra)
             "Adviento es dejar de conjugar ansiosamente el verbo 'tener' para empezar a balbucear humildemente el verbo 'recibir'.",
             "Como el centinela espera la aurora en la muralla, así tu corazón aguarda una Palabra que lo pronuncie de nuevo y le dé sentido.",
             "No prepares un escenario perfecto para su venida. Prepara un pesebre: algo pequeño, pobre, quizás desordenado, pero capaz de acoger la Vida.",
@@ -732,10 +743,14 @@
         ];
 
         function triggerAIProphecy() {
+            // Asegurar que la frase actual se oculta antes de mostrar la nueva si ya hay una
             const output = document.getElementById('ai-output');
+            
+            // Si ya se mostraron todas, reiniciar (simple lógica de baraja)
             if (!window.shuffledProphecies || window.shuffledProphecies.length === 0) {
                  window.shuffledProphecies = [...aiProphecies].sort(() => Math.random() - 0.5);
             }
+            
             const prophecy = window.shuffledProphecies.pop();
             
             output.innerHTML = "";
@@ -743,6 +758,7 @@
             let i = 0;
             output.classList.add('typing-cursor');
             
+            // Limpiar intervalo anterior si existe
             if (window.typingInterval) clearInterval(window.typingInterval);
 
             window.typingInterval = setInterval(() => {
@@ -751,12 +767,15 @@
                 if (i > prophecy.length - 1) {
                     clearInterval(window.typingInterval);
                     output.classList.remove('typing-cursor');
+                    // Removed fade out timeout to keep text visible
                 }
-            }, 40);
+            }, 40); // Velocidad de tecleo
             
+            // MOSTRAR SPOTIFY WIDGET AL TOCAR LA ESTRELLA
             const spotifyWidget = document.getElementById('spotify-lock-widget');
             if (spotifyWidget && spotifyWidget.classList.contains('hidden')) {
                 spotifyWidget.classList.remove('hidden');
+                // Pequeño delay para permitir que el display:block se aplique antes de la transición de opacidad
                 setTimeout(() => {
                     spotifyWidget.classList.remove('opacity-0', 'scale-95');
                 }, 50);
@@ -771,6 +790,8 @@
                 currentBg = currentBg < 4 ? currentBg + 1 : 1;
                 document.getElementById('bg-' + currentBg).classList.add('active');
             }, 60000); // 1 minuto
+
+            // 3. Countdown REMOVED - Date Reached
         }
 
         function checkAccess() {
