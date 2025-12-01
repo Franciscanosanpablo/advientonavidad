@@ -405,9 +405,10 @@
                  
                  <!-- REPRODUCTOR DE AUDIO ESTILIZADO CON ENLACE CORREGIDO -->
                  <div class="w-full bg-black/40 rounded-full p-2 border border-white/10 flex items-center gap-4 mb-4">
-                     <audio id="podcast-player" class="w-full" controls preload="auto">
-                         <!-- Enlace directo de Google Drive corregido -->
-                         <source src="https://docs.google.com/uc?export=download&id=1yQC4VXBGscwRvh5Yy9TybZRRihqEek5U" type="audio/mp3">
+                     <!-- Se usa preload="none" para evitar bloqueos de carga inicial de Google Drive -->
+                     <audio id="podcast-player" class="w-full" controls preload="none">
+                         <!-- Enlace convertido a streaming directo -->
+                         <source src="https://drive.google.com/uc?export=download&id=1yQC4VXBGscwRvh5Yy9TybZRRihqEek5U">
                          Tu navegador no soporta audio.
                      </audio>
                  </div>
