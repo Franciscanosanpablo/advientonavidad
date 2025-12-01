@@ -338,15 +338,6 @@
                 <i class="fa-solid fa-star text-gold-400 text-4xl animate-pulse-slow"></i>
             </div>
 
-            <!-- BOTÓN PELÍCULA (ESTRELLA) -->
-            <div class="flex flex-col items-center mb-6 z-10 cursor-pointer group animate-pulse-slow" onclick="openVideoModal()">
-                <div class="relative">
-                    <i class="fa-solid fa-star text-3xl text-gold-300 group-hover:text-gold-100 transition-colors filter drop-shadow-[0_0_10px_rgba(251,191,36,0.8)]"></i>
-                    <i class="fa-solid fa-play absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[10px] text-black"></i>
-                </div>
-                <p class="text-[10px] text-gold-300 uppercase tracking-widest mt-2 group-hover:text-white transition-colors font-serif">pulsa aqui para reproducir la pelicula</p>
-            </div>
-
             <h1 class="font-serif text-4xl md:text-7xl font-bold text-white mb-8 drop-shadow-2xl tracking-wider text-center z-10">
                 ADVIENTO-NAVIDAD
             </h1>
@@ -366,6 +357,8 @@
                  <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/7kCvF4d1byfOaMIAVwS2w0?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             </div>
 
+            <!-- Contador ELIMINADO -->
+            
             <!-- Formulario -->
              <p class="text-white/80 font-serif text-xs tracking-widest mb-4 text-center uppercase max-w-md z-10 leading-relaxed">Ingresa aquí abajo y disfruta de toda la experiencia de <span class="text-gold-400 font-bold">ADVIENTO-NAVIDAD:</span> Esperanza para el Mundo</p>
             <div class="glass-premium p-2 rounded-full flex items-center max-w-md w-full transition-transform focus-within:scale-105 mb-8 z-10">
@@ -376,6 +369,8 @@
                 </button>
             </div>
             
+            <!-- BOTON SPOTIFY PANTALLA BLOQUEO (LINK DIRECTO) - ELIMINADO SEGÚN PETICIÓN -->
+
             <!-- FOOTER PROVINCIA (LOCK SCREEN) -->
             <div class="w-full py-6 flex flex-col items-center justify-center text-center z-10 relative mt-auto">
                 <div class="w-24 h-px bg-gradient-to-r from-transparent via-gold-500/50 to-transparent mb-4"></div>
@@ -392,6 +387,34 @@
         <div class="relative w-full max-w-5xl aspect-video p-4 transform scale-95 transition-transform duration-300" id="video-modal-content">
              <button onclick="closeVideoModal()" class="absolute -top-12 right-4 text-white hover:text-gold-400 text-lg font-serif tracking-widest flex items-center gap-2 transition-colors"><i class="fa-solid fa-xmark"></i> CERRAR CINE</button>
              <iframe id="video-frame" src="" class="w-full h-full rounded-lg shadow-[0_0_50px_rgba(212,175,55,0.3)] border border-gold-500/30" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        </div>
+    </div>
+    
+    <!-- PODCAST MODAL (NUEVO) -->
+    <div id="podcast-modal" class="fixed inset-0 z-[2000] flex items-center justify-center bg-black/90 hidden backdrop-blur-md opacity-0 transition-opacity duration-500" onclick="if(event.target === this) closePodcastModal()">
+        <div class="relative w-full max-w-md p-8 glass-premium rounded-2xl transform scale-95 transition-transform duration-300 border border-gold-500/30 shadow-[0_0_50px_rgba(212,175,55,0.2)]" id="podcast-modal-content">
+             <button onclick="closePodcastModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"><i class="fa-solid fa-xmark text-2xl"></i></button>
+             
+             <div class="flex flex-col items-center text-center">
+                 <div class="w-20 h-20 rounded-full bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center mb-6 shadow-lg animate-pulse-slow">
+                     <i class="fa-solid fa-microphone-lines text-3xl text-black"></i>
+                 </div>
+                 <h3 class="font-serif text-2xl text-white mb-2">Profundizando en el Adviento</h3>
+                 <p class="font-sans text-xs text-gold-300 uppercase tracking-widest mb-8">Podcast generado con IA</p>
+                 
+                 <!-- REPRODUCTOR DE AUDIO ESTILIZADO -->
+                 <div class="w-full bg-black/40 rounded-full p-2 border border-white/10 flex items-center gap-4 mb-4">
+                     <audio id="podcast-player" class="w-full" controls>
+                         <!-- Se usará Google Drive ID directo para streaming -->
+                         <source src="https://docs.google.com/uc?export=download&id=1yQC4VXBGscwRvh5Yy9TybZRRihqEek5U" type="audio/mp3">
+                         Tu navegador no soporta audio.
+                     </audio>
+                 </div>
+                 
+                 <p class="text-xs text-gray-400 mt-4 italic">
+                     "Una conversación para entender el misterio de la espera."
+                 </p>
+             </div>
         </div>
     </div>
 
@@ -416,6 +439,8 @@
                     <button onclick="navigateTo('intro')" class="nav-btn text-xs font-serif uppercase tracking-widest text-gray-400 hover:text-gold-200 transition-colors" data-target="intro">Introducción</button>
                     <!-- CAMBIO: TEXTO DEL BOTÓN ACTUALIZADO -->
                     <button onclick="navigateTo('liturgy')" class="nav-btn text-xs font-serif uppercase tracking-widest text-gray-400 hover:text-gold-200 transition-colors" data-target="liturgy">LITURGIA DE ADVIENTO</button>
+                    <!-- BOTÓN PODCAST EN NAV -->
+                    <button onclick="openPodcastModal()" class="nav-btn text-xs font-serif uppercase tracking-widest text-gray-400 hover:text-gold-200 transition-colors">Podcast</button>
                     <button onclick="navigateTo('week1')" class="px-6 py-2 rounded-full bg-gold-500 text-night-900 font-bold text-xs font-serif uppercase tracking-widest hover:bg-white transition-all shadow-[0_0_20px_rgba(212,175,55,0.4)]">Semana 1</button>
                 </div>
                 <button class="md:hidden text-gold-200" onclick="toggleMenu()"><i class="fa-solid fa-bars text-2xl"></i></button>
@@ -1019,6 +1044,31 @@
             }, 500); // Esperar a que termine la transición
         }
 
+        // FUNCIONES PARA EL MODAL DE PODCAST
+        function openPodcastModal() {
+            const modal = document.getElementById('podcast-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                document.getElementById('podcast-modal-content').classList.remove('scale-95');
+                document.getElementById('podcast-modal-content').classList.add('scale-100');
+            }, 10);
+        }
+
+        function closePodcastModal() {
+            const modal = document.getElementById('podcast-modal');
+            const player = document.getElementById('podcast-player');
+            
+            modal.classList.add('opacity-0');
+            document.getElementById('podcast-modal-content').classList.remove('scale-100');
+            document.getElementById('podcast-modal-content').classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                if(player) player.pause();
+            }, 500);
+        }
+
         window.onload = () => {
             setRandomBackground(); // Establecer fondo aleatorio
             initLockScreen();
@@ -1054,6 +1104,9 @@
                     });
                 }
             }
+            
+            // Initialize first liturgy (Domingo1) manually on first load if accessing liturgy section directly, 
+            // but since we navigate to 'home' by default, it's handled when navigating.
         };
     </script>
 </body>
