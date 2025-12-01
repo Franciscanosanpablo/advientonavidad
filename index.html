@@ -795,8 +795,17 @@
 
         function renderLiturgy(dayKey) {
             const container = document.getElementById('liturgy-content');
-            const btnDomingo = document.getElementById('btn-lit-domingo1');
-            const btnLunes = document.getElementById('btn-lit-lunes1');
+            
+            // Actualizar botones
+            document.querySelectorAll('.lit-nav-btn').forEach(btn => {
+                btn.classList.remove('bg-gold-500', 'text-black');
+                btn.classList.add('text-gold-500');
+            });
+            const activeBtn = document.getElementById('btn-lit-' + dayKey);
+            if(activeBtn) {
+                activeBtn.classList.remove('text-gold-500');
+                activeBtn.classList.add('bg-gold-500', 'text-black');
+            }
             
             // Fade out
             container.style.opacity = 0;
@@ -804,16 +813,6 @@
             
             setTimeout(() => {
                 container.innerHTML = liturgyContent[dayKey];
-                
-                // Update buttons
-                document.querySelectorAll('.lit-nav-btn').forEach(btn => {
-                    btn.classList.remove('bg-gold-500', 'text-black');
-                    btn.classList.add('text-gold-500');
-                });
-                
-                const activeBtn = document.getElementById('btn-lit-' + dayKey);
-                activeBtn.classList.remove('text-gold-500');
-                activeBtn.classList.add('bg-gold-500', 'text-black');
                 
                 // Fade in
                 container.style.opacity = 1;
