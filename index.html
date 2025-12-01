@@ -338,15 +338,21 @@
                 <i class="fa-solid fa-star text-gold-400 text-4xl animate-pulse-slow"></i>
             </div>
 
-            <!-- TITULO MODIFICADO -->
-            <div class="text-center z-10 mb-10">
-                <h1 class="font-serif text-4xl md:text-7xl font-bold text-white drop-shadow-2xl tracking-wider">
-                    ADVIENTO-NAVIDAD
-                </h1>
-                <p class="text-gold-300 font-serif text-sm md:text-lg tracking-[0.3em] uppercase mt-3 font-semibold">
-                    ESPERANZA PARA EL MUNDO
-                </p>
+            <!-- BOTÓN PELÍCULA (ESTRELLA) -->
+            <div class="flex flex-col items-center mb-6 z-10 cursor-pointer group animate-pulse-slow" onclick="openVideoModal()">
+                <div class="relative">
+                    <i class="fa-solid fa-star text-3xl text-gold-300 group-hover:text-gold-100 transition-colors filter drop-shadow-[0_0_10px_rgba(251,191,36,0.8)]"></i>
+                    <i class="fa-solid fa-play absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[10px] text-black"></i>
+                </div>
+                <p class="text-[10px] text-gold-300 uppercase tracking-widest mt-2 group-hover:text-white transition-colors font-serif">pulsa aqui para reproducir la pelicula</p>
             </div>
+
+            <h1 class="font-serif text-4xl md:text-7xl font-bold text-white mb-8 drop-shadow-2xl tracking-wider text-center z-10">
+                ADVIENTO-NAVIDAD
+            </h1>
+            <p class="text-gold-300 font-serif text-sm md:text-lg tracking-[0.3em] uppercase mt-3 font-semibold z-10 mb-8">
+                ESPERANZA PARA EL MUNDO
+            </p>
             
             <!-- ELEMENTO AI -->
             <div class="ai-orb-container z-10" onclick="triggerAIProphecy()">
@@ -372,14 +378,6 @@
                 </button>
             </div>
             
-            <!-- BOTON SPOTIFY PANTALLA BLOQUEO (LINK DIRECTO) -->
-            <div class="z-10 mt-4 mb-8">
-                <a href="https://open.spotify.com/playlist/7kCvF4d1byfOaMIAVwS2w0?si=FeJS2T4mRyu42ZbtTpw0sg" target="_blank" class="flex items-center gap-2 text-[#1db954] hover:text-white transition-colors text-xs uppercase tracking-widest border border-[#1db954]/50 px-6 py-3 rounded-full bg-black/50 backdrop-blur-sm hover:bg-[#1db954]/20 hover:scale-105 duration-300">
-                    <i class="fa-brands fa-spotify text-2xl"></i>
-                    <span>ABRIR PLAYLIST EN SPOTIFY</span>
-                </a>
-            </div>
-
             <!-- FOOTER PROVINCIA (LOCK SCREEN) -->
             <div class="w-full py-6 flex flex-col items-center justify-center text-center z-10 relative mt-auto">
                 <div class="w-24 h-px bg-gradient-to-r from-transparent via-gold-500/50 to-transparent mb-4"></div>
