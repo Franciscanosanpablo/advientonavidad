@@ -368,6 +368,28 @@
             </div>
             <div id="ai-output" class="ai-message-box text-center z-10"></div>
 
+            <!-- CUENTA REGRESIVA ESTRENO -->
+            <div class="mb-8 text-center z-10 animate-fade-in w-full max-w-2xl px-4">
+                <p class="text-gold-300 font-serif text-sm uppercase tracking-[0.3em] mb-4">Faltan</p>
+                <div class="flex gap-4 justify-center items-center font-serif text-white">
+                    <div class="countdown-box">
+                        <span id="hours" class="text-3xl md:text-5xl font-bold">00</span>
+                        <span class="text-[10px] uppercase tracking-widest text-gray-400 block mt-1">Horas</span>
+                    </div>
+                    <div class="text-2xl text-gold-500 pb-4">:</div>
+                    <div class="countdown-box">
+                        <span id="minutes" class="text-3xl md:text-5xl font-bold">00</span>
+                        <span class="text-[10px] uppercase tracking-widest text-gray-400 block mt-1">Minutos</span>
+                    </div>
+                    <div class="text-2xl text-gold-500 pb-4">:</div>
+                    <div class="countdown-box">
+                        <span id="seconds" class="text-3xl md:text-5xl font-bold">00</span>
+                        <span class="text-[10px] uppercase tracking-widest text-gray-400 block mt-1">Segundos</span>
+                    </div>
+                </div>
+                <p class="text-white/90 font-display italic text-lg mt-6 text-shadow-lg">para el gran estreno de la película:<br><span class="text-gold-400 font-bold not-italic font-serif uppercase tracking-widest text-xl md:text-2xl mt-2 block">"NOCHE DE PAZ"</span></p>
+            </div>
+
             <!-- SPOTIFY WIDGET (Oculto por defecto, aparece al pulsar la estrella) -->
             <div id="spotify-lock-widget" class="w-full max-w-md z-10 mb-8 transition-all duration-1000 opacity-0 scale-95 hidden">
                  <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/7kCvF4d1byfOaMIAVwS2w0?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
@@ -735,6 +757,38 @@
             }, 60000); 
         }
 
+        function initCountdown() {
+            // Set the date we're counting down to: Dec 4, 2025 20:00:00
+            const countDownDate = new Date("Dec 4, 2025 20:00:00").getTime();
+
+            const x = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = countDownDate - now;
+
+                if (distance < 0) {
+                    clearInterval(x);
+                    const hoursEl = document.getElementById("hours");
+                    if(hoursEl) {
+                        document.getElementById("hours").innerText = "00";
+                        document.getElementById("minutes").innerText = "00";
+                        document.getElementById("seconds").innerText = "00";
+                    }
+                    return;
+                }
+
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                const hoursEl = document.getElementById("hours");
+                if(hoursEl) {
+                    document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+                    document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+                    document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+                }
+            }, 1000);
+        }
+
         function checkAccess() {
             const code = document.getElementById('access-code').value.toUpperCase();
             if (code === 'YAVIENE') {
@@ -747,7 +801,7 @@
                 
                 renderDay('lunes');
                 renderLiturgy('lunes1'); 
-                renderNovena('dia6'); // Mostrar el día más reciente (Día 6)
+                renderNovena('dia6'); 
                 document.getElementById('bg-home').style.opacity = 1;
                 
                 const audio = document.getElementById('bg-music');
@@ -1613,7 +1667,7 @@
              const modal = document.getElementById('video-modal');
              const frame = document.getElementById('video-frame');
              // URL actualizada con autoplay=1
-             const videoUrl = "https://drive.google.com/file/d/1Y86Zu9Xq-I6DZeyeT9rYZHYDSycVokyh/preview?autoplay=1";
+             const videoUrl = "https://drive.google.com/file/d/1Pu1WboC6kUL6EuaB3M-K1rq0vavmwxur/preview?autoplay=1";
             
              frame.src = videoUrl;
              modal.classList.remove('hidden');
@@ -1642,6 +1696,7 @@
         window.onload = () => {
             setRandomBackground();
             initLockScreen();
+            initCountdown();
             
             const isCandleLit = localStorage.getItem('candle1') === 'true';
             if(isCandleLit) {
