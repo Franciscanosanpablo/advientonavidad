@@ -495,8 +495,8 @@
                     <button onclick="renderLiturgy('domingo1')" class="px-6 py-2 rounded-full border border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-black transition-all text-xs font-bold uppercase tracking-widest lit-nav-btn active-lit-btn" id="btn-lit-domingo1">Domingo I</button>
                     <button onclick="renderLiturgy('lunes1')" class="px-6 py-2 rounded-full border border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-black transition-all text-xs font-bold uppercase tracking-widest lit-nav-btn" id="btn-lit-lunes1">Lunes I</button>
                     <button onclick="renderLiturgy('martes1')" class="px-6 py-2 rounded-full border border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-black transition-all text-xs font-bold uppercase tracking-widest lit-nav-btn" id="btn-lit-martes1">Martes I</button>
-                    <!-- BOTÓN AGREGADO MIÉRCOLES I -->
                     <button onclick="renderLiturgy('miercoles1')" class="px-6 py-2 rounded-full border border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-black transition-all text-xs font-bold uppercase tracking-widest lit-nav-btn" id="btn-lit-miercoles1">Miércoles I</button>
+                    <button onclick="renderLiturgy('jueves1')" class="px-6 py-2 rounded-full border border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-black transition-all text-xs font-bold uppercase tracking-widest lit-nav-btn" id="btn-lit-jueves1">Jueves I</button>
                 </div>
 
                 <div class="grid lg:grid-cols-12 gap-8">
@@ -589,6 +589,7 @@
                 <div class="flex justify-center gap-3 mb-8 overflow-x-auto pb-2">
                     <button onclick="renderNovena('dia4')" class="px-5 py-2 rounded-full border border-blue-400 text-blue-300 hover:bg-blue-900/50 hover:text-white transition-all text-xs font-bold uppercase tracking-widest novena-nav-btn" id="btn-nov-dia4">Día 4</button>
                     <button onclick="renderNovena('dia5')" class="px-5 py-2 rounded-full border border-blue-400 text-blue-300 hover:bg-blue-900/50 hover:text-white transition-all text-xs font-bold uppercase tracking-widest novena-nav-btn" id="btn-nov-dia5">Día 5</button>
+                    <button onclick="renderNovena('dia6')" class="px-5 py-2 rounded-full border border-blue-400 text-blue-300 hover:bg-blue-900/50 hover:text-white transition-all text-xs font-bold uppercase tracking-widest novena-nav-btn" id="btn-nov-dia6">Día 6</button>
                 </div>
 
                 <!-- CONTENEDOR DINÁMICO NOVENA -->
@@ -746,7 +747,7 @@
                 
                 renderDay('lunes');
                 renderLiturgy('lunes1'); 
-                renderNovena('dia5'); // Mostrar el día más reciente
+                renderNovena('dia6'); // Mostrar el día más reciente (Día 6)
                 document.getElementById('bg-home').style.opacity = 1;
                 
                 const audio = document.getElementById('bg-music');
@@ -925,6 +926,140 @@
                         <p>Gracias por no despedirnos en ayunas.<br>Gracias porque tu Reino no es un examen,<br>sino una mesa compartida donde Tú sirves,<br>Tú partes, y Tú mismo eres el Pan.<br>Amén.</p>
                     </div>
                 </div>
+            `,
+            jueves1: `
+                <div class="mb-8 border-b border-white/10 pb-4">
+                    <span class="text-gold-500 font-serif text-xs uppercase tracking-widest">Jueves 04 de Diciembre</span>
+                    <h2 class="font-serif text-3xl md:text-4xl text-white mt-2">"La Arquitectura de lo Invisible"</h2>
+                </div>
+
+                <!-- 1. Monición -->
+                <div class="glass-premium rounded-xl overflow-hidden group mb-4">
+                    <button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('lit-1-th1')">
+                        <div class="flex items-center gap-4">
+                            <span class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 font-serif">1</span>
+                            <h3 class="font-serif text-lg text-gold-100">Monición de Entrada</h3>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-gold-500"></i>
+                    </button>
+                    <div id="lit-1-th1" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed text-justify border-t border-white/5">
+                        <p class="mb-4">Queridos hermanos, paz y bien y santa alegría para todos. Bienvenidos a la liturgia de este jueves. Avanzamos por el Adviento y hoy la Palabra nos invita a dejar de ser paseantes distraídos para convertirnos en arquitectos conscientes. Jesús nos va a hablar de casas, de cimientos y de tormentas.</p>
+                        <p>Hoy no venimos solo a escuchar, venimos a revisar los cimientos. Venimos a comprobar si nuestra fe es un refugio seguro para los demás o una fachada bonita que se cae al primer viento. Respiremos hondo, hagamos silencio interior y dejemos que el Señor inspeccione nuestra construcción.</p>
+                    </div>
+                </div>
+
+                <!-- 2. Liturgia -->
+                <div class="glass-premium rounded-xl overflow-hidden group mb-4">
+                    <button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('lit-2-th1')">
+                        <div class="flex items-center gap-4">
+                            <span class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 font-serif">2</span>
+                            <h3 class="font-serif text-lg text-gold-100">Liturgia de la Palabra</h3>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-gold-500"></i>
+                    </button>
+                    <div id="lit-2-th1" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed text-justify border-t border-white/5 space-y-6">
+                        <div class="p-4 bg-white/5 rounded-lg italic text-gray-400 font-display text-sm">
+                            <p>Lectura del libro del profeta Isaías (26, 1-6)</p>
+                        </div>
+                        <div>
+                            <p>Aquel día, se cantará este canto en el país de Judá: «Tenemos una ciudad fuerte, ha puesto para salvarla murallas y baluartes. Abrid las puertas para que entre un pueblo justo, que observa la lealtad; su ánimo está firme y mantiene la paz, porque confía en ti.</p>
+                            <p>Confiad siempre en el Señor, porque el Señor es la Roca perpetua. Doblegó a los habitantes de la altura y a la ciudad excelsa; la abatió, la abatió hasta el suelo, la arrasó hasta el polvo. La pisan los pies, los pies del pobre, los pasos de los indigentes».</p>
+                            <p class="font-bold mt-2">Palabra de Dios.</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-gold-500 font-serif text-sm uppercase tracking-widest mb-2">Salmo Responsorial: Salmo 117</h4>
+                            <p class="text-white font-bold italic mb-2">R/. Bendito el que viene en nombre del Señor.</p>
+                            <p>Dad gracias al Señor porque es bueno, porque es eterna su misericordia. Mejor es refugiarse en el Señor que fiarse de los hombres, mejor es refugiarse en el Señor que fiarse de los jefes. R/.</p>
+                            <p>Abridme las puertas del triunfo, y entraré para dar gracias al Señor. Esta es la puerta del Señor: los vencedores entrarán por ella. Te doy gracias porque me escuchaste y fuiste mi salvación. R/.</p>
+                            <p>Señor, danos la salvación; Señor, danos prosperidad. Bendito el que viene en nombre del Señor, os bendecimos desde la casa del Señor. El Señor es Dios, él nos ilumina. R/.</p>
+                        </div>
+
+                        <div>
+                             <h4 class="text-gold-500 font-serif text-sm uppercase tracking-widest mb-2">Aclamación antes del Evangelio</h4>
+                             <p class="italic">Aleluya, aleluya. Buscad al Señor mientras se le puede encontrar; invocadlo mientras está cerca. Aleluya.</p>
+                        </div>
+
+                        <div>
+                            <h4 class="text-gold-500 font-serif text-sm uppercase tracking-widest mb-2">Evangelio: Mateo 7, 21. 24-27</h4>
+                            <p>En aquel tiempo, dijo Jesús a sus discípulos: «No todo el que me dice "Señor, Señor" entrará en el reino de los cielos, sino el que hace la voluntad de mi Padre que está en los cielos.</p>
+                            <p>El que escucha estas palabras mías y las pone en práctica se parece a aquel hombre prudente que edificó su casa sobre roca. Cayó la lluvia, se salieron los ríos, soplaron los vientos y descargaron contra la casa; pero no se hundió, porque estaba cimentada sobre roca.</p>
+                            <p>El que escucha estas palabras mías y no las pone en práctica se parece a aquel hombre necio que edificó su casa sobre arena. Cayó la lluvia, se salieron los ríos, soplaron los vientos y rompieron contra la casa, y se hundió totalmente».</p>
+                            <p class="font-bold mt-2">Palabra del Señor.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Reflexión -->
+                <div class="glass-premium rounded-xl overflow-hidden group mb-4">
+                    <button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('lit-3-th1')">
+                        <div class="flex items-center gap-4">
+                            <div class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 font-serif"><i class="fa-solid fa-pen-fancy text-sm"></i></div>
+                            <h3 class="font-serif text-lg text-gold-100">Reflexión: Vivir de cimientos, no de fachadas</h3>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-gold-500"></i>
+                    </button>
+                    <div id="lit-3-th1" class="hidden px-8 pb-8 pt-2 border-t border-white/5 text-gray-300 font-display text-lg leading-relaxed text-justify space-y-6">
+                        <p>Jesús utiliza hoy una imagen muy plástica, muy de la tierra: dos casas. Por fuera, probablemente, se veían idénticas. La diferencia no estaba en lo que se veía, sino en lo que estaba oculto: lo que pasaba bajo tierra.</p>
+                        <p>A menudo, nuestra vida cristiana corre el riesgo de ser pura fachada. Nos volvemos expertos en el lenguaje religioso, pero el Evangelio es tozudo y nos recuerda que la fe no es un decorado, sino una estructura de carga.</p>
+                        <p>"Escuchar y poner en práctica". Ese es el secreto del cemento. El hombre necio del que habla Mateo no es un ateo; es un creyente superficial. Construye sobre la arena de sus sentimientos o del éxito.</p>
+                        <p>La "Roca" es la fidelidad de Dios. Construir sobre roca significa tomar decisiones basadas en el Evangelio. El Adviento nos invita a bajar al sótano de nuestra vida. Solo quien tiene cimientos profundos puede ofrecer refugio a los demás cuando arrecia el temporal.</p>
+                    </div>
+                </div>
+
+                <!-- 4. Signo -->
+                <div class="glass-premium rounded-xl overflow-hidden group mb-4">
+                    <button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('lit-4-th1')">
+                        <div class="flex items-center gap-4">
+                            <span class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 font-serif">4</span>
+                            <h3 class="font-serif text-lg text-gold-100">Signo: La piedra angular</h3>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-gold-500"></i>
+                    </button>
+                    <div id="lit-4-th1" class="hidden px-8 pb-8 pt-2 border-t border-white/5 text-gray-300 font-display text-lg leading-relaxed space-y-4">
+                        <p><strong>Materiales:</strong> Una piedra de tamaño mediano para cada participante, o una piedra grande y visible junto al ambón.</p>
+                        <p><strong>Acción:</strong> Se invita a los asistentes a tomar la piedra en sus manos durante un momento de silencio. Sentir su peso, su dureza, su temperatura.</p>
+                        <p><strong>Significado:</strong> Imagina que es la Palabra de Jesús. Piensa en una decisión concreta que debes tomar para que tu vida no sea arena que se lleva el viento, sino roca firme. La fe deja de ser algo etéreo para convertirse en algo sólido, tangible, que sostiene.</p>
+                    </div>
+                </div>
+
+                <!-- 5. Plegaria -->
+                <div class="glass-premium rounded-xl overflow-hidden group mb-4">
+                    <button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('lit-5-th1')">
+                        <div class="flex items-center gap-4">
+                            <span class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 font-serif">5</span>
+                            <h3 class="font-serif text-lg text-gold-100">Plegaria de los fieles</h3>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-gold-500"></i>
+                    </button>
+                    <div id="lit-5-th1" class="hidden px-8 pb-8 pt-2 border-t border-white/5 text-gray-300 font-display text-lg leading-relaxed">
+                        <p class="mb-4 italic text-center">Al Dios que es refugio y fortaleza, Roca perpetua, oramos diciendo: <strong>Afirma nuestros pasos, Señor.</strong></p>
+                        <ul class="space-y-4 list-decimal pl-5">
+                            <li>Por la Iglesia, para que no busque su seguridad en los poderes de este mundo ni en las estructuras externas, sino en la fidelidad al Evangelio de los pobres. Oremos.</li>
+                            <li>Por todos los que han visto derrumbarse su "casa": los refugiados, los que han perdido su hogar por la guerra o los desastres naturales; para que encuentren en nosotros puertas abiertas. Oremos.</li>
+                            <li>Por quienes construyen sobre arena, persiguiendo el éxito rápido o la apariencia vacía; para que descubran la belleza de una vida con raíces profundas y verdaderas. Oremos.</li>
+                            <li>Por nuestra comunidad, para que seamos esa "ciudad fuerte" de la que habla Isaías, donde se vive la lealtad, se custodia la paz y se acoge al indigente. Oremos.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 6. Poema -->
+                <div class="glass-premium rounded-xl overflow-hidden group mb-4">
+                    <button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('lit-6-th1')">
+                        <div class="flex items-center gap-4">
+                            <span class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 font-serif">6</span>
+                            <h3 class="font-serif text-lg text-gold-100">Poema de Postcomunión</h3>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-gold-500"></i>
+                    </button>
+                    <div id="lit-6-th1" class="hidden px-8 pb-8 pt-2 border-t border-white/5 text-gray-300 font-display text-lg leading-relaxed italic space-y-6 text-center">
+                        <h4 class="text-gold-400 not-italic font-bold mb-2">CASA POR DENTRO</h4>
+                        <p>No quiero, Señor, ser casa de alquiler<br>donde las palabras entran y salen<br>sin dejar huella en las paredes.</p>
+                        <p>Quiero habitar en tu Palabra<br>como se habita un hogar en invierno.<br>Quiero que Tú seas la viga maestra<br>que soporta mis miedos y mis cansancios.</p>
+                        <p>Sé que vendrán las lluvias,<br>sé que soplarán vientos de duda.<br>Pero si Tú estás en el fondo,<br>no tendré miedo al derrumbe.</p>
+                        <p>Enséñame, Maestro de obras,<br>a unir lo que escucho con lo que hago,<br>a coser mi fe con mi vida,<br>para que cuando llames a mi puerta,<br>encuentres una casa firme, habitada y cálida,<br>donde Tú puedas descansar.<br>Amén.</p>
+                    </div>
+                </div>
             `
         };
 
@@ -1079,6 +1214,143 @@
                     </div>
 
                 </div>
+            `,
+            dia6: `
+                <h2 class="font-serif text-4xl md:text-5xl text-white mt-4 mb-2 text-center">Sexto Día</h2>
+                <p class="text-gray-400 font-sans text-sm uppercase tracking-widest mb-6 text-center">Jueves 04 de Diciembre de 2025</p>
+                <div class="max-w-3xl mx-auto glass-premium p-6 rounded-xl border border-blue-500/20 mb-8">
+                    <p class="font-display text-xl text-blue-100 italic leading-relaxed text-center">“Quedarse cuando todos se van: La fidelidad en las horas bajas”</p>
+                </div>
+                <div class="space-y-4">
+                    <!-- 1. Monición -->
+                    <div class="glass-premium rounded-xl overflow-hidden group">
+                        <button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('nov6-1')">
+                            <div class="flex items-center gap-4">
+                                <span class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-300 font-serif">1</span>
+                                <h3 class="font-serif text-lg text-blue-100">Monición de Inicio</h3>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-blue-400"></i>
+                        </button>
+                        <div id="nov6-1" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed text-justify border-t border-white/5">
+                            <p class="mb-4">Hermanos, bienvenidos. Ya es jueves. La semana avanza y el cansancio se nota. Hoy la Novena se pone seria, pero con una seriedad llena de amor.</p>
+                            <p class="mb-4">A todos nos gusta estar en las fiestas, en los brindis, en los momentos donde todo sale bien. Es fácil ser amigo cuando hay risas y dinero. Es fácil decir "creo en Dios" cuando nos concede el milagro. Pero, ¿qué pasa cuando llega el viernes santo de la vida? ¿Qué pasa cuando aparece la enfermedad, el fracaso, la vejez o la soledad? Nuestro instinto es huir. No nos gusta el olor a problema.</p>
+                            <p class="mb-4">Hoy miramos a la Inmaculada y descubrimos algo impresionante: Ella es la mujer que se queda. Cuando casi todos los apóstoles (esos hombres tan valientes) salieron corriendo por miedo, Ella se mantuvo firme. Hoy le pedimos que nos preste su fuerza para no abandonar el barco cuando hay tormenta, y para saber acompañar a los que sufren sin mirar el reloj.</p>
+                            <p class="text-sm italic text-blue-300 mt-4 text-center">(Canto sugerido: "Dolorosa de pie junto a la Cruz" o "Santa María del Camino")</p>
+                        </div>
+                    </div>
+
+                    <!-- 2. Oración Inicial -->
+                    <div class="glass-premium rounded-xl overflow-hidden group">
+                        <button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('nov6-2')">
+                            <div class="flex items-center gap-4">
+                                <span class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-300 font-serif">2</span>
+                                <h3 class="font-serif text-lg text-blue-100">Oración Inicial</h3>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-blue-400"></i>
+                        </button>
+                        <div id="nov6-2" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed text-justify border-t border-white/5">
+                            <p>Señor, Tú que probaste la soledad en el Huerto de los Olivos y el abandono en la Cruz, sabes bien cuánto necesitamos una mano amiga. Virgen Inmaculada, Tú no eres una estatua de porcelana que se rompe con el golpe; eres la Mujer Fuerte. En este sexto día venimos a ti reconociendo nuestra cobardía. A menudo damos la espalda a los problemas y dejamos solos a los que nos necesitan porque "no sabemos qué decir" o porque "nos duele verlos así". Madre, enséñanos la lealtad. Esa lealtad que no necesita palabras, sino presencia. Que tu pureza nos limpie del egoísmo que nos hace huir del dolor ajeno. <strong>Amén.</strong></p>
+                        </div>
+                    </div>
+
+                    <!-- 3. Lectura Bíblica -->
+                    <div class="glass-premium rounded-xl overflow-hidden group">
+                        <button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('nov6-3')">
+                            <div class="flex items-center gap-4">
+                                <span class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-300 font-serif">3</span>
+                                <h3 class="font-serif text-lg text-blue-100">Lectura Bíblica</h3>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-blue-400"></i>
+                        </button>
+                        <div id="nov6-3" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed text-center border-t border-white/5">
+                            <p class="italic text-blue-200 mb-2">Del Evangelio según San Juan (19, 25-27)</p>
+                            <p class="font-serif text-xl">"Junto a la cruz de Jesús, estaba su madre, y la hermana de su madre, María, mujer de Cleofás, y María Magdalena."</p>
+                        </div>
+                    </div>
+
+                    <!-- 4. Reflexión -->
+                    <div class="glass-premium rounded-xl overflow-hidden group">
+                        <button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('nov6-4')">
+                            <div class="flex items-center gap-4">
+                                <span class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-300 font-serif">4</span>
+                                <h3 class="font-serif text-lg text-blue-100">Reflexión: "El arte de estar de pie"</h3>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-blue-400"></i>
+                        </button>
+                        <div id="nov6-4" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed text-justify border-t border-white/5 space-y-4">
+                            <p>Hay una frase en el Evangelio que acabamos de escuchar que vale más que mil libros de teología: "Estaba su madre". Y la traducción latina añade un matiz precioso: "Stabat Mater". Estaba de pie.</p>
+                            <p>Imaginen la escena. No es un lecho de muerte tranquilo en una habitación limpia. Es una ejecución pública. Hay sangre, hay gritos, hay moscas, hay insultos de los soldados. Es el escenario del horror absoluto. Lo lógico, lo humano, hubiera sido que María se desmayara, que la sacaran de allí a rastras, o que ni siquiera hubiera ido para no ver morir a su Hijo así.</p>
+                            <p>Pero ella está ahí. De pie. No está gritando histérica, ni insultando a los romanos, ni exigiendo a Dios que baje a su Hijo de la cruz. Simplemente está. Esa es la fidelidad de la Inmaculada. El pecado nos hace cobardes; nos hace pensar: "Yo no aguanto esto, me voy". La gracia, en cambio, nos da la capacidad de sostener la mirada.</p>
+                            <p>En nuestra vida diaria, "estar al pie de la cruz" tiene formas muy concretas. Significa no pedir el divorcio a la primera crisis fuerte, sino pelear por el matrimonio. Significa ir a visitar a ese pariente que tiene Alzheimer y que te repite la misma historia veinte veces, y escucharle con cariño la vez número veintiuno. Significa sentarse al lado del amigo que acaba de perder el trabajo o a un ser querido, y no intentar "arreglarlo" con frases baratas de "todo pasa por algo", sino tener el valor de callar y aguantar su llanto.</p>
+                            <p>La Inmaculada nos enseña que el mayor regalo que puedes darle a alguien que sufre no es una solución mágica, sino tu presencia. Decirle con tu cuerpo: "No puedo quitarte el dolor, pero no voy a dejar que lo pases solo". Hoy es jueves. Quizás hay alguien en tu vida que está pasando por una "hora baja". No huyas. Quédate. Como Ella.</p>
+                        </div>
+                    </div>
+
+                    <!-- 5. Gozos -->
+                    <div class="glass-premium rounded-xl overflow-hidden group">
+                        <button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('nov6-5')">
+                            <div class="flex items-center gap-4">
+                                <span class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-300 font-serif">5</span>
+                                <h3 class="font-serif text-lg text-blue-100">Gozos</h3>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-blue-400"></i>
+                        </button>
+                        <div id="nov6-5" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed border-t border-white/5">
+                            <p class="text-center italic text-blue-200 mb-4">Respuesta: Enséñanos a permanecer contigo.</p>
+                            <ul class="space-y-4">
+                                <li>1. Madre que escuchaste la profecía de Simeón sobre la espada que atravesaría tu alma, y no por eso dejaste de amar y de arriesgarte. Cuando el miedo al dolor nos paralice... <strong class="text-blue-300">R/. Enséñanos a permanecer contigo.</strong></li>
+                                <li>2. Tú que viviste el exilio en Egipto, siendo forastera y pobre, sin perder la confianza en la providencia del Padre. Cuando sintamos que la vida es injusta con nosotros... <strong class="text-blue-300">R/. Enséñanos a permanecer contigo.</strong></li>
+                                <li>3. Virgen valiente, que estuviste de pie junto a la Cruz, siendo el consuelo silencioso de tu Hijo en su agonía. Cuando nos toque acompañar la enfermedad o la muerte... <strong class="text-blue-300">R/. Enséñanos a permanecer contigo.</strong></li>
+                                <li>4. Madre de la Iglesia, que esperaste con los apóstoles asustados la llegada del Espíritu Santo, siendo su fuerza en la incertidumbre. Cuando nuestra comunidad o familia flaquee... <strong class="text-blue-300">R/. Enséñanos a permanecer contigo.</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 6. Peticiones -->
+                    <div class="glass-premium rounded-xl overflow-hidden group">
+                        <button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('nov6-6')">
+                            <div class="flex items-center gap-4">
+                                <span class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-300 font-serif">6</span>
+                                <h3 class="font-serif text-lg text-blue-100">Peticiones</h3>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-blue-400"></i>
+                        </button>
+                        <div id="nov6-6" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed border-t border-white/5">
+                            <p class="mb-4">Presentemos nuestras súplicas por todos los que están atravesando su propio "viernes santo":</p>
+                            <ul class="space-y-4 list-decimal pl-5">
+                                <li>Por los enfermos terminales y los que sufren dolores crónicos: para que nunca les falte una mano amiga que les sostenga y les recuerde que no son una carga. <strong>Oremos.</strong></li>
+                                <li>Por los matrimonios que están pasando por crisis, frialdad o dificultades: para que miren la fidelidad de María y encuentren fuerzas para no tirar la toalla. <strong>Oremos.</strong></li>
+                                <li>Por los que sufren depresión o ansiedad, y se sienten incomprendidos en su "noche oscura": para que encuentren en nosotros una compañía paciente, sin juicios. <strong>Oremos.</strong></li>
+                                <li>Por nosotros, amigos de los tiempos buenos: para que Dios nos dé la gracia de ser también amigos leales en las malas rachas. <strong>Oremos.</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 7. Oración Final -->
+                    <div class="glass-premium rounded-xl overflow-hidden group">
+                        <button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('nov6-7')">
+                            <div class="flex items-center gap-4">
+                                <span class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-300 font-serif">7</span>
+                                <h3 class="font-serif text-lg text-blue-100">Oración Final</h3>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-blue-400"></i>
+                        </button>
+                        <div id="nov6-7" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed text-justify border-t border-white/5">
+                            <p>Virgen Inmaculada, Mujer de la entereza. Gracias por este sexto día. Nos da vergüenza reconocer cuántas veces hemos huido, cuántas veces hemos cambiado de tema para no tocar el dolor, o hemos mirado hacia otro lado. Tú eres la torre firme de la fe. Préstanos tu hombro. Ayúdanos a no tener miedo a las lágrimas, ni a las nuestras ni a las de los otros. Que entendamos que amar de verdad es quedarse cuando la fiesta termina y solo queda recoger los pedazos. Haznos fieles, Madre. Fieles como Tú. <strong>Amén.</strong></p>
+                        </div>
+                    </div>
+
+                    <!-- 8. Gesto -->
+                    <div class="bg-blue-900/30 p-6 rounded-xl border border-blue-500/30 shadow-lg">
+                        <div class="flex items-center gap-3 mb-4">
+                            <i class="fa-solid fa-hand-holding-heart text-blue-300 text-xl"></i>
+                            <h3 class="font-serif text-lg text-blue-100 uppercase tracking-widest">Gesto del Día</h3>
+                        </div>
+                        <p class="text-blue-200 font-bold mb-2">La "Llamada Incómoda"</p>
+                        <p class="text-gray-300 font-display text-lg leading-relaxed">Hoy todos tenemos a alguien en la lista de contactos a quien hemos evitado llamar. Quizás alguien que está viudo/a, alguien enfermo, o alguien que está pasando una mala racha económica o emocional. Lo hemos evitado porque "nos da bajón" o porque no sabemos qué decir. El gesto de hoy es: Llama o visita a esa persona. No prepares un discurso. Solo pregúntale: "¿Cómo estás de verdad?" y escucha. Aguanta el silencio o la queja si es necesario. Regálale 10 minutos de tu "estar ahí". Ese es tu Evangelio de hoy.</p>
+                    </div>
+
+                </div>
             `
         };
 
@@ -1145,56 +1417,56 @@
         const weekContent = {
             lunes: {
                 char: "Isabel",
-                title: "La Esperanza en el Silencio",
+                title: "La Esperanza que despierta en el silencio",
                 verseText: "En cuanto Isabel oyó el saludo de María, la criatura saltó en su seno",
-                fullText: `<p class="mb-4">La esperanza tiene sus lugares predilectos, y rara vez coinciden con los centros de poder. La historia de Isabel nos lo enseña con una belleza sobrecogedora. Su esperanza no nace en el Templo, sino en la periferia.</p><p>Es en esa quietud donde nuestro corazón se vuelve más poroso a la sorpresa.</p>`,
-                phrase: "La esperanza, cuando es auténtica, no puede ser muda.",
-                action: "Busca hoy a alguien que viva en tu periferia. Ofrécele una palabra de reconocimiento.",
+                fullText: `<p class="mb-4">La esperanza tiene sus lugares predilectos, y rara vez coinciden con los centros de poder o los escenarios iluminados por el éxito. La historia de Isabel nos lo enseña con una belleza sobrecogedora. Su esperanza no nace en el Templo de Jerusalén, sino en la periferia, en una casa apartada, marcada durante años por el estigma de la esterilidad.</p><p class="mb-4">Es precisamente allí, en lo que el mundo consideraría un fracaso, en el silencio de una vida sin los frutos esperados, donde Dios decide irrumpir. Isabel nos enseña a valorar nuestros propios márgenes, esos espacios de nuestra historia que parecen vacíos o fallidos.</p><p class="mb-4">Es en esa quietud, cuando hemos dejado de exigirle a la vida grandes cosas, donde nuestro corazón se vuelve más poroso a la sorpresa. Es allí donde podemos, como ella, sentir el salto de una vida nueva que no controlamos, una alegría que nos desborda y nos obliga a hablar, a bendecir, a confirmar al otro en su camino. El Adviento comienza en el silencio de nuestras "casas de Judea".</p>`,
+                phrase: "La esperanza, cuando es auténtica, no puede ser muda. Crece cuando se comparte, cuando se extiende como un fuego que enciende otras vidas.",
+                action: "Busca hoy a alguien que viva en tu periferia un vecino con el que apenas cruzas palabra, un familiar distante, un compañero de trabajo que parece invisible. Ofrécele una palabra de reconocimiento, una pregunta sincera, un gesto de aprecio. Conviértete, por un instante, en una voz como la de Isabel, que no solo siente la esperanza, sino que la proclama y al hacerlo, fortalece la del otro.",
                 prayer: "Señor, enséñame a mirar con cariño mis propias periferias. Hazme fecundo en la esperanza callada. Amén."
             },
             martes: {
                 char: "José",
-                title: "Velar en la Incertidumbre",
-                verseText: "José, su esposo, que era hombre justo, no queriendo ponerla en evidencia...",
-                fullText: `<p class="mb-4">No toda vigilia es serena. Existe una vigilia tensa, la que se vive en la noche oscura de la duda. Esa fue la vigilia de José. Él es el hombre que quedó sin suelo bajo los pies.</p><p>José nos enseña que la fe no es la ausencia de miedo, sino la decisión de seguir caminando a pesar de él.</p>`,
-                phrase: "La esperanza de José es tensa, arrancada del dolor y construida paso a paso.",
-                action: "Identifica una situación que te genera miedo. Hoy, da un pequeño paso concreto para afrontarla.",
+                title: "Velar en la incertidumbre",
+                verseText: "José, su esposo, que era hombre justo, no queriendo ponerla en evidencia, pensó dejarla en secreto.",
+                fullText: `<p class="mb-4">No toda vigilia es serena. Existe una vigilia tensa, la que se vive en la noche oscura de la duda y la responsabilidad. Esa fue la vigilia de José.</p><p class="mb-4">Él es el hombre que quedó sin suelo bajo los pies, el artesano acostumbrado a la lógica de la madera y las herramientas, enfrentado de golpe a un misterio que lo desbordaba. Velar, para José, no fue contemplar las estrellas con paz, sino caminar a tientas en medio del caos, con el peso de proteger una vida que no entendía pero que amaba con todo su ser. Su espera está tejida de miedo, de impotencia, de puertas que se cierran. Y, sin embargo, sigue adelante. No porque sea un superhéroe sin temor, sino porque su amor por María y por el niño es más fuerte que su desesperación.</p><p>José nos enseña que la fe no es la ausencia de miedo, sino la decisión de seguir caminando a pesar de él. Su esperanza no se asienta en certezas, sino en un acto de confianza radical. Velar, a veces, es simplemente poner un pie delante del otro cuando todo está oscuro.</p>`,
+                phrase: "La esperanza de José es tensa, arrancada del dolor y de la incertidumbre, construida paso a paso en medio de la desesperación.",
+                action: "Identifica una situación en tu vida que te genera incertidumbre o miedo. Puede ser una decisión que aplazas, una conversación que evitas, un futuro que te inquieta. Hoy, en lugar de huir de ella, da un pequeño paso concreto para afrontarla. Como José, actúa no desde la certeza, sino desde la confianza en que el amor te sostiene.",
                 prayer: "Dios del silencio, no te pido certezas deslumbrantes, sino la confianza justa para dar el siguiente paso. Amén."
             },
             miercoles: {
-                char: "Magos",
-                title: "Señales en la Noche",
-                verseText: "¿Dónde está el rey de los judíos? Hemos visto su estrella...",
-                fullText: `<p class="mb-4">El Adviento es una invitación a levantar la mirada. A ser, como los Magos, exploradores del cielo. Ellos nos muestran que la vigilia también es una actividad de la inteligencia.</p>`,
-                phrase: "El universo es un libro donde se pueden leer los designios del Creador.",
-                action: "Dedica hoy minutos a contemplar algo sin un fin práctico, simplemente por la belleza de hacerlo.",
+                char: "Magos y Kepler",
+                title: "Buscar las señales en la Noche",
+                verseText: "¿Dónde está el rey de los judíos que ha nacido? Porque hemos visto su estrella en el Oriente y venimos a adorarlo.",
+                fullText: `<p class="mb-4">El Adviento es una invitación a levantar la mirada. A ser, como los Magos de Oriente o como el astrónomo Johannes Kepler siglos después, "exploradores del cielo”. Ellos nos muestran que la vigilia también es una actividad de la inteligencia y del deseo de saber.</p><p class="mb-4">Velar no es solo sentir, es también buscar, estudiar, preguntar, interpretar las señales. Dios no solo habla en el susurro del corazón, sino también en el lenguaje majestuoso del cosmos. Los Magos vieron en una conjunción planetaria no un mero fenómeno astronómico, sino una invitación, un mensaje que los puso en camino.</p><p>Su historia nos recuerda que la fe y la razón no son enemigas, sino dos alas con las que nos elevamos hacia la verdad. Velar es aprender a leer las "conjunciones" inesperadas de nuestra propia vida: un encuentro fortuito, un libro que llega a nuestras manos, una pregunta que nos asalta. Dios susurra en el orden del universo y en el anhelo insaciable de nuestro intelecto por comprender.</p>`,
+                phrase: "El universo es un libro donde se pueden leer los designios más puros del creador. Un mapa donde las estrellas trazan el orden sobre el caos.",
+                action: "Dedica hoy minutos a contemplar algo sin un fin práctico, simplemente por la belleza de hacerlo. Puede ser mirar el cielo nocturno y buscar una constelación, leer un poema con atención, escuchar una pieza musical sin hacer nada más. Permite que tu mente y tu espíritu se abran a una 'señal' que rompa la rutina de lo puramente utilitario.",
                 prayer: "Señor, levanta mi mirada del suelo. Despierta en mí la inquietud de los buscadores. Amén."
             },
             jueves: {
                 char: "Herodes",
-                title: "El Miedo que Ciega",
-                verseText: "Al oír esto, el rey Herodes se sobresaltó...",
-                fullText: `<p class="mb-4">Para entender la luz, a veces es necesario contemplar la sombra. Herodes es la gran sombra del Adviento. Su vigilancia es la del tirano que teme perder el control.</p>`,
-                phrase: "La desesperanza te convierte en prisionero de tus propios temores.",
-                action: "Haz un acto consciente de 'soltar el control'. Delega una tarea. Ofrece confianza en lugar de sospecha.",
+                title: "La Antítesis de la Esperanza",
+                verseText: "Al oír esto, el rey Herodes se sobresaltó, y toda Jerusalén con él.",
+                fullText: `<p class="mb-4">Para entender la luz, a veces es necesario contemplar la sombra. Herodes es la gran sombra del Adviento, la antítesis de todo lo que este tiempo representa.</p><p class="mb-4">Él también vela, pero su vigilancia es la del paranoico, la del tirano que teme perder el control. Su noche no está poblada de estrellas que guían, sino de fantasmas que amenazan. Herodes es la encarnación de un corazón sin esperanza. Incapaz de concebir que algo nuevo y bueno pueda nacer sin amenazar su trono, ve en el rumor de un niño una conspiración que debe ser aniquilada.</p><p>Donde los Magos ven una promesa, él ve un peligro. Su historia es una advertencia terrible y necesaria: cuando el corazón se cierra a la esperanza, se abre inevitablemente a la violencia. La desesperanza nos convierte en prisioneros de nuestro propio poder, aislados en un palacio de miedos, dispuestos a destruir la fragilidad de un niño antes que arriesgarnos a ser transformados por ella.</p>`,
+                phrase: "La desesperanza es, al final, una forma de muerte en vida. Te roba el horizonte. Te convierte en prisionero de tus propios temores.",
+                action: "Reflexiona sobre un miedo que te llevará a controlar excesivamente una situación oa una persona en tu vida. Hoy, haz un acto consciente de 'soltar el control'. Delega una tarea que crees que solo tú puedes hacer bien. Ofrece confianza en lugar de sospecha. Resiste el impulso de revisar o verificar compulsivamente. Elige, en un pequeño gesto, la esperanza sobre el miedo.",
                 prayer: "Señor, desarma mis defensas. Rompe la coraza de mi corazón para que no expulse lo nuevo. Amén."
             },
             viernes: {
                 char: "Ana",
-                title: "La Espera que Sostiene",
-                verseText: "Ana no se apartaba del templo, sirviendo a Dios noche y día...",
-                fullText: `<p class="mb-4">Hay una forma de velar que no hace ruido: la intercesión. Ana nos enseña que velar es también sostener a otros en la oración.</p>`,
-                phrase: "Hago lo único que puedo. Me pongo a rezar. Por ti.",
-                action: "Elige a una persona y dedica tu día a 'sostenerla' en tu pensamiento y oración.",
+                title: "La espera que sostiene",
+                verseText: "[Ana] no se apartaba del templo, sirviendo a Dios noche y día con ayunos y oraciones.",
+                fullText: `<p class="mb-4">Hay una forma de velar que no hace ruido, que no viaja a Belén ni consulta las estrellas, pero sin la cual, quizás, la historia se derrumbaría. Es la vigilia de la intercesión, la espera que sostiene desde la distancia. Es la vigilia de Ana, la madre de María. Lejos, en Jerusalén, cuidando a su esposo enfermo, su corazón está en Nazaret con su hija embarazada.</p><p class="mb-4">Su espera es una mezcla tan humana de inquietud y confianza. Tiene miedo, porque sabe que el mundo no siempre es amable, pero al mismo tiempo confía, porque conoce la fortaleza de su hija y, sobre todo, porque su vida entera se ha apoyado en la fe en Dios. Ana nos enseña que velar es también sostener a otros en la oración. Nuestra esperanza puede ser el nacimiento invisible sobre el que otros construyen su camino. A menudo, sin saberlo, somos fuertes porque alguien, en algún lugar, está velando por nosotros.</p>`,
+                phrase: "Hago lo único que puedo. Me pongo a rezar. Por ti, por José, por ese niño que viene.",
+                action: "Elige a una persona de tu familia, de tu comunidad o de tu trabajo. Hoy, de manera anónima y silenciosa, dedica tu día a 'sostenerla' en tu pensamiento y en tu oración. Que tu esperanza sea para ella un apoyo invisible, una fuerza que la acompaña sin que ella lo sepa.",
                 prayer: "Señor, hazme columna invisible para los demás. Que mi oración sostenga a quien lucha lejos. Amén."
             },
             sabado: {
                 char: "Preparación",
                 title: "Del despertar al camino",
-                verseText: "Preparen el camino del Señor, allanad sus senderos.",
-                fullText: `<p class="mb-4">Hemos viajado aprendiendo a despertar. Pero la vigilia no es un fin en sí mismo. Es el paso para escuchar la VOZ que mueve el mundo.</p>`,
-                phrase: "¡Déjate descolocar por Dios! Es tiempo de ponerte en camino.",
-                action: "Realiza hoy un pequeño acto concreto de 'allanar un sendero'. Ordena un espacio o haz una llamada pendiente.",
+                verseText: "Una voz grita en el desierto: 'Preparen el camino del Señor, allanad sus senderos'.",
+                fullText: `<p class="mb-4">Hemos viajado a lo largo de esta semana aprendiendo a despertar. Hemos velado con la esperanza silenciosa de Isabel, con la angustia confiada de José, con la curiosidad intelectual de los Magos. Hemos aprendido la anti-espera de Herodes y a valorar la fe que sostiene de Ana.</p><p class="mb-4">Pero todo este despertar, toda esta vigilia, no es un fin en sí mismo. Es el primer y necesario paso para poder escuchar. Una vez que el corazón está despierto y en silencio, puede percibir con más claridad "la VOZ que mueve el mundo”. Es la voz que, en el Evangelio de mañana, resonará en el desierto a través de Juan el Bautista: "Preparad el camino del Señor, allanad sus senderos".</p><p>La vigilia de la primera semana nos ha preparado para el trabajo de la segunda. La contemplación nos impulsa a la conversión. El despertar nos pone en pie para empezar a caminar y a transformar la realidad. La espera se vuelve activa.</p>`,
+                phrase: "¡Déjate descolocar por Dios! Es tiempo de actualizar tu vida a su presencia y ponerte en camino.",
+                action: "Realiza hoy un pequeño acto concreto de 'allanar un sendero'. Puede ser un sendero interior: escribe en un papel un hábito, un rencor o un miedo que quieras dejar atrás en este Adviento, y rómpelo como signo de tu decisión. O puede ser un sendero exterior: ordena un espacio de tu casa que esté caótico, haz esa llamada de reconciliación que tienes pendiente, realiza un donativo que habías pensado hacer. Prepara, con un gesto, tu corazón y tu vida para la llegada del Señor.",
                 prayer: "Ya viene tu voz, Señor. Sacúdeme la pereza. Que mi espera se convierta en manos que trabajan. Amén."
             }
         };
