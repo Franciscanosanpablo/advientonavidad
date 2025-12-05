@@ -445,7 +445,7 @@
                     <p class="font-sans text-gold-500 text-xs md:text-sm uppercase tracking-[0.5em] font-bold">Navidad 2025</p>
                     <h1 class="font-serif text-5xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gold-100 via-gold-400 to-gold-100 drop-shadow-2xl leading-tight">ESPERANZA Y ALEGRÍA</h1>
                     
-                    <!-- BOTÓN PREMIUM DE PELÍCULA (NUEVO) -->
+                    <!-- BOTÓN PREMIUM DE PELÍCULA (RESTAURADO) -->
                     <div class="flex justify-center mb-8 mt-12">
                         <button onclick="openMainVideo()" class="group relative px-8 py-4 bg-transparent overflow-hidden rounded-full flex items-center gap-4 transition-all hover:scale-105 shadow-[0_0_40px_rgba(212,175,55,0.4)] hover:shadow-[0_0_60px_rgba(212,175,55,0.6)]">
                             <!-- Background Animado -->
@@ -507,6 +507,7 @@
                     <button onclick="renderLiturgy('martes1')" class="px-6 py-2 rounded-full border border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-black transition-all text-xs font-bold uppercase tracking-widest lit-nav-btn" id="btn-lit-martes1">Martes I</button>
                     <button onclick="renderLiturgy('miercoles1')" class="px-6 py-2 rounded-full border border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-black transition-all text-xs font-bold uppercase tracking-widest lit-nav-btn" id="btn-lit-miercoles1">Miércoles I</button>
                     <button onclick="renderLiturgy('jueves1')" class="px-6 py-2 rounded-full border border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-black transition-all text-xs font-bold uppercase tracking-widest lit-nav-btn" id="btn-lit-jueves1">Jueves I</button>
+                    <button onclick="renderLiturgy('viernes1')" class="px-6 py-2 rounded-full border border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-black transition-all text-xs font-bold uppercase tracking-widest lit-nav-btn" id="btn-lit-viernes1">Viernes I</button>
                 </div>
 
                 <div class="grid lg:grid-cols-12 gap-8">
@@ -600,6 +601,7 @@
                     <button onclick="renderNovena('dia4')" class="px-5 py-2 rounded-full border border-blue-400 text-blue-300 hover:bg-blue-900/50 hover:text-white transition-all text-xs font-bold uppercase tracking-widest novena-nav-btn" id="btn-nov-dia4">Día 4</button>
                     <button onclick="renderNovena('dia5')" class="px-5 py-2 rounded-full border border-blue-400 text-blue-300 hover:bg-blue-900/50 hover:text-white transition-all text-xs font-bold uppercase tracking-widest novena-nav-btn" id="btn-nov-dia5">Día 5</button>
                     <button onclick="renderNovena('dia6')" class="px-5 py-2 rounded-full border border-blue-400 text-blue-300 hover:bg-blue-900/50 hover:text-white transition-all text-xs font-bold uppercase tracking-widest novena-nav-btn" id="btn-nov-dia6">Día 6</button>
+                    <button onclick="renderNovena('dia7')" class="px-5 py-2 rounded-full border border-blue-400 text-blue-300 hover:bg-blue-900/50 hover:text-white transition-all text-xs font-bold uppercase tracking-widest novena-nav-btn" id="btn-nov-dia7">Día 7</button>
                 </div>
 
                 <!-- CONTENEDOR DINÁMICO NOVENA -->
@@ -745,38 +747,6 @@
             }, 60000); 
         }
 
-        function initCountdown() {
-            // Set the date we're counting down to: Dec 4, 2025 20:00:00
-            const countDownDate = new Date("Dec 4, 2025 20:00:00").getTime();
-
-            const x = setInterval(function() {
-                const now = new Date().getTime();
-                const distance = countDownDate - now;
-
-                if (distance < 0) {
-                    clearInterval(x);
-                    const hoursEl = document.getElementById("hours");
-                    if(hoursEl) {
-                        document.getElementById("hours").innerText = "00";
-                        document.getElementById("minutes").innerText = "00";
-                        document.getElementById("seconds").innerText = "00";
-                    }
-                    return;
-                }
-
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                const hoursEl = document.getElementById("hours");
-                if(hoursEl) {
-                    document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
-                    document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
-                    document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
-                }
-            }, 1000);
-        }
-
         function checkAccess() {
             const code = document.getElementById('access-code').value.toUpperCase();
             if (code === 'YAVIENE') {
@@ -789,7 +759,7 @@
                 
                 renderDay('lunes');
                 renderLiturgy('lunes1'); 
-                renderNovena('dia6'); 
+                renderNovena('dia7'); // Mostrar el día más reciente (Día 7)
                 document.getElementById('bg-home').style.opacity = 1;
                 
                 const audio = document.getElementById('bg-music');
@@ -1102,6 +1072,142 @@
                         <p>Enséñame, Maestro de obras,<br>a unir lo que escucho con lo que hago,<br>a coser mi fe con mi vida,<br>para que cuando llames a mi puerta,<br>encuentres una casa firme, habitada y cálida,<br>donde Tú puedas descansar.<br>Amén.</p>
                     </div>
                 </div>
+            `,
+            viernes1: `
+                <div class="mb-8 border-b border-white/10 pb-4">
+                    <span class="text-gold-500 font-serif text-xs uppercase tracking-widest">Viernes 05 de Diciembre</span>
+                    <h2 class="font-serif text-3xl md:text-4xl text-white mt-2">"Los Ojos que Aprenden a Ver"</h2>
+                </div>
+
+                <!-- 1. Monición -->
+                <div class="glass-premium rounded-xl overflow-hidden group mb-4">
+                    <button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('lit-1-f1')">
+                        <div class="flex items-center gap-4">
+                            <span class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 font-serif">1</span>
+                            <h3 class="font-serif text-lg text-gold-100">Monición de Entrada</h3>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-gold-500"></i>
+                    </button>
+                    <div id="lit-1-f1" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed text-justify border-t border-white/5">
+                        <p class="mb-4">Hermanos, bienvenidos. En este caminar de Adviento, hoy nos detenemos en el umbral de la luz. Vivimos rodeados de imágenes, pantallas y luces de neón que nos prometen mostrarlo todo, pero a menudo caminamos a tientas en lo esencial. Estamos ciegos ante el dolor ajeno, ciegos ante la esperanza que brota pequeña en el asfalto, ciegos ante la presencia de Dios que respira a nuestro lado.</p>
+                        <p class="mb-4">Hoy la Palabra de Dios viene como un colirio suave. Isaías nos promete que la oscuridad no tiene la última palabra y el Evangelio nos muestra a dos ciegos que no se conforman con su tiniebla, sino que gritan. Hoy venimos aquí a gritar con ellos: "Ten compasión de nosotros". Que esta celebración nos limpie la mirada para descubrir al Dios que ya está actuando en medio de nosotros.</p>
+                    </div>
+                </div>
+
+                <!-- 2. Liturgia -->
+                <div class="glass-premium rounded-xl overflow-hidden group mb-4">
+                    <button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('lit-2-f1')">
+                        <div class="flex items-center gap-4">
+                            <span class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 font-serif">2</span>
+                            <h3 class="font-serif text-lg text-gold-100">Liturgia de la Palabra</h3>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-gold-500"></i>
+                    </button>
+                    <div id="lit-2-f1" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed text-justify border-t border-white/5 space-y-6">
+                        <div class="p-4 bg-white/5 rounded-lg italic text-gray-400 font-display text-sm">
+                            <p>Lectura del libro del profeta Isaías (29, 17-24)</p>
+                        </div>
+                        <div>
+                            <p>Esto dice el Señor Dios: «Pronto, muy pronto, el Líbano se convertirá en vergel, y el vergel parecerá un bosque. Aquel día, oirán los sordos las palabras del libro; sin tinieblas ni oscuridad verán los ojos de los ciegos. Los oprimidos volverán a alegrarse con el Señor, y los más pobres gozarán con el Santo de Israel; porque se acabó el tirano, desapareció el cínico, y serán aniquilados los que acechan para hacer el mal, los que con sus palabras hacen culpable a la gente, y trampean al juez en el tribunal, y por una nada hunden al inocente.</p>
+                            <p>Por eso, así dice a la casa de Jacob el Señor, que redimió a Abrahán: "Ya no se avergonzará Jacob, ya no se sonrojará su rostro, pues cuando vea mis acciones en medio de él, santificará mi nombre, santificará al Santo de Jacob y temerá al Dios de Israel. Los que habían perdido la cabeza comprenderán, y los que protestaban aprenderán la enseñanza"».</p>
+                            <p class="font-bold mt-2">Palabra de Dios.</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-gold-500 font-serif text-sm uppercase tracking-widest mb-2">Salmo Responsorial: Salmo 26</h4>
+                            <p class="text-white font-bold italic mb-2">R/. El Señor es mi luz y mi salvación.</p>
+                            <p>El Señor es mi luz y mi salvación, ¿a quién temeré? El Señor es la defensa de mi vida, ¿quién me hará temblar? R/.</p>
+                            <p>Una cosa pido al Señor, eso buscaré: habitar en la casa del Señor por los días de mi vida; gozar de la dulzura del Señor, contemplando su templo. R/.</p>
+                            <p>Espero gozar de la dicha del Señor en el país de la vida. Espera en el Señor, sé valiente, ten ánimo, espera en el Señor. R/.</p>
+                        </div>
+
+                        <div>
+                             <h4 class="text-gold-500 font-serif text-sm uppercase tracking-widest mb-2">Aclamación antes del Evangelio</h4>
+                             <p class="italic">Aleluya, aleluya. Mirad, el Señor llega con poder e iluminará los ojos de sus siervos. Aleluya.</p>
+                        </div>
+
+                        <div>
+                            <h4 class="text-gold-500 font-serif text-sm uppercase tracking-widest mb-2">Evangelio: Mateo 9, 27-31</h4>
+                            <p>En aquel tiempo, dos ciegos seguían a Jesús, gritando: «¡Ten compasión de nosotros, hijo de David!». Al llegar a la casa, se le acercaron los ciegos, y Jesús les dijo: «¿Creen que puedo hacer eso?». Contestaron: «Sí, Señor». Entonces les tocó los ojos, diciendo: «Que se haga en ustedes conforme a su fe». Y se les abrieron los ojos. Jesús les ordenó severamente: «¡Cuidado con que lo sepa alguien!». Pero ellos, al salir, hablaron de él por toda la comarca.</p>
+                            <p class="font-bold mt-2">Palabra del Señor.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Reflexión -->
+                <div class="glass-premium rounded-xl overflow-hidden group mb-4">
+                    <button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('lit-3-f1')">
+                        <div class="flex items-center gap-4">
+                            <div class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 font-serif"><i class="fa-solid fa-pen-fancy text-sm"></i></div>
+                            <h3 class="font-serif text-lg text-gold-100">Reflexión: Tocar la noche con las manos</h3>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-gold-500"></i>
+                    </button>
+                    <div id="lit-3-f1" class="hidden px-8 pb-8 pt-2 border-t border-white/5 text-gray-300 font-display text-lg leading-relaxed text-justify space-y-6">
+                        <p>El evangelio de hoy tiene el sonido de un grito desesperado en medio del camino. Dos hombres que viven en la noche perpetua persiguen a Jesús. No lo ven, pero intuyen su paso. Sienten que en ese hombre de Nazaret hay una luz distinta, una que no hiere, sino que salva.</p>
+                        <p>A veces pensamos que la fe es tener todas las respuestas claras, como un mapa iluminado por un sol de mediodía. Pero la fe de estos ciegos nace de la oscuridad. Nace de la necesidad. "¡Ten compasión de nosotros!". Es la oración más honesta, la que brota de las entrañas cuando se nos acaban los discursos.</p>
+                        <p>Jesús hace algo profundamente humano y divino a la vez: les toca los ojos. Dios no sana a distancia, con decretos fríos. Dios sana tocando nuestra herida, metiendo sus dedos en nuestro barro. Y pregunta: "¿Creen que puedo hacer esto?".</p>
+                        <p>Hoy, en nuestras ciudades latinoamericanas, hay mucha ceguera. Está la ceguera del tirano y del cínico —como dice Isaías— que no ven al pobre porque les estorba el paisaje. Está la ceguera del pesimismo, que solo ve el Líbano seco y no cree que pueda volverse un vergel. Y está nuestra propia ceguera: esa que nos hace pasar de largo ante el milagro de la vida cotidiana, ante el rostro cansado del hermano que viaja en el bus a nuestro lado, ante la belleza frágil de una flor que rompe el cemento.</p>
+                        <p>El Adviento es el tiempo para dejar que Jesús nos toque los ojos. Para aprender a ver la realidad no como un problema que nos abruma, sino como el lugar donde Dios está gestando algo nuevo. "Que se haga conforme a su fe". Si creemos que todo está perdido, veremos ruinas. Si creemos en la promesa, nuestros ojos empezarán a distinguir los brotes verdes en medio del invierno.</p>
+                        <p>Dichosos los que, aun en la oscuridad, se atreven a seguir los pasos del Maestro, porque ellos verán amanecer.</p>
+                    </div>
+                </div>
+
+                <!-- 4. Signo -->
+                <div class="glass-premium rounded-xl overflow-hidden group mb-4">
+                    <button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('lit-4-f1')">
+                        <div class="flex items-center gap-4">
+                            <span class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 font-serif">4</span>
+                            <h3 class="font-serif text-lg text-gold-100">Signo: La venda y la llama</h3>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-gold-500"></i>
+                    </button>
+                    <div id="lit-4-f1" class="hidden px-8 pb-8 pt-2 border-t border-white/5 text-gray-300 font-display text-lg leading-relaxed space-y-4">
+                        <p><strong>Materiales:</strong> Una venda de tela oscura y un cirio encendido grande (o velas pequeñas para cada uno si es un grupo pequeño).</p>
+                        <p><strong>Acción:</strong> Se invita a la asamblea a cerrar los ojos (o vendarse los ojos a un voluntario frente al altar) durante un minuto de silencio absoluto. Sentir la oscuridad, la inseguridad. La monición guía: "En esta oscuridad, reconoce tus miedos, lo que no entiendes, lo que te duele ver." Luego, se enciende el cirio (o se quita la venda). Monición: "Jesús es la luz que no deslumbra, sino que acompaña. Abre los ojos y mira la luz."</p>
+                        <p><strong>Significado:</strong> Experimentar físicamente el paso de la tiniebla a la luz, no como un espectáculo, sino como un despertar de la conciencia.</p>
+                    </div>
+                </div>
+
+                <!-- 5. Plegaria -->
+                <div class="glass-premium rounded-xl overflow-hidden group mb-4">
+                    <button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('lit-5-f1')">
+                        <div class="flex items-center gap-4">
+                            <span class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 font-serif">5</span>
+                            <h3 class="font-serif text-lg text-gold-100">Plegaria de los fieles</h3>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-gold-500"></i>
+                    </button>
+                    <div id="lit-5-f1" class="hidden px-8 pb-8 pt-2 border-t border-white/5 text-gray-300 font-display text-lg leading-relaxed">
+                        <p class="mb-4 italic text-center">A Jesús, luz del mundo, que conoce nuestras sombras y no se asusta de ellas, le presentamos nuestra súplica confiada diciendo: <strong>Abre nuestros ojos, Señor.</strong></p>
+                        <ul class="space-y-4 list-decimal pl-5">
+                            <li>Por la Iglesia, para que no se encierre en sus propios muros, sino que tenga una mirada compasiva capaz de descubrir a Dios en las periferias y en los descartados. Oremos.</li>
+                            <li>Por los que tienen poder de decisión en nuestros países, para que se les caiga la venda de la ambición y puedan ver las necesidades reales de los más humildes. Oremos.</li>
+                            <li>Por los que viven en la oscuridad de la depresión, la enfermedad o la soledad; para que sientan la mano de Jesús tocando sus ojos y devolviéndoles la esperanza. Oremos.</li>
+                            <li>Por nosotros, para que este Adviento nos enseñe a mirar la naturaleza y a las personas con asombro, descubriendo en cada detalle la huella de tu amor. Oremos.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 6. Poema -->
+                <div class="glass-premium rounded-xl overflow-hidden group mb-4">
+                    <button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('lit-6-f1')">
+                        <div class="flex items-center gap-4">
+                            <span class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 font-serif">6</span>
+                            <h3 class="font-serif text-lg text-gold-100">Poema de Postcomunión</h3>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-gold-500"></i>
+                    </button>
+                    <div id="lit-6-f1" class="hidden px-8 pb-8 pt-2 border-t border-white/5 text-gray-300 font-display text-lg leading-relaxed italic space-y-6 text-center">
+                        <h4 class="text-gold-400 not-italic font-bold mb-2">VERTE EN LO OCULTO</h4>
+                        <p>Señor, cura mis ojos cansados de ver escaparates y luces artificiales que no calientan.</p>
+                        <p>Dame la mirada del pobre que sabe descubrir el tesoro en el campo baldío. Dame la mirada del profeta que ve el vergel donde otros solo ven desierto.</p>
+                        <p>Quiero verte, no en el cielo lejano, sino aquí, en la grieta de la acera donde crece el musgo, en la mano callosa del que reparte el pan, en el silencio que queda después de la lluvia.</p>
+                        <p>Toca mis párpados pesados con tu dedo de luz. Quítame las cataratas del prejuicio y la miopía del miedo.</p>
+                        <p>Que aprenda a ver tu Reino, Señor, que crece lento, humilde, invencible, en lo secreto de la vida diaria.</p>
+                        <p>Amén.</p>
+                    </div>
+                </div>
             `
         };
 
@@ -1393,6 +1499,23 @@
                     </div>
 
                 </div>
+            `,
+            dia7: `
+                <h2 class="font-serif text-4xl md:text-5xl text-white mt-4 mb-2 text-center">Séptimo Día</h2>
+                <p class="text-gray-400 font-sans text-sm uppercase tracking-widest mb-6 text-center">Viernes 05 de Diciembre de 2025</p>
+                <div class="max-w-3xl mx-auto glass-premium p-6 rounded-xl border border-blue-500/20 mb-8">
+                    <p class="font-display text-xl text-blue-100 italic leading-relaxed text-center">“La mística de la atención: Tener ojos para lo que a otros se les escapa”</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="glass-premium rounded-xl overflow-hidden group"><button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('nov7-1')"><div class="flex items-center gap-4"><span class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-300 font-serif">1</span><h3 class="font-serif text-lg text-blue-100">Monición de Inicio</h3></div><i class="fa-solid fa-chevron-down text-blue-400"></i></button><div id="nov7-1" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed text-justify border-t border-white/5"><p>Hermanas y hermanos, bienvenidos. Ya es viernes. Se siente en el cuerpo el peso de la semana, ¿verdad? Llegamos a este séptimo día quizás con las "baterías en rojo", buscando un rincón donde descansar el alma. Hoy, la Inmaculada no nos recibe sentada en un trono lejano. Nos recibe como esa mujer despierta, intuitiva, que sabe leer en las caras de sus hijos lo que les pasa antes de que abran la boca. El estilo de María es el estilo de la atención. Mientras otros andan distraídos con sus teorías o sus negocios, Ella está atenta a la vida que fluye (o que se atasca). Hoy vamos a pedirle que nos preste sus ojos, esa "mirada de lince" para el amor, capaz de descubrir la necesidad del otro cuando todavía es un susurro.</p></div></div>
+                    <div class="glass-premium rounded-xl overflow-hidden group"><button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('nov7-2')"><div class="flex items-center gap-4"><span class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-300 font-serif">2</span><h3 class="font-serif text-lg text-blue-100">Oración Inicial</h3></div><i class="fa-solid fa-chevron-down text-blue-400"></i></button><div id="nov7-2" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed text-justify border-t border-white/5"><p>Señor, Tú que te hiciste carne, tacto y mirada en Jesús, gracias por darnos una Madre experta en humanidad. María, mujer de la intuición fina, llegamos a ti este viernes con nuestros despistes a cuestas. Vivimos corriendo, mirando el celular, tropezando con la gente sin verla realmente. Tú, que fuiste la primera creyente, fuiste también la gran "observadora". Enséñanos a salir de nuestra burbuja. Que tu pureza limpie nuestros ojos de la catarata de la indiferencia. Queremos aprender tu secreto: ese estar presente que sana y acompaña. Amén.</p></div></div>
+                    <div class="glass-premium rounded-xl overflow-hidden group"><button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('nov7-3')"><div class="flex items-center gap-4"><span class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-300 font-serif">3</span><h3 class="font-serif text-lg text-blue-100">Lectura Bíblica</h3></div><i class="fa-solid fa-chevron-down text-blue-400"></i></button><div id="nov7-3" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed text-center border-t border-white/5"><p>Del Evangelio según San Juan (2, 1-3) "Se celebraba una boda en Caná de Galilea y estaba allí la madre de Jesús... Y, como faltara vino, la madre de Jesús le dijo: 'No tienen vino'."</p></div></div>
+                    <div class="glass-premium rounded-xl overflow-hidden group"><button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('nov7-4')"><div class="flex items-center gap-4"><span class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-300 font-serif">4</span><h3 class="font-serif text-lg text-blue-100">Reflexión</h3></div><i class="fa-solid fa-chevron-down text-blue-400"></i></button><div id="nov7-4" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed text-justify border-t border-white/5"><p>Me encanta este pasaje de Caná porque nos muestra a María en su salsa: en medio de una fiesta, entre gente, ruido y alegría. Fíjense en el detalle: "Estaba allí la madre de Jesús". No dice que estuviera rezando en un rincón apartado, ni dando lecciones de moral a los novios. Estaba estando. Y porque estaba estando de verdad, se dio cuenta de algo que a los demás se les había pasado por alto: el vino se estaba acabando. Imaginen el desastre. En nuestros pueblos, donde recibir bien a la visita es sagrado, quedarse sin vino (o sin comida) es la vergüenza absoluta, el fin de la fiesta, un bochorno para esa pareja que apenas empieza. Los hombres (probablemente ocupados discutiendo de política o teología) no lo vieron. El encargado de la fiesta (ocupado con la logística) tampoco. Tuvo que ser Ella. María tiene lo que yo llamo "el sismógrafo del corazón". Detecta el temblor de la necesidad ajena antes de que se convierta en terremoto. Ella no espera a que los novios vengan llorando a pedir ayuda. Ella se adelanta. Su pureza inmaculada no la aísla en una burbuja de perfección; al contrario, la hace permeable al dolor y a la pena de los demás. "No tienen vino". Es una frase cortita, casi un susurro al oído de su Hijo. No hay juicio ("qué mal se organizaron"), no hay crítica ("vaya desastre de boda"). Solo hay una constatación llena de ternura y un empujoncito para que Jesús actúe. Hermanos, ¡cuánta falta nos hace hoy esta "mística de la atención"! Vivimos tan centrados en nuestro ombligo, en "mi" cansancio, "mis" derechos, "mi" espiritualidad, que se nos acaba el vino de la fraternidad en las narices y ni nos enteramos. Ser devoto de la Inmaculada hoy, viernes 5 de diciembre, es levantar la vista de la pantalla y mirar al compañero de trabajo, a la esposa, al hijo, al vecino, y preguntarse: "¿Qué le falta? ¿Le falta el vino de la alegría? ¿Le falta el vino de la esperanza? ¿Le falta el vino de sentirse escuchado?". Y luego, sin hacer ruido, sin que nadie se entere, mover los hilos para que el milagro ocurra. Eso es tener clase, clase evangélica.</p></div></div>
+                    <div class="glass-premium rounded-xl overflow-hidden group"><button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('nov7-5')"><div class="flex items-center gap-4"><span class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-300 font-serif">5</span><h3 class="font-serif text-lg text-blue-100">Gozos</h3></div><i class="fa-solid fa-chevron-down text-blue-400"></i></button><div id="nov7-5" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed border-t border-white/5"><p class="text-center italic text-blue-200 mb-4">Respuesta: Danos, Madre, una mirada atenta.</p><ul class="space-y-4"><li>Tú que en Caná fuiste la primera en notar la nube que amenazaba la fiesta, y no te quedaste de brazos cruzados. Para que no seamos espectadores pasivos de la vida... <strong>R/. Danos, Madre, una mirada atenta.</strong></li><li>Mujer del detalle, que sabes que el amor no son grandes discursos, sino gestos pequeños: un poco de vino, un pañal limpio, una visita a tiempo. Para que valoremos lo pequeño... <strong>R/. Danos, Madre, una mirada atenta.</strong></li><li>Tú que provocaste el primer milagro de Jesús no por una urgencia de vida o muerte, sino para salvar la alegría de dos jóvenes. Para que entendamos que Dios también quiere nuestra felicidad humana... <strong>R/. Danos, Madre, una mirada atenta.</strong></li><li>Inmaculada de ojos limpios, capaz de ver a Dios en lo cotidiano y al hermano en su necesidad. Para que se nos caigan las escamas del egoísmo... <strong>R/. Danos, Madre, una mirada atenta.</strong></li></ul></div></div>
+                    <div class="glass-premium rounded-xl overflow-hidden group"><button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('nov7-6')"><div class="flex items-center gap-4"><span class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-300 font-serif">6</span><h3 class="font-serif text-lg text-blue-100">Peticiones</h3></div><i class="fa-solid fa-chevron-down text-blue-400"></i></button><div id="nov7-6" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed border-t border-white/5"><p class="mb-4">Con la confianza de quien habla con una madre que ya sabe lo que necesitamos, presentemos nuestras oraciones:</p><ul class="space-y-4 list-decimal pl-5"><li>Por las familias a las que se les "ha acabado el vino": el vino del cariño, de la paciencia o los recursos para llegar a fin de mes. Que encuentren manos solidarias que, como María, ayuden a llenar las tinajas. <strong>Oremos.</strong></li><li>Por nuestras comunidades religiosas y parroquiales: para que no sean lugares fríos de puro cumplimiento, sino casas calientes donde estemos atentos los unos a los otros. <strong>Oremos.</strong></li><li>Por las mujeres de nuestra sociedad, portadoras tantas veces de esa sabiduría del cuidado y la atención: para que su voz sea escuchada y valorada en la Iglesia y en el mundo. <strong>Oremos.</strong></li><li>Por nosotros, que a veces vamos por la vida como zombis espirituales: para que el Espíritu nos despierte la sensibilidad y la compasión. <strong>Oremos.</strong></li></ul></div></div>
+                    <div class="glass-premium rounded-xl overflow-hidden group"><button class="w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors" onclick="toggleAccordion('nov7-7')"><div class="flex items-center gap-4"><span class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-300 font-serif">7</span><h3 class="font-serif text-lg text-blue-100">Oración Final</h3></div><i class="fa-solid fa-chevron-down text-blue-400"></i></button><div id="nov7-7" class="hidden px-8 pb-8 pt-2 text-gray-300 font-display text-lg leading-relaxed text-justify border-t border-white/5"><p>María, "Catadora" de la vida. Gracias por enseñarnos hoy que la santidad no consiste en no romper ningún plato, sino en estar atentos para llenar las copas vacías de los demás. Nos sentimos torpes, Madre. Se nos escapan los detalles, llegamos tarde a consolar, y a veces somos nosotros los que aguamos la fiesta. Contágianos tu intuición. Enséñanos ese arte tuyo de "solucionar sin humillar", de ayudar desde la discreción. Que este fin de semana que empieza seamos en nuestras casas pequeños milagros de atención y ternura. <strong>Amén.</strong></p></div></div>
+                    <div class="bg-blue-900/30 p-6 rounded-xl border border-blue-500/30 shadow-lg"><div class="flex items-center gap-3 mb-4"><i class="fa-solid fa-hand-holding-heart text-blue-300 text-xl"></i><h3 class="font-serif text-lg text-blue-100 uppercase tracking-widest">Gesto del Día</h3></div><p class="text-blue-200 font-bold mb-2">La "Anticipación Amorosa"</p><p class="text-gray-300 font-display text-lg leading-relaxed">Hoy vamos a jugar a ser "adivinos" del amor. El reto es adelantarte a una necesidad de alguien que vive contigo o trabaja contigo antes de que te lo pida. Puede ser servirle un vaso de agua antes de que diga que tiene sed, sacar la basura antes de que le toque al otro, o enviar un mensaje de ánimo a alguien que sabes que tiene un examen o una prueba difícil hoy. El secreto: Adelántate. Sé tú quien vea primero que "falta vino".</p></div>
+                </div>
             `
         };
 
@@ -1464,7 +1587,7 @@
                 fullText: `<p class="mb-4">La esperanza tiene sus lugares predilectos, y rara vez coinciden con los centros de poder o los escenarios iluminados por el éxito. La historia de Isabel nos lo enseña con una belleza sobrecogedora. Su esperanza no nace en el Templo de Jerusalén, sino en la periferia, en una casa apartada, marcada durante años por el estigma de la esterilidad.</p><p class="mb-4">Es precisamente allí, en lo que el mundo consideraría un fracaso, en el silencio de una vida sin los frutos esperados, donde Dios decide irrumpir. Isabel nos enseña a valorar nuestros propios márgenes, esos espacios de nuestra historia que parecen vacíos o fallidos.</p><p class="mb-4">Es en esa quietud, cuando hemos dejado de exigirle a la vida grandes cosas, donde nuestro corazón se vuelve más poroso a la sorpresa. Es allí donde podemos, como ella, sentir el salto de una vida nueva que no controlamos, una alegría que nos desborda y nos obliga a hablar, a bendecir, a confirmar al otro en su camino. El Adviento comienza en el silencio de nuestras "casas de Judea".</p>`,
                 phrase: "La esperanza, cuando es auténtica, no puede ser muda. Crece cuando se comparte, cuando se extiende como un fuego que enciende otras vidas.",
                 action: "Busca hoy a alguien que viva en tu periferia un vecino con el que apenas cruzas palabra, un familiar distante, un compañero de trabajo que parece invisible. Ofrécele una palabra de reconocimiento, una pregunta sincera, un gesto de aprecio. Conviértete, por un instante, en una voz como la de Isabel, que no solo siente la esperanza, sino que la proclama y al hacerlo, fortalece la del otro.",
-                prayer: "Señor, enséñame a mirar con cariño mis propias periferias. Hazme fecundo en la esperanza callada. Amén."
+                prayer: "Señor, enséñame a mirar con cariño mis propias periferias. Que no necesite el estruendo del templo para oírte. Hazme fecundo en la esperanza callada y dame la gracia de alegrarme sinceramente por el bien de los demás. Amén."
             },
             martes: {
                 char: "José",
@@ -1473,7 +1596,7 @@
                 fullText: `<p class="mb-4">No toda vigilia es serena. Existe una vigilia tensa, la que se vive en la noche oscura de la duda y la responsabilidad. Esa fue la vigilia de José.</p><p class="mb-4">Él es el hombre que quedó sin suelo bajo los pies, el artesano acostumbrado a la lógica de la madera y las herramientas, enfrentado de golpe a un misterio que lo desbordaba. Velar, para José, no fue contemplar las estrellas con paz, sino caminar a tientas en medio del caos, con el peso de proteger una vida que no entendía pero que amaba con todo su ser. Su espera está tejida de miedo, de impotencia, de puertas que se cierran. Y, sin embargo, sigue adelante. No porque sea un superhéroe sin temor, sino porque su amor por María y por el niño es más fuerte que su desesperación.</p><p>José nos enseña que la fe no es la ausencia de miedo, sino la decisión de seguir caminando a pesar de él. Su esperanza no se asienta en certezas, sino en un acto de confianza radical. Velar, a veces, es simplemente poner un pie delante del otro cuando todo está oscuro.</p>`,
                 phrase: "La esperanza de José es tensa, arrancada del dolor y de la incertidumbre, construida paso a paso en medio de la desesperación.",
                 action: "Identifica una situación en tu vida que te genera incertidumbre o miedo. Puede ser una decisión que aplazas, una conversación que evitas, un futuro que te inquieta. Hoy, en lugar de huir de ella, da un pequeño paso concreto para afrontarla. Como José, actúa no desde la certeza, sino desde la confianza en que el amor te sostiene.",
-                prayer: "Dios del silencio, no te pido certezas deslumbrantes, sino la confianza justa para dar el siguiente paso. Amén."
+                prayer: "Dios del silencio y la sombra, no te pido certezas deslumbrantes, sino la confianza justa para dar el siguiente paso en la noche. Que mi obediencia sea un acto de amor que proteja la vida frágil que pones en mis manos. Amén."
             },
             miercoles: {
                 char: "Magos y Kepler",
@@ -1482,7 +1605,7 @@
                 fullText: `<p class="mb-4">El Adviento es una invitación a levantar la mirada. A ser, como los Magos de Oriente o como el astrónomo Johannes Kepler siglos después, "exploradores del cielo”. Ellos nos muestran que la vigilia también es una actividad de la inteligencia y del deseo de saber.</p><p class="mb-4">Velar no es solo sentir, es también buscar, estudiar, preguntar, interpretar las señales. Dios no solo habla en el susurro del corazón, sino también en el lenguaje majestuoso del cosmos. Los Magos vieron en una conjunción planetaria no un mero fenómeno astronómico, sino una invitación, un mensaje que los puso en camino.</p><p>Su historia nos recuerda que la fe y la razón no son enemigas, sino dos alas con las que nos elevamos hacia la verdad. Velar es aprender a leer las "conjunciones" inesperadas de nuestra propia vida: un encuentro fortuito, un libro que llega a nuestras manos, una pregunta que nos asalta. Dios susurra en el orden del universo y en el anhelo insaciable de nuestro intelecto por comprender.</p>`,
                 phrase: "El universo es un libro donde se pueden leer los designios más puros del creador. Un mapa donde las estrellas trazan el orden sobre el caos.",
                 action: "Dedica hoy minutos a contemplar algo sin un fin práctico, simplemente por la belleza de hacerlo. Puede ser mirar el cielo nocturno y buscar una constelación, leer un poema con atención, escuchar una pieza musical sin hacer nada más. Permite que tu mente y tu espíritu se abran a una 'señal' que rompa la rutina de lo puramente utilitario.",
-                prayer: "Señor, levanta mi mirada del suelo. Despierta en mí la inquietud de los buscadores. Amén."
+                prayer: "Señor, levanta mi mirada del suelo y sácame de mi comodidad. Despierta en mí la inquietud de los buscadores que leen tu rastro en las estrellas. Que mi inteligencia sea camino hacia Ti y sepa adorarte en lo pequeño. Amén."
             },
             jueves: {
                 char: "Herodes",
@@ -1491,7 +1614,7 @@
                 fullText: `<p class="mb-4">Para entender la luz, a veces es necesario contemplar la sombra. Herodes es la gran sombra del Adviento, la antítesis de todo lo que este tiempo representa.</p><p class="mb-4">Él también vela, pero su vigilancia es la del paranoico, la del tirano que teme perder el control. Su noche no está poblada de estrellas que guían, sino de fantasmas que amenazan. Herodes es la encarnación de un corazón sin esperanza. Incapaz de concebir que algo nuevo y bueno pueda nacer sin amenazar su trono, ve en el rumor de un niño una conspiración que debe ser aniquilada.</p><p>Donde los Magos ven una promesa, él ve un peligro. Su historia es una advertencia terrible y necesaria: cuando el corazón se cierra a la esperanza, se abre inevitablemente a la violencia. La desesperanza nos convierte en prisioneros de nuestro propio poder, aislados en un palacio de miedos, dispuestos a destruir la fragilidad de un niño antes que arriesgarnos a ser transformados por ella.</p>`,
                 phrase: "La desesperanza es, al final, una forma de muerte en vida. Te roba el horizonte. Te convierte en prisionero de tus propios temores.",
                 action: "Reflexiona sobre un miedo que te llevará a controlar excesivamente una situación oa una persona en tu vida. Hoy, haz un acto consciente de 'soltar el control'. Delega una tarea que crees que solo tú puedes hacer bien. Ofrece confianza en lugar de sospecha. Resiste el impulso de revisar o verificar compulsivamente. Elige, en un pequeño gesto, la esperanza sobre el miedo.",
-                prayer: "Señor, desarma mis defensas. Rompe la coraza de mi corazón para que no expulse lo nuevo. Amén."
+                prayer: "Señor, desarma mis defensas y mis miedos al cambio. Rompe la coraza de mi corazón para que no vea amenazas donde hay promesas. Hazme vulnerable para poder acoger la novedad de tu Reino sin violencia. Amén."
             },
             viernes: {
                 char: "Ana",
@@ -1500,7 +1623,7 @@
                 fullText: `<p class="mb-4">Hay una forma de velar que no hace ruido, que no viaja a Belén ni consulta las estrellas, pero sin la cual, quizás, la historia se derrumbaría. Es la vigilia de la intercesión, la espera que sostiene desde la distancia. Es la vigilia de Ana, la madre de María. Lejos, en Jerusalén, cuidando a su esposo enfermo, su corazón está en Nazaret con su hija embarazada.</p><p class="mb-4">Su espera es una mezcla tan humana de inquietud y confianza. Tiene miedo, porque sabe que el mundo no siempre es amable, pero al mismo tiempo confía, porque conoce la fortaleza de su hija y, sobre todo, porque su vida entera se ha apoyado en la fe en Dios. Ana nos enseña que velar es también sostener a otros en la oración. Nuestra esperanza puede ser el nacimiento invisible sobre el que otros construyen su camino. A menudo, sin saberlo, somos fuertes porque alguien, en algún lugar, está velando por nosotros.</p>`,
                 phrase: "Hago lo único que puedo. Me pongo a rezar. Por ti, por José, por ese niño que viene.",
                 action: "Elige a una persona de tu familia, de tu comunidad o de tu trabajo. Hoy, de manera anónima y silenciosa, dedica tu día a 'sostenerla' en tu pensamiento y en tu oración. Que tu esperanza sea para ella un apoyo invisible, una fuerza que la acompaña sin que ella lo sepa.",
-                prayer: "Señor, hazme columna invisible para los demás. Que mi oración sostenga a quien lucha lejos. Amén."
+                prayer: "Señor de la fidelidad discreta, hazme columna invisible para los demás. Que mi oración sostenga a quien lucha lejos y mi esperanza sea suelo firme para los que amo, sin buscar protagonismos. Amén."
             },
             sabado: {
                 char: "Preparación",
@@ -1509,7 +1632,7 @@
                 fullText: `<p class="mb-4">Hemos viajado a lo largo de esta semana aprendiendo a despertar. Hemos velado con la esperanza silenciosa de Isabel, con la angustia confiada de José, con la curiosidad intelectual de los Magos. Hemos aprendido la anti-espera de Herodes y a valorar la fe que sostiene de Ana.</p><p class="mb-4">Pero todo este despertar, toda esta vigilia, no es un fin en sí mismo. Es el primer y necesario paso para poder escuchar. Una vez que el corazón está despierto y en silencio, puede percibir con más claridad "la VOZ que mueve el mundo”. Es la voz que, en el Evangelio de mañana, resonará en el desierto a través de Juan el Bautista: "Preparad el camino del Señor, allanad sus senderos".</p><p>La vigilia de la primera semana nos ha preparado para el trabajo de la segunda. La contemplación nos impulsa a la conversión. El despertar nos pone en pie para empezar a caminar y a transformar la realidad. La espera se vuelve activa.</p>`,
                 phrase: "¡Déjate descolocar por Dios! Es tiempo de actualizar tu vida a su presencia y ponerte en camino.",
                 action: "Realiza hoy un pequeño acto concreto de 'allanar un sendero'. Puede ser un sendero interior: escribe en un papel un hábito, un rencor o un miedo que quieras dejar atrás en este Adviento, y rómpelo como signo de tu decisión. O puede ser un sendero exterior: ordena un espacio de tu casa que esté caótico, haz esa llamada de reconciliación que tienes pendiente, realiza un donativo que habías pensado hacer. Prepara, con un gesto, tu corazón y tu vida para la llegada del Señor.",
-                prayer: "Ya viene tu voz, Señor. Sacúdeme la pereza. Que mi espera se convierta en manos que trabajan. Amén."
+                prayer: "Ya viene tu voz, Señor. Sacúdeme la pereza y el conformismo. Que todo lo vivido no sea emoción pasajera, sino motor de cambio. Que mi espera se convierta hoy en manos que trabajan y pies que caminan hacia Ti. Amén."
             }
         };
 
@@ -1684,7 +1807,6 @@
         window.onload = () => {
             setRandomBackground();
             initLockScreen();
-            initCountdown();
             
             const isCandleLit = localStorage.getItem('candle1') === 'true';
             if(isCandleLit) {
