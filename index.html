@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adviento y Navidad - Provincia Franciscana</title>
     
-    <!-- 1. Tailwind CSS (Diseño) -->
+    <!-- 1. Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- 2. Fuentes Premium Optimizadas -->
+    <!-- 2. Fuentes Premium -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
@@ -20,52 +20,144 @@
     <!-- 4. Babel -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    <!-- Estilos Personalizados -->
+    <!-- Estilos Personalizados: NOCHE CINEMATOGRÁFICA -->
     <style>
         :root {
             --color-gold-light: #FBF5B7;
             --color-gold-main: #BF953F;
             --color-gold-dark: #8E6E26;
-            --color-bg-dark: #050505;
+            --color-night-deep: #000205; 
+            --color-night-mid: #0a0f1e; 
         }
 
         body {
-            background-color: var(--color-bg-dark);
+            background-color: var(--color-night-deep);
+            background-image: radial-gradient(circle at 50% 0%, #111827 0%, var(--color-night-deep) 80%);
             font-family: 'Lora', serif;
             overflow-x: hidden;
-            color: #e5e5e5;
+            color: #cbd5e1;
             margin: 0;
             -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
         }
 
         .font-display { font-family: 'Playfair Display', serif; }
         p { line-height: 1.8; }
 
         .glass-panel {
-            background: rgba(10, 10, 10, 0.85);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(191, 149, 63, 0.2);
-            box-shadow: 0 15px 50px -10px rgba(0,0,0,0.9);
+            background: rgba(5, 7, 15, 0.7); 
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(191, 149, 63, 0.15);
+            box-shadow: 0 0 40px -10px rgba(191, 149, 63, 0.05), 0 20px 40px rgba(0,0,0,0.8);
         }
 
         .text-gradient-gold {
-            background: linear-gradient(to bottom, #FBF5B7, #BF953F, #AA771C);
+            background: linear-gradient(to bottom, #FFF8DC, #BF953F, #926F34);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(191, 149, 63, 0.4));
         }
 
-        /* Animaciones */
+        /* --- SISTEMA DE ESTRELLAS --- */
+        .stars-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        
+        .stars-static {
+            position: absolute;
+            width: 100%; height: 100%;
+            background-image: 
+                radial-gradient(1px 1px at 10% 10%, rgba(255,255,255,0.9) 50%, transparent 0),
+                radial-gradient(1px 1px at 20% 80%, rgba(255,255,255,0.7) 50%, transparent 0),
+                radial-gradient(2px 2px at 40% 40%, rgba(255,255,255,1) 50%, transparent 0),
+                radial-gradient(1px 1px at 60% 20%, rgba(255,255,255,0.8) 50%, transparent 0),
+                radial-gradient(1.5px 1.5px at 80% 60%, rgba(255,255,255,0.9) 50%, transparent 0),
+                radial-gradient(1px 1px at 90% 90%, rgba(255,255,255,0.7) 50%, transparent 0);
+            background-size: 550px 550px;
+            opacity: 0.6;
+        }
+
+        /* --- ESTRELLAS FUGACES (Lentas y Suaves) --- */
+        .shooting-star {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 4px; height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px rgba(255,255,255,0.1), 0 0 0 8px rgba(255,255,255,0.1), 0 0 20px rgba(255,255,255,1);
+            animation: shoot 6s ease-in-out infinite; /* Más lento */
+            opacity: 0;
+        }
+        
+        .shooting-star::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 200px; height: 1px; /* Cola más corta */
+            background: linear-gradient(90deg, #fff, transparent);
+        }
+
+        .shooting-star:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; animation-duration: 8s; }
+        .shooting-star:nth-child(2) { top: 30%; left: 80%; animation-delay: 4s; animation-duration: 10s; }
+        .shooting-star:nth-child(3) { top: 60%; left: 20%; animation-delay: 2s; animation-duration: 12s; }
+        
+        @keyframes shoot {
+            0% { transform: rotate(315deg) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: rotate(315deg) translateX(-800px); opacity: 0; }
+        }
+
+        /* --- NIEVE MEJORADA (Solo en Bloqueo) --- */
+        .snow-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+
+        /* Variaciones aleatorias de nieve */
+        .snowflake:nth-child(1) { left: 10%; width: 3px; height: 3px; animation-duration: 15s; animation-delay: 0s; opacity: 0.5; }
+        .snowflake:nth-child(2) { left: 25%; width: 5px; height: 5px; animation-duration: 12s; animation-delay: 2s; opacity: 0.7; }
+        .snowflake:nth-child(3) { left: 40%; width: 2px; height: 2px; animation-duration: 18s; animation-delay: 4s; opacity: 0.4; }
+        .snowflake:nth-child(4) { left: 55%; width: 4px; height: 4px; animation-duration: 14s; animation-delay: 1s; opacity: 0.6; }
+        .snowflake:nth-child(5) { left: 70%; width: 6px; height: 6px; animation-duration: 10s; animation-delay: 3s; opacity: 0.8; }
+        .snowflake:nth-child(6) { left: 85%; width: 3px; height: 3px; animation-duration: 16s; animation-delay: 5s; opacity: 0.5; }
+        .snowflake:nth-child(7) { left: 15%; width: 4px; height: 4px; animation-duration: 13s; animation-delay: 6s; opacity: 0.6; }
+        .snowflake:nth-child(8) { left: 60%; width: 2px; height: 2px; animation-duration: 20s; animation-delay: 7s; opacity: 0.3; }
+        .snowflake:nth-child(9) { left: 90%; width: 5px; height: 5px; animation-duration: 11s; animation-delay: 1.5s; opacity: 0.7; }
+        
+        @keyframes fall {
+            0% { transform: translateY(-20px) translateX(0); }
+            50% { transform: translateY(50vh) translateX(20px); } /* Movimiento lateral suave */
+            100% { transform: translateY(105vh) translateX(-20px); }
+        }
+
         .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.5, 0, 0, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        
         .animate-fade-in-up { animation: fadeInUp 1s ease-out forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0a0a0a; }
-        ::-webkit-scrollbar-thumb { background: #BF953F; border-radius: 4px; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--color-night-deep); }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #BF953F; }
     </style>
 </head>
 <body>
@@ -76,7 +168,7 @@
 
         // --- ICONOS (SVG Integrados) ---
         const IconBase = ({ children, size = 24, className = "" }) => (
-            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>{children}</svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>{children}</svg>
         );
         const Star = (p) => <IconBase {...p}><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></IconBase>;
         const Heart = (p) => <IconBase {...p}><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></IconBase>;
@@ -109,13 +201,13 @@
         const SectionHeader = ({ title, subtitle, icon: Icon }) => (
             <ScrollReveal>
                 <div className="text-center mb-12 md:mb-16 relative z-10 px-4">
-                    <div className="flex justify-center items-center gap-4 md:gap-6 mb-4 md:mb-6 opacity-60">
+                    <div className="flex justify-center items-center gap-4 md:gap-6 mb-4 md:mb-6 opacity-50">
                         <div className="h-[1px] w-8 md:w-32 bg-gradient-to-r from-transparent via-[#BF953F] to-transparent"></div>
-                        {Icon ? <Icon size={20} className="text-[#BF953F]" /> : <Star size={20} className="text-[#BF953F]" />}
+                        {Icon ? <Icon size={18} className="text-[#BF953F]" /> : <Star size={18} className="text-[#BF953F]" />}
                         <div className="h-[1px] w-8 md:w-32 bg-gradient-to-r from-transparent via-[#BF953F] to-transparent"></div>
                     </div>
-                    <h2 className="text-3xl md:text-5xl font-bold font-display text-gradient-gold tracking-wider uppercase leading-tight">{title}</h2>
-                    {subtitle && <p className="text-lg md:text-xl text-[#FBF5B7]/60 mt-4 tracking-widest italic font-light font-display">{subtitle}</p>}
+                    <h2 className="text-3xl md:text-5xl font-bold font-display text-gradient-gold tracking-wider uppercase leading-tight drop-shadow-lg">{title}</h2>
+                    {subtitle && <p className="text-lg md:text-xl text-[#FBF5B7]/70 mt-4 tracking-widest italic font-light font-display">{subtitle}</p>}
                 </div>
             </ScrollReveal>
         );
@@ -124,7 +216,7 @@
             const [isOpen, setIsOpen] = useState(defaultOpen);
             return (
                 <div className="mb-6 group animate-fade-in-up">
-                    <button onClick={() => setIsOpen(!isOpen)} className={`w-full glass-panel p-5 md:p-8 rounded-2xl flex items-center justify-between transition-all duration-500 hover:border-[#BF953F]/60 ${isOpen ? 'bg-[#BF953F]/10 border-[#BF953F]/60' : ''}`}>
+                    <button onClick={() => setIsOpen(!isOpen)} className={`w-full glass-panel p-5 md:p-8 rounded-2xl flex items-center justify-between transition-all duration-500 hover:border-[#BF953F]/40 ${isOpen ? 'bg-[#BF953F]/5 border-[#BF953F]/40' : ''}`}>
                         <div className="flex items-center gap-4 md:gap-6 text-left">
                             <div className={`p-2 md:p-3 rounded-full border border-[#BF953F]/30 transition-colors flex-shrink-0 ${isOpen ? 'bg-[#BF953F] text-black' : 'bg-transparent text-[#BF953F]'}`}>
                                 {Icon ? <Icon size={20} className="md:w-6 md:h-6" /> : <Star size={20} className="md:w-6 md:h-6"/>}
@@ -134,29 +226,29 @@
                         <ChevronDown size={20} className={`text-[#BF953F] transition-transform duration-500 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`} />
                     </button>
                     <div className={`overflow-hidden transition-all duration-700 ease-in-out ${isOpen ? 'max-h-[5000px] opacity-100 mt-2' : 'max-h-0 opacity-0'}`}>
-                        <div className="glass-panel p-6 md:p-10 rounded-2xl border-t-0 bg-black/40">{children}</div>
+                        <div className="glass-panel p-6 md:p-10 rounded-2xl border-t-0 bg-black/20">{children}</div>
                     </div>
                 </div>
             );
         };
 
         const LuxuryButton = ({ onClick, children, className = "" }) => (
-            <button onClick={onClick} className={`relative px-8 md:px-12 py-4 md:py-5 bg-gradient-to-r from-[#8E6E26] via-[#BF953F] to-[#8E6E26] text-[#050505] font-display font-bold tracking-[0.15em] uppercase text-sm md:text-xs rounded-sm shadow-[0_10px_30px_-10px_rgba(191,149,63,0.4)] hover:shadow-[0_20px_40px_-10px_rgba(191,149,63,0.6)] transition-all duration-500 transform hover:-translate-y-1 overflow-hidden group flex items-center justify-center gap-3 mx-auto ${className}`}>
+            <button onClick={onClick} className={`relative px-8 md:px-12 py-4 md:py-5 bg-gradient-to-r from-[#8E6E26] via-[#BF953F] to-[#8E6E26] text-[#050505] font-display font-bold tracking-[0.15em] uppercase text-sm md:text-xs rounded-sm shadow-[0_0_25px_-5px_rgba(191,149,63,0.5)] hover:shadow-[0_0_40px_-5px_rgba(191,149,63,0.7)] transition-all duration-500 transform hover:-translate-y-1 overflow-hidden group flex items-center justify-center gap-3 mx-auto ${className}`}>
                 <div className="absolute inset-0 bg-white/20 skew-x-12 -translate-x-full group-hover:translate-x-[200%] transition-transform duration-1000"></div>
                 <span className="relative z-10 flex items-center gap-3">{children}</span>
             </button>
         );
 
         const FooterSignature = () => (
-            <div className="mt-16 pt-8 border-t border-[#BF953F]/20 text-center pb-20 md:pb-0">
-                <div className="flex justify-center gap-4 mb-4 text-[#BF953F]/40"><Star size={12}/><Sparkles size={12}/><Star size={12}/></div>
-                <p className="text-[#FBF5B7]/80 font-display text-xs md:text-sm tracking-[0.2em] uppercase px-4">Creado por Provincia Franciscana de San Pablo Apóstol</p>
-                <p className="text-[#BF953F]/60 text-[10px] uppercase tracking-[0.4em] mt-2">Colombia</p>
+            <div className="mt-16 pt-8 border-t border-[#BF953F]/10 text-center pb-20 md:pb-0">
+                <div className="flex justify-center gap-4 mb-4 text-[#BF953F]/30"><Star size={10}/><Sparkles size={10}/><Star size={10}/></div>
+                <p className="text-[#FBF5B7]/60 font-display text-xs md:text-sm tracking-[0.2em] uppercase px-4">Creado por Provincia Franciscana de San Pablo Apóstol</p>
+                <p className="text-[#BF953F]/40 text-[10px] uppercase tracking-[0.4em] mt-2">Colombia</p>
             </div>
         );
 
         const BottomNav = ({ onBack, backLabel = "Atrás" }) => (
-            <div className="fixed bottom-0 left-0 w-full z-40 bg-[#050505]/90 backdrop-blur-xl border-t border-[#BF953F]/20 py-4 px-6 shadow-[0_-10px_30px_rgba(0,0,0,0.8)]">
+            <div className="fixed bottom-0 left-0 w-full z-40 bg-[#020617]/80 backdrop-blur-xl border-t border-[#BF953F]/20 py-4 px-6 shadow-[0_-10px_40px_rgba(0,0,0,0.9)]">
                 <div className="max-w-4xl mx-auto flex justify-between items-center">
                     <button onClick={onBack} className="flex items-center gap-2 text-[#BF953F] hover:text-[#FBF5B7] transition-colors font-display text-sm tracking-widest uppercase"><ArrowLeft size={18} /> {backLabel}</button>
                     <button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="flex items-center gap-2 text-[#BF953F] hover:text-[#FBF5B7] transition-colors font-display text-sm tracking-widest uppercase">Subir <ArrowUp size={18} /></button>
@@ -168,58 +260,65 @@
 
         const ViewInicio = ({ onStart }) => (
             <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-4">
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10 animate-pulse"></div>
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-[60vh] bg-gradient-to-b from-transparent via-[#BF953F]/30 to-transparent"></div>
+                <div className="stars-container">
+                    <div className="stars-static"></div>
+                    <div className="shooting-star"></div>
+                    <div className="shooting-star" style={{top: '30%', animationDelay: '2s'}}></div>
+                </div>
                 <div className="relative z-10 text-center max-w-5xl mx-auto space-y-8 md:space-y-12 animate-fade-in-up">
                     <div className="inline-block relative mb-4">
-                        <Star size={64} className="text-[#FBF5B7] relative z-10 md:w-20 md:h-20" fill="#FBF5B7" fillOpacity={0.2} strokeWidth={1} />
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 md:w-40 md:h-40 bg-[#BF953F]/20 blur-3xl rounded-full"></div>
+                        <Star size={64} className="text-[#FBF5B7] relative z-10 md:w-20 md:h-20 drop-shadow-[0_0_15px_rgba(251,245,183,0.5)]" fill="#FBF5B7" fillOpacity={0.2} strokeWidth={0.5} />
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 md:w-40 md:h-40 bg-[#BF953F]/10 blur-3xl rounded-full"></div>
                     </div>
                     <div>
                         <h1 className="text-5xl md:text-9xl font-display text-gradient-gold leading-[0.9] mb-4 drop-shadow-2xl">ADVIENTO<br/><span className="text-2xl md:text-5xl text-[#FBF5B7]/80 font-light">- NAVIDAD -</span></h1>
-                        <div className="h-[1px] w-24 md:w-32 bg-gradient-to-r from-transparent via-[#BF953F] to-transparent mx-auto my-6 md:my-8"></div>
-                        <p className="text-[#BF953F] tracking-[0.3em] md:tracking-[0.4em] uppercase font-display text-xs md:text-lg">Esperanza para el Mundo</p>
+                        <div className="h-[1px] w-24 md:w-32 bg-gradient-to-r from-transparent via-[#BF953F] to-transparent mx-auto my-6 md:my-8 opacity-50"></div>
+                        <p className="text-[#BF953F] tracking-[0.3em] md:tracking-[0.4em] uppercase font-display text-xs md:text-lg opacity-80">Esperanza para el Mundo</p>
                     </div>
                     <p className="text-xl md:text-2xl text-gray-400 font-light italic max-w-2xl mx-auto leading-relaxed px-4">"El pueblo que caminaba en tinieblas ha visto una gran luz."</p>
                     <div className="pt-8 md:pt-12">
                         <LuxuryButton onClick={onStart}>ENTRAR A LA EXPERIENCIA <ChevronRight size={16}/></LuxuryButton>
                     </div>
                     <div className="absolute bottom-10 left-0 w-full">
-                        <p className="text-[#BF953F]/40 text-[9px] uppercase tracking-[0.2em] font-display text-center">Provincia Franciscana de San Pablo Apóstol - Colombia</p>
+                        <p className="text-[#BF953F]/30 text-[9px] uppercase tracking-[0.2em] font-display text-center">Provincia Franciscana de San Pablo Apóstol - Colombia</p>
                     </div>
                 </div>
             </div>
         );
 
         const ViewIntroduccion = ({ onNavigate }) => (
-            <div className="min-h-screen py-24 md:py-32 px-4 md:px-8 bg-[#050505] pb-32">
-                <div className="max-w-4xl mx-auto">
+            <div className="min-h-screen py-24 md:py-32 px-4 md:px-8 pb-32">
+                <div className="stars-container">
+                     <div className="stars-static"></div>
+                     <div className="shooting-star"></div>
+                </div>
+                <div className="max-w-4xl mx-auto relative z-10">
                     <SectionHeader title="El Susurro en el Asfalto" subtitle="Introducción al Tiempo de Adviento" icon={Feather} />
                     <ScrollReveal>
                         <div className="glass-panel p-6 md:p-14 rounded-[2rem] relative overflow-hidden mb-12">
-                            <div className="absolute -left-10 -top-10 w-40 h-40 bg-[#BF953F]/10 rounded-full blur-3xl"></div>
+                            <div className="absolute -left-10 -top-10 w-40 h-40 bg-[#BF953F]/5 rounded-full blur-3xl"></div>
                             <div className="text-gray-300 font-light text-xl md:text-2xl leading-loose text-justify font-serif space-y-8 relative z-10">
                                 <p><span className="text-5xl md:text-7xl text-[#BF953F] float-left mr-4 mt-[-5px] font-display">B</span>ajar a la calle. Dios no está atrapado en las nubes, ni se esconde tras los muros de oro de un templo vacío. Dios está aquí, en el cruce de semáforos donde la gente espera, en la grieta del asfalto por donde respira la ciudad herida.</p>
                                 <p>El Adviento no es una huida hacia una paz artificial. Es el arte de detenerse en medio del mercado. Es la capacidad de escuchar el susurro de la vida que puja por nacer debajo de tanta maquinaria ciega, de tanto neón que deslumbra pero no ilumina.</p>
-                                <blockquote className="border-l-2 border-[#BF953F] pl-6 italic text-[#FBF5B7] my-8 py-2 text-xl md:text-2xl">"Esperar no es sentarse. Esperar es caminar al ritmo del que va más lento. Es mirar al otro no como un obstáculo en mi prisa, sino como el lugar exacto donde Dios ha decidido acampar hoy."</blockquote>
+                                <blockquote className="border-l-2 border-[#BF953F]/50 pl-6 italic text-[#FBF5B7] my-8 py-2 text-xl md:text-2xl">"Esperar no es sentarse. Esperar es caminar al ritmo del que va más lento. Es mirar al otro no como un obstáculo en mi prisa, sino como el lugar exacto donde Dios ha decidido acampar hoy."</blockquote>
                                 <p>Preparen el camino, sí. Pero no con excavadoras de poder, sino quitando las piedras del egoísmo de nuestro propio corazón. El Señor viene. Viene pequeño, viene frágil, viene real. ¿Tendremos la audacia de reconocerlo en lo cotidiano?</p>
                             </div>
                         </div>
                     </ScrollReveal>
                     <ScrollReveal delay={200}>
                         <div className="text-center mb-10">
-                            <h3 className="text-[#FBF5B7] font-display tracking-widest uppercase text-sm mb-8">Continúa tu camino</h3>
+                            <h3 className="text-[#FBF5B7] font-display tracking-widest uppercase text-sm mb-8 opacity-80">Continúa tu camino</h3>
                             <div className="grid md:grid-cols-3 gap-6">
-                                <button onClick={() => onNavigate('liturgia')} className="glass-panel p-6 rounded-xl hover:bg-[#BF953F]/10 transition-all group border border-[#BF953F]/30 hover:border-[#BF953F] text-center">
-                                    <Sparkles className="mx-auto text-[#BF953F] mb-4 group-hover:scale-110 transition-transform" size={32}/>
+                                <button onClick={() => onNavigate('liturgia')} className="glass-panel p-6 rounded-xl hover:bg-[#BF953F]/10 transition-all group border border-[#BF953F]/20 hover:border-[#BF953F]/50 text-center">
+                                    <Sparkles className="mx-auto text-[#BF953F] mb-4 group-hover:scale-110 transition-transform opacity-80 group-hover:opacity-100" size={32}/>
                                     <span className="block font-display text-lg text-white">Liturgia</span>
                                 </button>
-                                <button onClick={() => onNavigate('semanas')} className="glass-panel p-6 rounded-xl hover:bg-[#BF953F]/10 transition-all group border border-[#BF953F]/30 hover:border-[#BF953F] text-center">
-                                    <User className="mx-auto text-[#BF953F] mb-4 group-hover:scale-110 transition-transform" size={32}/>
+                                <button onClick={() => onNavigate('semanas')} className="glass-panel p-6 rounded-xl hover:bg-[#BF953F]/10 transition-all group border border-[#BF953F]/20 hover:border-[#BF953F]/50 text-center">
+                                    <User className="mx-auto text-[#BF953F] mb-4 group-hover:scale-110 transition-transform opacity-80 group-hover:opacity-100" size={32}/>
                                     <span className="block font-display text-lg text-white">Personajes</span>
                                 </button>
-                                <button onClick={() => onNavigate('novena')} className="glass-panel p-6 rounded-xl hover:bg-[#BF953F]/10 transition-all group border border-[#BF953F]/30 hover:border-[#BF953F] text-center">
-                                    <Heart className="mx-auto text-[#BF953F] mb-4 group-hover:scale-110 transition-transform" size={32}/>
+                                <button onClick={() => onNavigate('novena')} className="glass-panel p-6 rounded-xl hover:bg-[#BF953F]/10 transition-all group border border-[#BF953F]/20 hover:border-[#BF953F]/50 text-center">
+                                    <Heart className="mx-auto text-[#BF953F] mb-4 group-hover:scale-110 transition-transform opacity-80 group-hover:opacity-100" size={32}/>
                                     <span className="block font-display text-lg text-white">Novena</span>
                                 </button>
                             </div>
@@ -234,12 +333,16 @@
         const ViewLiturgia = ({ onBack }) => {
             const [selectedTab, setSelectedTab] = useState('domingo2');
             return (
-                <div className="min-h-screen py-24 md:py-32 px-4 md:px-8 bg-[#050505] pb-32">
-                    <div className="max-w-4xl mx-auto">
+                <div className="min-h-screen py-24 md:py-32 px-4 md:px-8 pb-32">
+                    <div className="stars-container">
+                        <div className="stars-static"></div>
+                         <div className="shooting-star"></div>
+                    </div>
+                    <div className="max-w-4xl mx-auto relative z-10">
                         <SectionHeader title="Liturgia de la Palabra" subtitle="Adviento y Navidad" icon={Sparkles} />
                         <div className="flex justify-center gap-4 mb-12 animate-fade-in-up">
-                            <button onClick={() => setSelectedTab('sabado1')} className={`px-8 py-3 rounded-full font-display text-sm tracking-widest uppercase transition-all duration-300 border ${selectedTab === 'sabado1' ? 'bg-[#BF953F] text-[#050505] border-[#BF953F] shadow-[0_0_20px_rgba(191,149,63,0.3)]' : 'bg-transparent text-[#BF953F] border-[#BF953F]/30 hover:border-[#BF953F]'}`}>Sábado I</button>
-                            <button onClick={() => setSelectedTab('domingo2')} className={`px-8 py-3 rounded-full font-display text-sm tracking-widest uppercase transition-all duration-300 border ${selectedTab === 'domingo2' ? 'bg-[#BF953F] text-[#050505] border-[#BF953F] shadow-[0_0_20px_rgba(191,149,63,0.3)]' : 'bg-transparent text-[#BF953F] border-[#BF953F]/30 hover:border-[#BF953F]'}`}>Domingo II</button>
+                            <button onClick={() => setSelectedTab('sabado1')} className={`px-8 py-3 rounded-full font-display text-sm tracking-widest uppercase transition-all duration-300 border ${selectedTab === 'sabado1' ? 'bg-[#BF953F] text-[#050505] border-[#BF953F] shadow-[0_0_25px_rgba(191,149,63,0.4)]' : 'bg-transparent text-[#BF953F] border-[#BF953F]/30 hover:border-[#BF953F] hover:bg-[#BF953F]/10'}`}>Sábado I</button>
+                            <button onClick={() => setSelectedTab('domingo2')} className={`px-8 py-3 rounded-full font-display text-sm tracking-widest uppercase transition-all duration-300 border ${selectedTab === 'domingo2' ? 'bg-[#BF953F] text-[#050505] border-[#BF953F] shadow-[0_0_25px_rgba(191,149,63,0.4)]' : 'bg-transparent text-[#BF953F] border-[#BF953F]/30 hover:border-[#BF953F] hover:bg-[#BF953F]/10'}`}>Domingo II</button>
                         </div>
                         {selectedTab === 'sabado1' && (
                             <div className="space-y-4 animate-fade-in-up">
@@ -250,7 +353,7 @@
                                 <PremiumAccordion title="2. Liturgia de la Palabra" icon={BookOpen}>
                                     <div className="space-y-8 text-gray-200 text-xl md:text-2xl leading-loose">
                                         <div className="pl-4 md:pl-6 border-l-2 border-[#BF953F]/50"><h4 className="text-[#BF953F] text-sm uppercase tracking-widest font-bold mb-2">Primera lectura (Isaías 30, 19-21. 23-26)</h4><p>Esto dice el Señor Dios, el Santo de Israel: «Pueblo de Sión, que habitas en Jerusalén, no tendrás que llorar más, porque el Señor se apiadará al oír tu gemido: apenas te oiga, te responderá. Aunque el Señor les dé el pan de la angustia y el agua de la aflicción, ya no se esconderá tu Maestro; tus ojos verán a tu Maestro. Si te desvías a la derecha o a la izquierda, tus oídos oirán una palabra a tus espaldas: "Este es el camino, camina por él"».</p><p className="mt-4">Él te dará lluvia para la semilla que siembres en el campo, y el grano de la cosecha será rico y abundante... cuando el Señor vende la herida de su pueblo y sane las llagas de sus golpes.</p><p className="text-right text-[#BF953F] text-xs uppercase mt-2">Palabra de Dios</p></div>
-                                        <div className="bg-[#BF953F]/10 p-6 rounded-xl"><h4 className="text-[#BF953F] text-sm uppercase tracking-widest font-bold mb-2">Salmo Responsorial (Salmo 146)</h4><p className="font-display text-xl md:text-2xl text-[#FBF5B7] mb-4">R/. Dichosos los que esperan en el Señor.</p><ul className="list-disc pl-5 space-y-2"><li>Alaben al Señor, que la música es buena; nuestro Dios merece una alabanza armoniosa. El Señor reconstruye a Jerusalén, reúne a los deportados de Israel. R/.</li><li>Él sana los corazones destrozados, y venda sus heridas. Cuenta el número de las estrellas, a cada una la llama por su nombre. R/.</li><li>Nuestro Señor es grande y poderoso, su sabiduría no tiene medida. El Señor sostiene a los humildes, y humilla hasta el polvo a los malvados. R/.</li></ul></div>
+                                        <div className="bg-[#BF953F]/5 p-6 rounded-xl"><h4 className="text-[#BF953F] text-sm uppercase tracking-widest font-bold mb-2">Salmo Responsorial (Salmo 146)</h4><p className="font-display text-xl md:text-2xl text-[#FBF5B7] mb-4">R/. Dichosos los que esperan en el Señor.</p><ul className="list-disc pl-5 space-y-2"><li>Alaben al Señor, que la música es buena; nuestro Dios merece una alabanza armoniosa. El Señor reconstruye a Jerusalén, reúne a los deportados de Israel. R/.</li><li>Él sana los corazones destrozados, y venda sus heridas. Cuenta el número de las estrellas, a cada una la llama por su nombre. R/.</li><li>Nuestro Señor es grande y poderoso, su sabiduría no tiene medida. El Señor sostiene a los humildes, y humilla hasta el polvo a los malvados. R/.</li></ul></div>
                                         <div className="pl-4 md:pl-6 border-l-2 border-[#BF953F]/50"><h4 className="text-[#BF953F] text-sm uppercase tracking-widest font-bold mb-2">Evangelio (Mateo 9, 35 — 10, 1. 6-8)</h4><p className="italic mb-4 text-[#FBF5B7]/70">Aleluya, aleluya. El Señor es nuestro juez... Aleluya.</p><p>En aquel tiempo, Jesús recorría todas las ciudades y los pueblos, enseñando en las sinagogas, proclamando la buena nueva del Reino y curando todas las enfermedades y dolencias. Al ver a las multitudes, se compadecía de ellas, porque estaban extenuadas y desamparadas, «como ovejas que no tienen pastor». Entonces dijo a sus discípulos: <strong className="text-[#FBF5B7]">«La cosecha es abundante, pero los trabajadores son pocos; rueguen, pues, al dueño de la cosecha que mande trabajadores a sus campos».</strong></p><p className="mt-4">Llamó a sus doce discípulos... y los envió: «Vayan a las ovejas descarriadas de la casa de Israel... Curen enfermos, resuciten muertos, limpien leprosos, echen fuera demonios. Gratis lo han recibido, denlo gratis».</p><p className="text-right text-[#BF953F] text-xs uppercase mt-2">Palabra del Señor</p></div>
                                     </div>
                                 </PremiumAccordion>
@@ -280,7 +383,7 @@
                                 <PremiumAccordion title="4. Liturgia de la Palabra" icon={BookOpen}>
                                     <div className="space-y-8 text-gray-200 text-xl md:text-2xl leading-loose">
                                         <div className="pl-4 md:pl-6 border-l-2 border-[#BF953F]/50"><h4 className="text-[#BF953F] text-sm uppercase tracking-widest font-bold mb-2">I. Primera Lectura (Isaías 11, 1-10)</h4><p>En aquel día, brotará un renuevo del tronco de Jesé, y de su raíz florecerá un vástago. Sobre él se posará el espíritu del Señor: espíritu de sabiduría y entendimiento, espíritu de consejo y fortaleza, espíritu de ciencia y temor del Señor. No juzgará por apariencias ni sentenciará de oídas; juzgará con justicia a los débiles y sentenciará con rectitud a los pobres de la tierra. Herirá al hombre violento con la vara de su boca y con el soplo de sus labios hará morir al malvado. La justicia será el cinturón de sus caderas, y la lealtad, el ceñidor de su cintura.</p><p className="mt-4">Entonces el lobo habitará con el cordero y el leopardo se recostará junto al cabrito; el ternero y el león comerán juntos, y un niño pequeño los guiará. La vaca y la osa pastarán, sus crías reposarán juntas, y el león comerá paja como el buey. El niño de pecho jugará junto al agujero de la cobra, y el recién destetado meterá la mano en el nido de la víbora.</p><p className="mt-4">Nadie hará daño ni estragos en todo mi monte santo, porque la tierra estará llena del conocimiento del Señor, como las aguas cubren el mar. Aquel día, la raíz de Jesé se alzará como bandera de los pueblos; la buscarán las naciones y su morada será gloriosa.</p><p className="text-right text-[#BF953F] text-xs uppercase mt-2">Palabra de Dios</p></div>
-                                        <div className="bg-[#BF953F]/10 p-6 rounded-xl"><h4 className="text-[#BF953F] text-sm uppercase tracking-widest font-bold mb-2">II. Salmo Responsorial (Salmo 71)</h4><p className="font-display text-xl md:text-2xl text-[#FBF5B7] mb-4">R/. Que en sus días florezca la justicia y la paz abunde eternamente.</p><ul className="list-disc pl-5 space-y-2"><li>Dios mío, confía tu juicio al rey, tu justicia al hijo de reyes, para que rija a tu pueblo con justicia, a tus humildes con rectitud. R/.</li><li>Que en sus días florezca la justicia y la paz hasta que falte la luna; que domine de mar a mar, del Gran Río al confín de la tierra. R/.</li><li>Él librará al pobre que clamaba, al afligido que no tenía protector; él se apiadará del pobre y del indigente, y salvará la vida de los pobres. R/.</li><li>Que su nombre sea eterno y su fama dure como el sol; que él sea la bendición de todos los pueblos, y lo proclamen dichoso todas las razas de la tierra. R/.</li></ul></div>
+                                        <div className="bg-[#BF953F]/5 p-6 rounded-xl"><h4 className="text-[#BF953F] text-sm uppercase tracking-widest font-bold mb-2">II. Salmo Responsorial (Salmo 71)</h4><p className="font-display text-xl md:text-2xl text-[#FBF5B7] mb-4">R/. Que en sus días florezca la justicia y la paz abunde eternamente.</p><ul className="list-disc pl-5 space-y-2"><li>Dios mío, confía tu juicio al rey, tu justicia al hijo de reyes, para que rija a tu pueblo con justicia, a tus humildes con rectitud. R/.</li><li>Que en sus días florezca la justicia y la paz hasta que falte la luna; que domine de mar a mar, del Gran Río al confín de la tierra. R/.</li><li>Él librará al pobre que clamaba, al afligido que no tenía protector; él se apiadará del pobre y del indigente, y salvará la vida de los pobres. R/.</li><li>Que su nombre sea eterno y su fama dure como el sol; que él sea la bendición de todos los pueblos, y lo proclamen dichoso todas las razas de la tierra. R/.</li></ul></div>
                                         <div className="pl-4 md:pl-6 border-l-2 border-[#BF953F]/50"><h4 className="text-[#BF953F] text-sm uppercase tracking-widest font-bold mb-2">III. Segunda Lectura (Romanos 15, 4-9)</h4><p>Hermanos: Todo lo que se escribió en el pasado, se escribió para enseñanza nuestra, a fin de que, a través de la paciencia y del consuelo que dan las Escrituras, mantengamos la esperanza.</p><p className="mt-4">Que Dios, fuente de toda paciencia y consuelo, les conceda a ustedes vivir en perfecta armonía unos con otros, conforme al espíritu de Cristo Jesús, para que, con un solo corazón y una sola voz, alaben a Dios, Padre de nuestro Señor Jesucristo.</p><p className="mt-4">Por lo tanto, acójanse los unos a los otros, como Cristo los acogió a ustedes, para gloria de Dios. Quiero decir con esto que Cristo se hizo servidor de los judíos para probar la fidelidad de Dios, confirmando las promesas hechas a los patriarcas, y, por otra parte, que los paganos alaban a Dios por su misericordia, como dice la Escritura: «Por eso te alabaré entre las naciones y cantaré a tu nombre».</p><p className="text-right text-[#BF953F] text-xs uppercase mt-2">Palabra de Dios</p></div>
                                         <div className="pl-4 md:pl-6 border-l-2 border-[#BF953F]/50"><h4 className="text-[#BF953F] text-sm uppercase tracking-widest font-bold mb-2">IV. Evangelio (Mateo 3, 1-12)</h4><p className="italic mb-4 text-[#FBF5B7]/70">Por aquellos días, apareció Juan el Bautista predicando en el desierto de Judea...</p><p>«Conviértanse, porque ya está cerca el Reino de los cielos». A Juan se refería el profeta Isaías cuando dijo: «Una voz grita en el desierto: Preparen el camino del Señor, enderecen sus senderos».</p><p className="mt-4">Juan llevaba un vestido de piel de camello y un cinturón de cuero a la cintura; su alimento eran langostas y miel silvestre. Acudía a él gente de Jerusalén, de toda Judea y de toda la región del Jordán; confesaban sus pecados y él los bautizaba en el río Jordán.</p><p className="mt-4">Al ver que muchos fariseos y saduceos venían a que los bautizara, les dijo: «¡Raza de víboras! ¿Quién les ha enseñado a escapar del castigo inminente? Den, pues, frutos dignos de conversión y no piensen que les basta con decir: "Tenemos por padre a Abraham". Porque les digo que Dios puede sacar hijos de Abraham de estas piedras. Ya toca el hacha la raíz de los árboles, y todo árbol que no da buen fruto será cortado y echado al fuego.</p><p className="mt-4">Yo los bautizo con agua para que se conviertan; pero el que viene detrás de mí es más fuerte que yo, y no merezco ni llevarle las sandalias. Él los bautizará con Espíritu Santo y fuego. Él tiene el bieldo en la mano: aventará su parva, reunirá su trigo en el granero y quemará la paja en una hoguera que no se apaga».</p><p className="text-right text-[#BF953F] text-xs uppercase mt-2">Palabra del Señor</p></div>
                                     </div>
@@ -304,8 +407,12 @@
         };
 
         const ViewPersonajes = ({ onBack }) => (
-            <div className="min-h-screen py-24 md:py-32 px-4 md:px-8 bg-[#020202] pb-32">
-                <div className="max-w-4xl mx-auto">
+            <div className="min-h-screen py-24 md:py-32 px-4 md:px-8 pb-32">
+                <div className="stars-container">
+                    <div className="stars-static"></div>
+                     <div className="shooting-star"></div>
+                </div>
+                <div className="max-w-4xl mx-auto relative z-10">
                     <SectionHeader title="Personajes del Camino" subtitle="Sábado: Del despertar al primer paso" icon={User} />
                     <div className="space-y-4">
                         <PremiumAccordion title="La Mirada (Pensamiento)" icon={User} defaultOpen={true}>
@@ -328,8 +435,12 @@
         );
 
         const ViewNovena = ({ onBack }) => (
-            <div className="min-h-screen py-24 md:py-32 px-4 md:px-8 bg-[#000] pb-32">
-                <div className="max-w-4xl mx-auto">
+            <div className="min-h-screen py-24 md:py-32 px-4 md:px-8 pb-32">
+                <div className="stars-container">
+                    <div className="stars-static"></div>
+                     <div className="shooting-star"></div>
+                </div>
+                <div className="max-w-4xl mx-auto relative z-10">
                     <SectionHeader title="Novena Inmaculada" subtitle="Octavo Día - Sábado 06" icon={Heart} />
                     <div className="mb-10 text-center"><span className="bg-[#BF953F]/20 text-[#BF953F] px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest border border-[#BF953F]/40">Tema del día</span><h3 className="text-2xl md:text-4xl font-display text-white mt-4">“El ritmo de la semilla: Aprender a respetar los tiempos de Dios”</h3></div>
                     <div className="space-y-4">
@@ -389,6 +500,15 @@
 
             const LockScreen = () => (
                 <div className={`fixed inset-0 z-[100] bg-[#020202] flex flex-col items-center justify-center transition-all duration-1000 ${isFading ? 'opacity-0 pointer-events-none scale-105' : 'opacity-100'} overflow-y-auto`}> 
+                    {/* FONDO ANIMADO EXCLUSIVO BLOQUEO */}
+                    <div className="stars-container">
+                        <div className="stars-static"></div>
+                         <div className="shooting-star"></div>
+                         <div className="snow-container">
+                              {[...Array(20)].map((_, i) => <div key={i} className="snowflake"></div>)}
+                         </div>
+                    </div>
+
                     <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-4xl mx-auto w-full py-10">
                         <div className="mb-8 relative">
                             <div className="absolute inset-0 bg-[#BF953F] blur-[60px] opacity-20 rounded-full animate-pulse"></div>
@@ -417,8 +537,7 @@
                                     Les agradecemos de todo corazón a todos los que nos ayudaron con la rifa de la provincia. Dios les pague.
                                 </p>
                                 <div className="mt-4 pt-4 border-t border-blue-500/20">
-                                    
-                                    <p className="text-blue-300 text-sm">Número: 9736</p>
+                                    <p className="text-blue-100 font-bold">GANADORA: 9736</p>
                                 </div>
                             </div>
                         </div>
