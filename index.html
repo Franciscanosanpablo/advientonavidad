@@ -11,7 +11,7 @@
     <!-- 2. Fuentes Premium (Google Fonts) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 
     <!-- 3. React & ReactDOM (Motor de la App) -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -35,17 +35,23 @@
             overflow-x: hidden;
             color: #e5e5e5;
             margin: 0;
+            -webkit-font-smoothing: antialiased; /* Suavizado de fuente para iOS */
         }
 
         h1, h2, h3, h4, .font-cinzel {
             font-family: 'Cinzel', serif;
         }
 
+        /* Mejora de legibilidad en móviles */
+        p {
+            font-weight: 400; /* Un poco más de peso para legibilidad */
+        }
+
         .glass-panel {
-            background: rgba(10, 10, 10, 0.75);
+            background: rgba(10, 10, 10, 0.85); /* Un poco más oscuro para mejor contraste */
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(191, 149, 63, 0.15);
+            border: 1px solid rgba(191, 149, 63, 0.2);
             box-shadow: 0 15px 50px -10px rgba(0,0,0,0.9);
         }
 
@@ -82,24 +88,9 @@
         const { useState, useEffect, useRef } = React;
 
         // --- ICONOS INTEGRADOS (SVG) ---
-        // Integramos los iconos directamente para evitar errores de dependencias externas
         const IconBase = ({ children, size = 24, className = "" }) => (
-            <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width={size} 
-                height={size} 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                className={className}
-            >
-                {children}
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>{children}</svg>
         );
-
         const Star = (props) => <IconBase {...props}><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></IconBase>;
         const Heart = (props) => <IconBase {...props}><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></IconBase>;
         const Sparkles = (props) => <IconBase {...props}><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275Z"/></IconBase>;
@@ -130,8 +121,8 @@
 
         const SectionHeader = ({ title, subtitle, icon: Icon }) => (
             <ScrollReveal>
-                <div className="text-center mb-16 relative z-10 px-4">
-                    <div className="flex justify-center items-center gap-4 md:gap-6 mb-6 opacity-60">
+                <div className="text-center mb-12 md:mb-16 relative z-10 px-4">
+                    <div className="flex justify-center items-center gap-4 md:gap-6 mb-4 md:mb-6 opacity-60">
                         <div className="h-[1px] w-8 md:w-32 bg-gradient-to-r from-transparent via-[#BF953F] to-transparent"></div>
                         {Icon ? <Icon size={20} className="text-[#BF953F]" /> : <Star size={20} className="text-[#BF953F]" />}
                         <div className="h-[1px] w-8 md:w-32 bg-gradient-to-r from-transparent via-[#BF953F] to-transparent"></div>
@@ -140,7 +131,7 @@
                         {title}
                     </h2>
                     {subtitle && (
-                        <p className="text-base md:text-xl text-[#FBF5B7]/60 mt-4 tracking-widest italic font-light">
+                        <p className="text-lg md:text-xl text-[#FBF5B7]/60 mt-4 tracking-widest italic font-light">
                             {subtitle}
                         </p>
                     )}
@@ -161,7 +152,7 @@
                             <div className={`p-2 md:p-3 rounded-full border border-[#BF953F]/30 transition-colors flex-shrink-0 ${isOpen ? 'bg-[#BF953F] text-black' : 'bg-transparent text-[#BF953F]'}`}>
                                 {Icon ? <Icon size={20} className="md:w-6 md:h-6" /> : <Star size={20} className="md:w-6 md:h-6"/>}
                             </div>
-                            <h3 className={`text-lg md:text-2xl font-cinzel transition-colors ${isOpen ? 'text-[#FBF5B7]' : 'text-gray-300 group-hover:text-[#FBF5B7]'}`}>
+                            <h3 className={`text-xl md:text-2xl font-cinzel transition-colors ${isOpen ? 'text-[#FBF5B7]' : 'text-gray-300 group-hover:text-[#FBF5B7]'}`}>
                                 {title}
                             </h3>
                         </div>
@@ -172,7 +163,7 @@
                     </button>
                     
                     <div 
-                        className={`overflow-hidden transition-all duration-700 ease-in-out ${isOpen ? 'max-h-[3000px] opacity-100 mt-2' : 'max-h-0 opacity-0'}`}
+                        className={`overflow-hidden transition-all duration-700 ease-in-out ${isOpen ? 'max-h-[4000px] opacity-100 mt-2' : 'max-h-0 opacity-0'}`}
                     >
                         <div className="glass-panel p-6 md:p-10 rounded-2xl border-t-0 bg-black/40">
                             {children}
@@ -185,7 +176,7 @@
         const LuxuryButton = ({ onClick, children, className = "" }) => (
             <button 
                 onClick={onClick}
-                className={`relative px-8 md:px-12 py-4 md:py-5 bg-gradient-to-r from-[#8E6E26] via-[#BF953F] to-[#8E6E26] text-[#050505] font-cinzel font-bold tracking-[0.15em] uppercase text-xs rounded-sm shadow-[0_10px_30px_-10px_rgba(191,149,63,0.4)] hover:shadow-[0_20px_40px_-10px_rgba(191,149,63,0.6)] transition-all duration-500 transform hover:-translate-y-1 overflow-hidden group flex items-center justify-center gap-3 mx-auto ${className}`}
+                className={`relative px-8 md:px-12 py-4 md:py-5 bg-gradient-to-r from-[#8E6E26] via-[#BF953F] to-[#8E6E26] text-[#050505] font-cinzel font-bold tracking-[0.15em] uppercase text-sm md:text-xs rounded-sm shadow-[0_10px_30px_-10px_rgba(191,149,63,0.4)] hover:shadow-[0_20px_40px_-10px_rgba(191,149,63,0.6)] transition-all duration-500 transform hover:-translate-y-1 overflow-hidden group flex items-center justify-center gap-3 mx-auto ${className}`}
             >
                 <div className="absolute inset-0 bg-white/20 skew-x-12 -translate-x-full group-hover:translate-x-[200%] transition-transform duration-1000"></div>
                 <span className="relative z-10 flex items-center gap-3">{children}</span>
@@ -193,11 +184,11 @@
         );
 
         const FooterSignature = () => (
-            <div className="mt-20 pt-10 border-t border-[#BF953F]/20 text-center">
+            <div className="mt-16 pt-8 border-t border-[#BF953F]/20 text-center pb-20 md:pb-0">
                 <div className="flex justify-center gap-4 mb-4 text-[#BF953F]/40">
                     <Star size={12}/> <Sparkles size={12}/> <Star size={12}/>
                 </div>
-                <p className="text-[#FBF5B7]/80 font-cinzel text-xs md:text-sm tracking-[0.2em] uppercase">
+                <p className="text-[#FBF5B7]/80 font-cinzel text-xs md:text-sm tracking-[0.2em] uppercase px-4">
                     Creado por Provincia Franciscana de San Pablo Apóstol
                 </p>
                 <p className="text-[#BF953F]/60 text-[10px] uppercase tracking-[0.4em] mt-2">
@@ -207,13 +198,13 @@
         );
 
         const BottomNav = ({ onBack, backLabel = "Atrás" }) => (
-            <div className="fixed bottom-0 left-0 w-full z-40 bg-black/80 backdrop-blur-xl border-t border-[#BF953F]/20 py-4 px-6">
+            <div className="fixed bottom-0 left-0 w-full z-40 bg-[#050505]/90 backdrop-blur-xl border-t border-[#BF953F]/20 py-4 px-6 shadow-[0_-10px_30px_rgba(0,0,0,0.8)]">
                 <div className="max-w-4xl mx-auto flex justify-between items-center">
-                    <button onClick={onBack} className="flex items-center gap-2 text-[#BF953F] hover:text-[#FBF5B7] transition-colors font-cinzel text-xs tracking-widest uppercase">
-                        <ArrowLeft size={16} /> {backLabel}
+                    <button onClick={onBack} className="flex items-center gap-2 text-[#BF953F] hover:text-[#FBF5B7] transition-colors font-cinzel text-sm tracking-widest uppercase">
+                        <ArrowLeft size={18} /> {backLabel}
                     </button>
-                    <button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="flex items-center gap-2 text-[#BF953F] hover:text-[#FBF5B7] transition-colors font-cinzel text-xs tracking-widest uppercase">
-                        Subir <ArrowUp size={16} />
+                    <button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="flex items-center gap-2 text-[#BF953F] hover:text-[#FBF5B7] transition-colors font-cinzel text-sm tracking-widest uppercase">
+                        Subir <ArrowUp size={18} />
                     </button>
                 </div>
             </div>
@@ -243,7 +234,7 @@
                         </p>
                     </div>
 
-                    <p className="text-lg md:text-2xl text-gray-400 font-light italic max-w-2xl mx-auto leading-relaxed px-4">
+                    <p className="text-xl md:text-2xl text-gray-400 font-light italic max-w-2xl mx-auto leading-relaxed px-4">
                         "El pueblo que caminaba en tinieblas ha visto una gran luz."
                     </p>
 
@@ -254,30 +245,30 @@
                     </div>
                     
                     <div className="absolute bottom-10 left-0 w-full">
-                        <p className="text-[#BF953F]/40 text-[9px] uppercase tracking-[0.2em] font-cinzel">Provincia Franciscana de San Pablo Apóstol - Colombia</p>
+                        <p className="text-[#BF953F]/40 text-[9px] uppercase tracking-[0.2em] font-cinzel text-center">Provincia Franciscana de San Pablo Apóstol - Colombia</p>
                     </div>
                 </div>
             </div>
         );
 
         const ViewIntroduccion = ({ onNavigate }) => (
-            <div className="min-h-screen py-32 px-4 md:px-8 bg-[#050505] pb-32">
+            <div className="min-h-screen py-24 md:py-32 px-4 md:px-8 bg-[#050505] pb-32">
                 <div className="max-w-4xl mx-auto">
                     <SectionHeader title="El Susurro en el Asfalto" subtitle="Introducción al Tiempo de Adviento" icon={Feather} />
                     
                     <ScrollReveal>
-                        <div className="glass-panel p-8 md:p-14 rounded-[2rem] relative overflow-hidden mb-12">
+                        <div className="glass-panel p-6 md:p-14 rounded-[2rem] relative overflow-hidden mb-12">
                             <div className="absolute -left-10 -top-10 w-40 h-40 bg-[#BF953F]/10 rounded-full blur-3xl"></div>
                             
-                            <div className="text-gray-300 font-light text-lg md:text-xl leading-loose text-justify font-serif space-y-8 relative z-10">
+                            <div className="text-gray-300 font-light text-xl md:text-2xl leading-loose text-justify font-serif space-y-8 relative z-10">
                                 <p>
-                                    <span className="text-5xl md:text-7xl text-[#BF953F] float-left mr-4 mt-[-10px] font-cinzel">B</span>
+                                    <span className="text-5xl md:text-7xl text-[#BF953F] float-left mr-4 mt-[-5px] font-cinzel">B</span>
                                     ajar a la calle. Dios no está atrapado en las nubes, ni se esconde tras los muros de oro de un templo vacío. Dios está aquí, en el cruce de semáforos donde la gente espera, en la grieta del asfalto por donde respira la ciudad herida.
                                 </p>
                                 <p>
                                     El Adviento no es una huida hacia una paz artificial. Es el arte de detenerse en medio del mercado. Es la capacidad de escuchar el susurro de la vida que puja por nacer debajo de tanta maquinaria ciega, de tanto neón que deslumbra pero no ilumina.
                                 </p>
-                                <blockquote className="border-l-2 border-[#BF953F] pl-6 italic text-[#FBF5B7] my-8 py-2">
+                                <blockquote className="border-l-2 border-[#BF953F] pl-6 italic text-[#FBF5B7] my-8 py-2 text-xl md:text-2xl">
                                     "Esperar no es sentarse. Esperar es caminar al ritmo del que va más lento. Es mirar al otro no como un obstáculo en mi prisa, sino como el lugar exacto donde Dios ha decidido acampar hoy."
                                 </blockquote>
                                 <p>
@@ -314,9 +305,9 @@
         );
 
         const ViewLiturgia = ({ onBack }) => (
-            <div className="min-h-screen py-32 px-4 md:px-8 bg-[#050505] pb-32">
+            <div className="min-h-screen py-24 md:py-32 px-4 md:px-8 bg-[#050505] pb-32">
                 <div className="max-w-4xl mx-auto">
-                    <div className="text-center mb-4">
+                    <div className="text-center mb-6 md:mb-8">
                         <span className="bg-[#BF953F]/10 border border-[#BF953F]/30 text-[#BF953F] text-[10px] md:text-xs font-bold px-4 py-1 rounded-full uppercase tracking-widest">
                             Sábado 06 de Diciembre
                         </span>
@@ -325,7 +316,7 @@
                     
                     <div className="space-y-4">
                         <PremiumAccordion title="1. Monición de Entrada" icon={Sparkles} defaultOpen={true}>
-                            <div className="text-gray-200 text-lg leading-loose font-light text-justify">
+                            <div className="text-gray-200 text-xl md:text-2xl leading-loose font-light text-justify">
                                 <p className="mb-4">Hermanos y hermanas paz y bien para todos. Llegamos al cierre de esta primera semana de Adviento.</p>
                                 <p className="mb-4">Hoy el Evangelio nos muestra a Jesús caminando por nuestros pueblos y ciudades. No se queda quieto. Y lo que ven sus ojos le mueve las entrañas: ve a la gente cansada, tirada, "como ovejas sin pastor". ¿No es esa la foto de mucha de nuestra gente hoy? Personas agobiadas por la falta de trabajo, por la violencia o simplemente por la soledad en medio del gentío.</p>
                                 <p>Pero Jesús no se queda en la lástima. Él nos invita a levantar la mirada y ver que, en medio del dolor, la vida está lista para ser cosechada y cuidada. Hoy nos llama a dejar de ser espectadores para volvernos obreros de su compasión. Comencemos esta celebración pidiendo un corazón dispuesto a "ensuciarse las manos" por el Reino.</p>
@@ -333,7 +324,7 @@
                         </PremiumAccordion>
 
                         <PremiumAccordion title="2. Liturgia de la Palabra" icon={BookOpen}>
-                            <div className="space-y-8 text-gray-200 text-lg leading-loose">
+                            <div className="space-y-8 text-gray-200 text-xl md:text-2xl leading-loose">
                                 <div className="pl-4 md:pl-6 border-l-2 border-[#BF953F]/50">
                                     <h4 className="text-[#BF953F] text-sm uppercase tracking-widest font-bold mb-2">Primera lectura (Isaías 30, 19-21. 23-26)</h4>
                                     <p>Esto dice el Señor Dios, el Santo de Israel: «Pueblo de Sión, que habitas en Jerusalén, no tendrás que llorar más, porque el Señor se apiadará al oír tu gemido: apenas te oiga, te responderá. Aunque el Señor les dé el pan de la angustia y el agua de la aflicción, ya no se esconderá tu Maestro; tus ojos verán a tu Maestro. Si te desvías a la derecha o a la izquierda, tus oídos oirán una palabra a tus espaldas: "Este es el camino, camina por él"».</p>
@@ -343,7 +334,7 @@
 
                                 <div className="bg-[#BF953F]/10 p-6 rounded-xl">
                                     <h4 className="text-[#BF953F] text-sm uppercase tracking-widest font-bold mb-2">Salmo Responsorial (Salmo 146)</h4>
-                                    <p className="font-cinzel text-xl text-[#FBF5B7] mb-4">R/. Dichosos los que esperan en el Señor.</p>
+                                    <p className="font-cinzel text-xl md:text-2xl text-[#FBF5B7] mb-4">R/. Dichosos los que esperan en el Señor.</p>
                                     <ul className="list-disc pl-5 space-y-2">
                                         <li>Alaben al Señor, que la música es buena; nuestro Dios merece una alabanza armoniosa. El Señor reconstruye a Jerusalén, reúne a los deportados de Israel. R/.</li>
                                         <li>Él sana los corazones destrozados, y venda sus heridas. Cuenta el número de las estrellas, a cada una la llama por su nombre. R/.</li>
@@ -362,12 +353,12 @@
                         </PremiumAccordion>
 
                         <PremiumAccordion title="3. Reflexión: La Gratuidad que Sana" icon={User}>
-                            <div className="text-gray-200 text-lg leading-loose text-justify space-y-4">
+                            <div className="text-gray-200 text-xl md:text-2xl leading-loose text-justify space-y-4">
                                 <p>Jesús camina por la tierra polvorienta y sus ojos funcionan como un escáner del alma. Donde otros ven muchedumbres ruidosas, Él ve gente "extenuada y desamparada". Ve el cansancio profundo de nuestro pueblo latinoamericano. Esa compasión es el motor de todo. Dios no actúa por poder, actúa porque le duele nuestro dolor.</p>
                                 <p>Y ante esa necesidad inmensa, Jesús hace una propuesta sorprendente: <strong>Rueguen al dueño de la cosecha</strong>. La solución no es técnica, es humana y divina. Hacen falta manos. Faltan obreros.</p>
                                 <p>Pero fíjense en la tarea que les encarga. No les dice: "Vayan y convenzan", ni "Vayan y cobren diezmos". Les dice: "Curen, resuciten, limpien, liberen". La misión del cristiano en este Adviento es ser una presencia que sana. Es poner un poco de ungüento en las heridas del barrio, de la familia.</p>
                                 <div className="p-4 border border-[#BF953F]/30 rounded-lg bg-[#BF953F]/5 my-4">
-                                    <p className="font-cinzel text-xl text-[#FBF5B7] text-center">"Gratis lo han recibido, denlo gratis"</p>
+                                    <p className="font-cinzel text-xl md:text-2xl text-[#FBF5B7] text-center">"Gratis lo han recibido, denlo gratis"</p>
                                 </div>
                                 <p>En un mundo de mercado, donde todo se compra y se vende, donde hasta el consuelo tiene precio, el Evangelio es la irrupción de la gratuidad. Somos sanadores heridos que, habiendo sido mirados con amor por el Maestro, salimos a regalar esa misma mirada.</p>
                                 <p>Isaías nos prometía un Maestro que ya no se esconde y que nos dice: "Este es el camino". El camino es el servicio humilde. La cosecha es abundante en nuestras calles. No hacen falta grandes títulos para ser obrero de este campo, solo hacen falta unas manos abiertas que recuerden que todo es regalo.</p>
@@ -378,14 +369,14 @@
                             <div className="space-y-8">
                                 <div>
                                     <h4 className="text-[#BF953F] font-bold uppercase mb-2">Signo del día: Las manos ungidas para servir</h4>
-                                    <p className="text-gray-300 italic mb-2 text-sm">Materiales: Un recipiente pequeño con aceite perfumado o crema.</p>
-                                    <p className="text-gray-200">Acción: Después de la homilía, quien preside invita: "Mírense las palmas de las manos. A veces las cerramos para golpear o para acaparar. Pero Jesús las quiere para sanar. Él nos envía a tocar la realidad con ternura." Se invita a los presentes a frotarse las manos (o ungirse unos a otros si es oportuno) diciendo: <strong>"Manos para sanar, manos para dar gratis"</strong>.</p>
+                                    <p className="text-gray-300 italic mb-2 text-base md:text-lg">Materiales: Un recipiente pequeño con aceite perfumado o crema.</p>
+                                    <p className="text-gray-200 text-xl md:text-2xl">Acción: Después de la homilía, quien preside invita: "Mírense las palmas de las manos. A veces las cerramos para golpear o para acaparar. Pero Jesús las quiere para sanar. Él nos envía a tocar la realidad con ternura." Se invita a los presentes a frotarse las manos (o ungirse unos a otros si es oportuno) diciendo: <strong>"Manos para sanar, manos para dar gratis"</strong>.</p>
                                 </div>
                                 <div className="w-full h-[1px] bg-white/10"></div>
                                 <div>
                                     <h4 className="text-[#BF953F] font-bold uppercase mb-4">Plegaria de los fieles</h4>
-                                    <p className="text-[#FBF5B7] mb-4 font-bold">R/. Envíanos, Señor.</p>
-                                    <ul className="space-y-4 text-gray-300">
+                                    <p className="text-[#FBF5B7] mb-4 font-bold text-xl">R/. Envíanos, Señor.</p>
+                                    <ul className="space-y-4 text-gray-300 text-xl md:text-2xl">
                                         <li className="flex gap-2"><span className="text-[#BF953F]">✦</span> Por la Iglesia en nuestro continente, para que no actúe como una aduana que cobra peaje, sino como una madre que ofrece gratis el pan y el abrazo. Oremos.</li>
                                         <li className="flex gap-2"><span className="text-[#BF953F]">✦</span> Por nuestros gobernantes, para que escuchen el gemido de la gente cansada y trabajen por la justicia y no por su propio bolsillo. Oremos.</li>
                                         <li className="flex gap-2"><span className="text-[#BF953F]">✦</span> Por los médicos, enfermeros y todos los que cuidan la vida frágil; para que su labor sea sostenida por tu fuerza y encuentren sentido en su entrega diaria. Oremos.</li>
@@ -396,7 +387,7 @@
                         </PremiumAccordion>
 
                         <PremiumAccordion title="5. Poema: Gratis" icon={Feather}>
-                            <div className="text-center italic text-gray-200 text-xl leading-relaxed font-serif max-w-2xl mx-auto">
+                            <div className="text-center italic text-gray-200 text-xl md:text-2xl leading-relaxed font-serif max-w-2xl mx-auto">
                                 <p className="mb-4">Todo lo importante es gratis, Señor. El aire que respiro cada mañana, el sol que calienta igual a buenos y malos, la lluvia que moja la tierra sin preguntar de quién es.</p>
                                 <p className="mb-4">Gratis fue tu venida, sin contrato, sin condiciones, puro derroche de amor en un pesebre prestado.</p>
                                 <p className="mb-4">Y nosotros, Señor, pequeños comerciantes de la fe, a veces queremos ponerle precio a tu gracia, medir el perdón, calcular la entrega.</p>
@@ -413,13 +404,13 @@
         );
 
         const ViewPersonajes = ({ onBack }) => (
-            <div className="min-h-screen py-32 px-4 md:px-8 bg-[#020202] pb-32">
+            <div className="min-h-screen py-24 md:py-32 px-4 md:px-8 bg-[#020202] pb-32">
                 <div className="max-w-4xl mx-auto">
                     <SectionHeader title="Personajes del Camino" subtitle="Sábado: Del despertar al primer paso" icon={User} />
                     
                     <div className="space-y-4">
                         <PremiumAccordion title="La Mirada (Pensamiento)" icon={User} defaultOpen={true}>
-                            <div className="text-gray-200 text-lg leading-loose text-justify">
+                            <div className="text-gray-200 text-xl md:text-2xl leading-loose text-justify">
                                 <p className="mb-4">Hemos caminado a lo largo de esta semana aprendiendo la difícil tarea de <strong>despertar</strong>. No ha sido una lección teórica. Hemos velado en la penumbra fértil de Isabel, sostenidos por la angustia confiada —tan humana— de José, y guiados por la inquietud de unos Magos que se atrevieron a mirar más allá de sus libros. Incluso aprendimos de la "anti-espera" de Herodes (nuestros propios miedos a perder el control) y nos dejamos abrazar por esa fe inquebrantable de Ana.</p>
                                 <p className="mb-4">Pero cuidado, que nadie se confunda: todo este despertar, este abrir los ojos en medio del sopor habitual, no es la meta, es apenas el impulso. Es el requisito indispensable para afinar el oído. Solo cuando el corazón está despierto y la ruidosa "agenda del yo" hace silencio, se puede percibir esa frecuencia distinta: <strong className="text-[#BF953F]">la VOZ que mueve el mundo</strong>.</p>
                                 <p className="mb-4">Esa voz, que mañana resonará con fuerza en el desierto a través de Juan el Bautista, nos lanza un desafío: <strong>"Preparen el camino"</strong>. La vigilia de la primera semana fue el calentamiento; ahora empieza el juego de verdad. La contemplación, si es auténtica, siempre nos empuja al cambio, a la conversión. El despertar nos pone de pie, nos saca de la comodidad y nos invita a ensuciarnos las sandalias en el camino. La espera deja de ser pasiva para volverse verbo, movimiento y transformación.</p>
@@ -430,18 +421,18 @@
                             <div className="grid md:grid-cols-2 gap-8">
                                 <div className="bg-[#BF953F]/10 p-6 rounded-xl border border-[#BF953F]/30">
                                     <h4 className="text-[#BF953F] font-bold uppercase mb-2 text-sm tracking-widest">La Palabra (Iluminación bíbica)</h4>
-                                    <p className="text-white font-cinzel text-xl">“Una voz grita en el desierto: 'Preparen el camino del Señor, allanen sus senderos'”</p>
+                                    <p className="text-white font-cinzel text-xl md:text-2xl">“Una voz grita en el desierto: 'Preparen el camino del Señor, allanen sus senderos'”</p>
                                     <p className="text-right text-xs mt-2 text-gray-400">Is 40, 3</p>
                                 </div>
                                 <div className="bg-gradient-to-br from-[#1e1b4b] to-black p-6 rounded-xl border border-blue-500/30">
                                     <h4 className="text-blue-400 font-bold uppercase mb-2 text-sm tracking-widest">El Grito (Frase del día)</h4>
-                                    <p className="text-white font-cinzel text-xl">“¡Déjate descolocar por Dios! Es tiempo de actualizar el sistema operativo de tu vida y, en lugar de ponerte excusas, ponerte en camino”.</p>
+                                    <p className="text-white font-cinzel text-xl md:text-2xl">“¡Déjate descolocar por Dios! Es tiempo de actualizar el sistema operativo de tu vida y, en lugar de ponerte excusas, ponerte en camino”.</p>
                                 </div>
                             </div>
                         </PremiumAccordion>
 
                         <PremiumAccordion title="El Reto (Acción del Día)" icon={ArrowUp}>
-                            <div className="text-gray-200 text-lg leading-loose">
+                            <div className="text-gray-200 text-xl md:text-2xl leading-loose">
                                 <p className="mb-4">No busques grandes hazañas, busca autenticidad. Realiza hoy un acto concreto de "ingeniería espiritual": <strong>allana un sendero</strong>.</p>
                                 <ul className="space-y-4">
                                     <li className="flex gap-4 p-4 bg-white/5 rounded-lg">
@@ -463,7 +454,7 @@
                         </PremiumAccordion>
 
                         <PremiumAccordion title="Plegaria: Allanar lo que estorba" icon={Heart}>
-                            <div className="text-center italic text-gray-300 font-serif text-xl leading-relaxed max-w-2xl mx-auto">
+                            <div className="text-center italic text-gray-300 font-serif text-xl md:text-2xl leading-relaxed max-w-2xl mx-auto">
                                 <p className="mb-4">Señor, aquí me tienes, con los ojos un poco más abiertos y el corazón intuyendo que algo grande se acerca. He pasado la semana sacudiéndome el sueño, intentando que mi esperanza no sea solo una palabra bonita, sino una certeza que me sostenga.</p>
                                 <p className="mb-4">Pero ahora me pides más. No te basta con que te mire, quieres que te escuche. Y no te basta con que te escuche, quieres que camine.</p>
                                 <p className="mb-4">Dame la valentía del Bautista para gritar en mis propios desiertos. Hay tanta montaña de orgullo que rebajar, Señor, tantos huecos de desánimo que rellenar, tantas curvas de egoísmo que enderezar...</p>
@@ -481,7 +472,7 @@
         );
 
         const ViewNovena = ({ onBack }) => (
-            <div className="min-h-screen py-32 px-4 md:px-8 bg-[#000] pb-32">
+            <div className="min-h-screen py-24 md:py-32 px-4 md:px-8 bg-[#000] pb-32">
                 <div className="max-w-4xl mx-auto">
                     <SectionHeader title="Novena Inmaculada" subtitle="Octavo Día - Sábado 06" icon={Heart} />
                     
@@ -494,7 +485,7 @@
 
                     <div className="space-y-4">
                         <PremiumAccordion title="1. Monición y Oración Inicial" icon={Sparkles} defaultOpen={true}>
-                            <div className="text-gray-200 text-lg leading-loose text-justify space-y-6">
+                            <div className="text-gray-200 text-xl md:text-2xl leading-loose text-justify space-y-6">
                                 <div>
                                     <h4 className="text-[#BF953F] font-bold text-sm uppercase mb-2">Monición de Inicio</h4>
                                     <p>Paz y bien para todos. Bienvenidos a este sábado, octavo día de nuestra novena. Vivimos en la cultura del "ya", del "ahora mismo". Si el internet tarda tres segundos en cargar, nos ponemos nerviosos. Si enviamos un mensaje y no vemos las dos palomitas azules de inmediato, nos entra ansiedad. Queremos que la vida, y que Dios, funcionen a la velocidad de un clic.</p>
@@ -508,12 +499,12 @@
                         </PremiumAccordion>
 
                         <PremiumAccordion title="2. Lectura y Reflexión" icon={BookOpen}>
-                            <div className="text-gray-200 text-lg leading-loose space-y-6">
-                                <div className="text-center italic text-[#FBF5B7] font-serif text-xl border-y border-white/10 py-4">
+                            <div className="text-gray-200 text-xl md:text-2xl leading-loose space-y-6">
+                                <div className="text-center italic text-[#FBF5B7] font-serif text-xl md:text-2xl border-y border-white/10 py-4">
                                     "Pero cuando llegó la plenitud de los tiempos, Dios envió a su Hijo, nacido de mujer, nacido bajo la ley..." (Gálatas 4, 4)
                                 </div>
                                 <div>
-                                    <h4 className="text-[#BF953F] font-bold text-xl font-cinzel mb-4">Reflexión: "No empujen el río"</h4>
+                                    <h4 className="text-[#BF953F] font-bold text-xl md:text-2xl font-cinzel mb-4">Reflexión: "No empujen el río"</h4>
                                     <p className="mb-4">Hay una imagen de María que me gusta mucho: la de la mujer embarazada. El embarazo es la escuela perfecta de la paciencia. Por más que la madre quiera ver la cara de su hijo, por más prisa que tenga, tiene que esperar nueve meses. No hay atajos. Si intentas forzar el proceso, pones en peligro la vida. La madre tiene que confiar en que, allá adentro, en lo oscuro, en el silencio, la vida está creciendo célula a célula, aunque ella no lo vea.</p>
                                     <p className="mb-4">A nosotros nos pasa que tratamos a Dios como si fuera una máquina expendedora: metemos la moneda de la oración y queremos que caiga el milagro al instante. Y cuando no pasa nada, decimos: "Dios no me escucha". Dolores Aleixandre diría que tenemos que aprender la "lógica del guiso", no la del microondas. El sabor auténtico, el que nutre, necesita tiempo, "chup-chup", calor constante y reposo.</p>
                                     <p className="mb-4">María Inmaculada vivió inmersa en los "tiempos de Dios". Imaginen esos treinta años en Nazaret. ¡Treinta años! Nosotros a la semana ya nos hubiéramos aburrido de esa vida normal. Ella esperó. Esperó a que Jesús creciera, esperó a que llegara su hora, esperó al pie de la cruz, y esperó en el Cenáculo. Ella no vivía una espera pasiva, de brazos cruzados bostezando. Vivía una <strong>espera habitada</strong>. Como la tierra en invierno: parece que no pasa nada, pero por debajo se están preparando las raíces para la primavera.</p>
@@ -525,8 +516,8 @@
                         <PremiumAccordion title="3. Gozos y Peticiones" icon={Heart}>
                             <div className="space-y-8">
                                 <div>
-                                    <h4 className="text-center font-cinzel text-[#FBF5B7] text-xl mb-4">Gozos: Enséñanos la paciencia del amor</h4>
-                                    <ul className="space-y-4 text-gray-300">
+                                    <h4 className="text-center font-cinzel text-[#FBF5B7] text-xl md:text-2xl mb-4">Gozos: Enséñanos la paciencia del amor</h4>
+                                    <ul className="space-y-4 text-gray-300 text-xl md:text-2xl">
                                         <li className="flex justify-between items-end border-b border-white/10 pb-2">
                                             <span>Madre del Adviento, que sentiste crecer la Vida dentro de ti...</span>
                                             <span className="text-[#BF953F] text-xs uppercase font-bold">R/. Ruega</span>
@@ -547,7 +538,7 @@
                                 </div>
                                 <div>
                                     <h4 className="text-[#BF953F] font-bold text-sm uppercase mb-4">Peticiones</h4>
-                                    <ul className="list-disc pl-5 space-y-2 text-gray-300">
+                                    <ul className="list-disc pl-5 space-y-2 text-gray-300 text-xl md:text-2xl">
                                         <li>Por los que están cansados de esperar: los que llevan años buscando empleo, una pareja, o la sanación de una enfermedad. Para que no caigan en la desesperanza y sientan el abrazo de Dios. Oremos.</li>
                                         <li>Por los padres y madres que sufren por los procesos de sus hijos: para que tengan la sabiduría de acompañar sin invadir, y de esperar sin dejar de amar. Oremos.</li>
                                         <li>Por nuestro mundo acelerado y violento: para que aprendamos a detenernos, a dialogar y a construir la paz artesanalmente, ladrillo a ladrillo. Oremos.</li>
@@ -558,13 +549,13 @@
                         </PremiumAccordion>
 
                         <PremiumAccordion title="4. Oración Final y Gesto" icon={Star}>
-                            <div className="space-y-8 text-gray-200 text-lg leading-loose">
+                            <div className="space-y-8 text-gray-200 text-xl md:text-2xl leading-loose">
                                 <div>
                                     <h4 className="text-[#BF953F] font-bold text-sm uppercase mb-2">Oración Final</h4>
                                     <p>Virgen Inmaculada, Madre del tiempo oportuno. Te confesamos que nos cuesta mucho esperar. Somos hijos de la prisa. Nos comemos la vida sin masticarla y queremos a Dios a nuestra medida. Gracias por recordarnos hoy que las cosas buenas, como el pan y el amor, necesitan su tiempo de leudado. Ayúdanos a no desanimarnos cuando veamos solo semillas y no flores. Danos la terquedad mansa de la esperanza. Que sepamos aguardar la Navidad con el corazón encendido y las manos tranquilas. Amén.</p>
                                 </div>
                                 <div className="bg-[#BF953F]/10 p-6 rounded-xl border border-[#BF953F]/30 text-center">
-                                    <h4 className="text-[#FBF5B7] font-cinzel text-xl mb-2">Gesto del día: El "Ayuno de Prisa"</h4>
+                                    <h4 className="text-[#FBF5B7] font-cinzel text-xl md:text-2xl mb-2">Gesto del día: El "Ayuno de Prisa"</h4>
                                     <p>Hoy sábado, te propongo un ejercicio contracultural. Elige una actividad cotidiana (comer, bañarte, caminar hacia el bus o tomar café) y hazla <strong>a la mitad de la velocidad normal</strong>. Si vas a comer, suelta el cubierto entre bocado y bocado. Mastica despacio. Saborea. Si vas a caminar, no corras. Mira los árboles o los edificios. Dite a ti mismo interiormente: <em>"Dios está aquí, y no tiene prisa"</em>. Recupera el ritmo humano.</p>
                                 </div>
                             </div>
